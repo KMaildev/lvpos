@@ -28,6 +28,14 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-body">
+                        <div class="d-flex mb-3">
+                            <div class="ms-auto">
+                                <a href="{{ route('employee.create') }}" class="waves-effect waves-light btn btn-info">
+                                    <i class="fa fa-plus-circle"></i>
+                                    Create
+                                </a>
+                            </div>
+                        </div>
                         <div class="table-responsive rounded card-table">
                             <table class="table border-no mydatatable">
                                 <thead>
