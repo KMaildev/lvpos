@@ -159,7 +159,7 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label for="select2Multiple" class="col-md-3 form-label">Role (or) Designation</label>
+                            <label for="select2Multiple" class="col-md-3 form-label">Role</label>
                             <div class="col-md-9">
                                 <select id="select2Multiple" class="select2 form-select" multiple name="roles[]">
                                     @foreach ($roles as $role)

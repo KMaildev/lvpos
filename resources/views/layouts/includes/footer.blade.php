@@ -9,7 +9,8 @@
 <script src="{{ asset('main/js/template.js') }}"></script>
 <script src="{{ asset('main/js/pages/dashboard.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
-
+<script src="{{ asset('assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Riday Admin App -->
 <script src="js/template.js"></script>
@@ -20,8 +21,31 @@
 
 <script>
     $(document).ready(function() {
+        // Datatable 
         $('.mydatatable').dataTable({
             "ordering": false
+        });
+
+        // Select2 
+        $('.select2').select2();
+
+
+        // Delete Alert 
+        $('.del_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            event.preventDefault();
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
         });
     });
 </script>

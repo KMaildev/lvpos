@@ -3,11 +3,10 @@
     <div class="row justify-content-center">
         <div class="col-xl-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card mb-4">
                         <h5 class="card-header">Employee</h5>
                         <div class="card-body">
-
                             <form action="{{ route('employee.update', $employee->id) }}" method="POST" autocomplete="off"
                                 id="edit-form" role="form" enctype="multipart/form-data">
                                 @csrf
@@ -171,7 +170,7 @@
                                 </div>
 
                                 <div class="mb-3 row">
-                                    <label for="select2Multiple" class="col-md-3 form-label">Role (or) Designation</label>
+                                    <label for="select2Multiple" class="col-md-3 form-label">Role</label>
                                     <div class="col-md-9">
                                         <select id="select2Multiple" class="select2 form-select" multiple name="roles[]">
                                             @foreach ($roles as $role)
@@ -260,93 +259,6 @@
                                     </div>
                                 </div>
                             </form>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card">
-                        <h5 class="card-header">Household Members List</h5>
-                        <div class="mb-3" style="margin: 20px;">
-                            <form action="{{ route('members_lists.store') }}" method="POST" autocomplete="off"
-                                id="create-form" role="form" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="user_id" value="{{ $employee->id }}" required>
-                                <div class="input-group">
-                                    <input class="form-control @error('members_list_file') is-invalid @enderror"
-                                        type="file" name="members_list_file[]" multiple
-                                        value="{{ old('members_list_file') }}" required />
-                                    @error('members_list_file')
-                                        <div class="invalid-feedback"> {{ $message }} </div>
-                                    @enderror
-                                    <button class="btn btn-outline-primary" type="submit"
-                                        id="inputGroupFileAddon04">Upload</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="table-responsive text-nowrap">
-                            <table class="table table-bordered">
-                                <thead class="tbbg">
-                                    <tr>
-                                        <th style="color: white">#</th>
-                                        <th style="color: white">File Name</th>
-                                        <th style="color: white">Photo</th>
-                                        <th style="color: white">Download</th>
-                                        <th style="color: white">Upload Date</th>
-                                        <th style="color: white">Upload By</th>
-                                        <th style="color: white">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                    @foreach ($members_lists as $key => $value)
-                                        <tr>
-                                            <td>
-                                                {{ $key + 1 }}
-                                            </td>
-
-                                            <td>
-                                                <strong>{{ $value->original_name }}</strong>
-                                            </td>
-
-                                            <td>
-                                                <img src="{{ Storage::url($value->members_list_file) }}" alt=""
-                                                    style="width: 100%; height: 70px; background-position: center; background-size: contain, cover;"
-                                                    data-enlargeable="">
-                                            </td>
-
-                                            <td>
-                                                <a href="{{ Storage::url($value->members_list_file) }}" download>
-                                                    <i class="fa fa-download fa-lg text-danger"></i>
-                                                    <strong>Download</strong>
-                                                </a>
-                                            </td>
-
-                                            <td>
-                                                <i class="fa fa-calendar fa-lg text-success"></i>
-                                                <strong>{{ $value->created_at }}</strong>
-                                            </td>
-                                            <td>
-                                                <i class="fa fa-user fa-lg text-success"></i>
-                                                <strong>{{ $value->users_table->name ?? '' }}</strong>
-                                            </td>
-
-                                            <td>
-                                                <form action="{{ route('members_lists.destroy', $value->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm del_confirm"
-                                                        id="confirm-text" data-toggle="tooltip">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
-
                         </div>
                     </div>
                 </div>
