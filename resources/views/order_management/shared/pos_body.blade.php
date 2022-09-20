@@ -6,8 +6,8 @@
                 <span class="display-none">english</span>
                 <ul class="nav nav-tabs mb-2" role="tablist">
                     <li>
-                        <a href="https://restaurant.bdtask.com/demo-classic/dashboard/home" class="maindashboard"><i
-                                class="fa fa-home"></i>
+                        <a href="{{ route('home') }}" class="maindashboard">
+                            <i class="fa fa-home"></i>
                         </a>
                     </li>
 
@@ -15,36 +15,32 @@
                         <a href="#home" role="tab" data-toggle="tab" title="New Order" id="fhome" autofocus
                             class="home newtab" onclick="giveselecttab(this)">
                             <i class="fa fa-plus smallview"></i>
-                            <span class="responsiveview">New Order</span> </a>
+                            <span class="responsiveview">New Order</span>
+                        </a>
                     </li>
 
                     <li>
                         <a href="#profile" role="tab" data-toggle="tab" class="ongord newtab" id="ongoingorder"
-                            onclick="giveselecttab(this)"><i class="fa fa-hourglass-start smallview"></i> <span
-                                class="responsiveview">On Going Order</span> </a>
-                    </li>
-
-                    <li class="mobiletag">
-                        <!-- for language -->
-                        <div class="dropdown dropdown-user">
-                            <a href="#" class="btn dropdown-toggle lang_box" data-toggle="dropdown">ENG</a>
-                            <ul class="dropdown-menu lang_options">
-                                <li><a href="javascript:;" onclick="addlang(this)"
-                                        data-url="https://restaurant.bdtask.com/demo-classic/hungry/setlangue/english">
-                                        English</a></li>
-                            </ul>
-                        </div>
+                            onclick="giveselecttab(this)">
+                            <i class="fa fa-hourglass-start smallview"></i>
+                            <span class="responsiveview">On Going Order</span>
+                        </a>
                     </li>
                 </ul>
 
                 <div class="tgbar">
                     <div class="dropdown">
-                        <a class="dropdown-toggle lang_box" type="button" data-toggle="dropdown">ENG <span
-                                class="caret"></span></a>
+                        <a class="dropdown-toggle lang_box" type="button" data-toggle="dropdown">
+                            ENG
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu lang_options">
-                            <li><a href="javascript:;" onclick="addlang(this)"
+                            <li>
+                                <a href="javascript:;" onclick="addlang(this)"
                                     data-url="https://restaurant.bdtask.com/demo-classic/hungry/setlangue/english">
-                                    English</a></li>
+                                    English
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -58,23 +54,30 @@
                             <div class="panel">
                                 <div class="row">
                                     <!-- Item & Info  -->
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
+
+                                        {{-- Top Search Bar --}}
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <form class="navbar-search" method="get" action="#">
-                                                    <label class="sr-only screen-reader-text" for="search">Search
-                                                        :</label>
+                                                    <label class="sr-only screen-reader-text" for="search">
+                                                        Search:
+                                                    </label>
                                                     <div class="input-group">
                                                         <select id="product_name"
                                                             class="form-control dont-select-me  search-field"
                                                             dir="ltr" name="s">
+                                                            <option value="">Search</option>
                                                         </select>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
+
                                         <div class="row">
-                                            <div class="col-md-2">
+
+                                            {{-- Menu Category --}}
+                                            <div class="col-md-3">
                                                 <div class="product-category">
                                                     <div class="listcat">All </div>
                                                 </div>
@@ -87,7 +90,9 @@
                                                     <div class="listcat">All </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-10">
+
+                                            {{-- Menu Lists --}}
+                                            <div class="col-md-9">
                                                 <div style="height:100%">
                                                     <div class="product-grid">
                                                         <div class="row row-m-3" id="product_search">
@@ -156,7 +161,7 @@
                                     </div>
 
                                     <!-- Customer & Order Info  -->
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <form action="" class="form-vertical" id="onlineordersubmit"
                                             enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                             <div class="row">
