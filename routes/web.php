@@ -12,6 +12,7 @@ use App\Http\Controllers\Management\ManagementDashboardController;
 use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableListsController;
+use App\Http\Controllers\OrderManagement\PosSystemController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('remove_menu_ingredient/{id}', [MenuIngredientsController::class, 'removeMenuIngredient'])->name('remove_menu_ingredient');
     Route::resource('floor', FloorController::class);
     Route::resource('table_lists', TableListsController::class);
+
+    Route::resource('pos_system', PosSystemController::class);
 
 
     Route::resource('employee', EmployeeController::class);

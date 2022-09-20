@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
-                        <a href="" style="text-decoration: none">
+                        <a href="{{ route('pos_system.index') }}" style="text-decoration: none">
                             <div class="card">
                                 <div class="card-body text-center">
                                     <div class="avatar avatar-md mx-auto mb-3">
