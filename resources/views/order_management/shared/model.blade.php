@@ -1,4 +1,5 @@
-<div class="modal fade" id="vieworder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="vieworder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,8 +56,10 @@
                                         onClick="calcNumbers(addb.value)">
                                 </div>
                                 <div class="calcrow">
-                                    <input type="button" name="b4" value="4" onClick="calcNumbers(b4.value)">
-                                    <input type="button" name="b5" value="5" onClick="calcNumbers(b5.value)">
+                                    <input type="button" name="b4" value="4"
+                                        onClick="calcNumbers(b4.value)">
+                                    <input type="button" name="b5" value="5"
+                                        onClick="calcNumbers(b5.value)">
                                     <input type="button" name="b6" value="6"
                                         onClick="calcNumbers(b6.value)">
                                     <input type="button" name="subb" value="-"

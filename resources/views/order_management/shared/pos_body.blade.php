@@ -56,28 +56,12 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <div class="panel">
-                                <input name="url" type="hidden" id="posurl"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/getitemlist" />
-                                <input name="url" type="hidden" id="productdata"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/getitemdata" />
-                                <input name="url" type="hidden" id="url"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/itemlistselect" />
-                                <input name="url" type="hidden" id="carturl"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/posaddtocart" />
-                                <input name="url" type="hidden" id="cartupdateturl"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/poscartupdate" />
-                                <input name="url" type="hidden" id="addonexsurl"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/posaddonsmenu" />
-                                <input name="url" type="hidden" id="removeurl"
-                                    value="https://restaurant.bdtask.com/demo-classic/ordermanage/order/removetocart" />
-                                <input name="updateid" type="hidden" id="updateid" value="" />
                                 <div class="row">
                                     <!-- Item & Info  -->
                                     <div class="col-md-7">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <form class="navbar-search" method="get"
-                                                    action="https://restaurant.bdtask.com/demo-classic/ordermanage/order/pos_invoice">
+                                                <form class="navbar-search" method="get" action="#">
                                                     <label class="sr-only screen-reader-text" for="search">Search
                                                         :</label>
                                                     <div class="input-group">
@@ -92,15 +76,15 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="product-category">
-                                                    <div class="listcat" onclick="getslcategory('')">All </div>
+                                                    <div class="listcat">All </div>
                                                 </div>
 
                                                 <div class="product-category">
-                                                    <div class="listcat" onclick="getslcategory('')">All </div>
+                                                    <div class="listcat">All </div>
                                                 </div>
 
                                                 <div class="product-category">
-                                                    <div class="listcat" onclick="getslcategory('')">All </div>
+                                                    <div class="listcat">All </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-10">
@@ -173,9 +157,7 @@
 
                                     <!-- Customer & Order Info  -->
                                     <div class="col-md-5">
-                                        <form
-                                            action="https://restaurant.bdtask.com/demo-classic/ordermanage/order/pos_order"
-                                            class="form-vertical" id="onlineordersubmit"
+                                        <form action="" class="form-vertical" id="onlineordersubmit"
                                             enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                             <div class="row">
                                                 <div class="col-md-6 form-group">
