@@ -20,11 +20,12 @@
                                             {{-- Top Search Bar --}}
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <form class="navbar-search" method="get" action="#">
+                                                    <div class="navbar-search">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" placeholder="Search">
+                                                            <input type="text" class="form-control" placeholder="Search"
+                                                                id="search" autocomplete="off">
                                                         </div>
-                                                    </form>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -41,22 +42,7 @@
                                                     <div style="height:100%">
                                                         <div class="product-grid">
                                                             <div class="row row-m-3 myscroll" id="MenuList">
-                                                                <!-- Item List  -->
-                                                                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">
-                                                                    <div
-                                                                        class="panel panel-bd product-panel select_product">
-                                                                        <div class="panel-body">
-                                                                            <img src="https://restaurant.bdtask.com/demo-classic/application/modules/itemmanage/assets/images/small/08.png"
-                                                                                class="img-responsive"
-                                                                                alt="Bangla Set Menu Rice Boarta">
-                                                                        </div>
-                                                                        <div class="panel-footer">
-                                                                            <span>
-                                                                                Bangla Set Menu Rice Boarta (1:2)
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <!-- Item List Here  -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -260,32 +246,84 @@
                 url: url,
                 method: "GET",
                 success: function(data) {
-                    let menu_list = '';
-                    $.each(JSON.parse(data), function(key, value) {
-                        let k = key + 1;
-
-                        menu_list += '<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">';
-                        menu_list += '<div class="panel panel-bd product-panel select_product">';
-
-                        // Image
-                        menu_list += '<div class="panel-body">';
-                        menu_list += '<img src="' + value.photo + '" class="img-responsive">';
-                        menu_list += '</div>';
-
-                        // Title 
-                        menu_list += '<div class="panel-footer">';
-                        menu_list += '<span style="text-align: center;">';
-                        menu_list += value.name;
-                        menu_list += '</span>';
-                        menu_list += '</div>';
-
-                        menu_list += '</div>';
-                        menu_list += '</div>';
-                    });
-                    $('#MenuList').html(menu_list);
+                    showMeulLists(data);
                 }
             });
         }
         getMenuLists();
+
+
+        // Search Input
+        $('#search').on('input', function() {
+            search();
+        });
+
+        function search() {
+            var keyword = $('#search').val();
+            var url = '{{ url('get_menu_lists') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    showMeulLists(data);
+                }
+            });
+        }
+
+        // Search By Category 
+        function searchByCategory(categoryId) {
+            var url = '{{ url('search_menu_lists_by_category') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    category_id: categoryId,
+                },
+                success: function(data) {
+                    showMeulLists(data);
+                }
+            });
+        }
+
+        // Show Menu Lists 
+        function showMeulLists(res) {
+            let menu_list = '';
+
+            for (let i = 0; i < res.menu_lists.length; i++) {
+
+                var storagePath = "{!! Storage::url('') !!}" + res.menu_lists[i].photo;
+                var imageStoragePath = storagePath.split('public/');
+                var ImageUrl = imageStoragePath[0] + imageStoragePath[1];
+
+                menu_list += '<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">';
+                menu_list += '<div class="panel panel-bd product-panel select_product">';
+
+                // Image
+                menu_list += '<div class="panel-body">';
+                menu_list += '<img src="' + ImageUrl + '" class="img-responsive">';
+                menu_list += '</div>';
+
+                // Title 
+                menu_list += '<div class="panel-footer">';
+                menu_list += '<span style="text-align: center;">';
+                menu_list += res.menu_lists[i].name;
+                menu_list += '</span>';
+                menu_list += '</div>';
+
+                menu_list += '</div>';
+                menu_list += '</div>';
+            }
+
+            if (res.menu_lists.length <= 0) {
+                menu_list += '<h1 style="color: red; padding: 20px;">';
+                menu_list += 'No data found.';
+                menu_list += '</h1>';
+            }
+
+            $('#MenuList').html(menu_list);
+        }
     </script>
 @endsection

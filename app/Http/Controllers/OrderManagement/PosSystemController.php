@@ -20,10 +20,35 @@ class PosSystemController extends Controller
         return view('order_management.pos_system.index', compact('categories'));
     }
 
-    public function getMenuList()
+    public function getMenuList(Request $request)
     {
-        $menu_lists = MenuList::all();
-        return json_encode($menu_lists);
+        $keyword = $request->keyword;
+        $menu_lists = MenuList::query();
+        if ($keyword) {
+            $menu_lists->where('name', 'Like', '%' . $keyword . '%');
+        }
+
+        $menu_lists = $menu_lists->orderBy('id', 'ASC')->get();
+
+        return response()->json([
+            'menu_lists' => $menu_lists
+        ]);
+    }
+
+
+    public function getSearchByCategory(Request $request)
+    {
+        $category_id = $request->category_id;
+        $menu_lists = MenuList::query();
+        if ($category_id) {
+            $menu_lists->where('categorie_id', 'Like', '%' . $category_id . '%');
+        }
+
+        $menu_lists = $menu_lists->orderBy('id', 'ASC')->get();
+
+        return response()->json([
+            'menu_lists' => $menu_lists
+        ]);
     }
 
     /**

@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('pos_system', PosSystemController::class);
     Route::get('get_menu_lists', [PosSystemController::class, 'getMenuList'])->name('get_menu_lists');
+    Route::get('search_menu_lists_by_category', [PosSystemController::class, 'getSearchByCategory'])->name('search_menu_lists_by_category');
 
 
     Route::resource('employee', EmployeeController::class);
