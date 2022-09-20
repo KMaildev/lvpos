@@ -123,36 +123,84 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="productlist">
-                                                    <div class="product-list pdlist">
-                                                        <div class="table-responsive" id="addfoodlist">
-                                                            <input name="subtotal" id="subtotal" type="text"
-                                                                value="20" />
 
-                                                            <input name="multiplletaxvalue" id="multiplletaxvalue"
-                                                                type="text" value="a:0:{}" />
+                                                {{-- Order Items --}}
+                                                <div class="productlist">
+                                                    <div class="slimScrollDiv"
+                                                        style="position: relative; overflow: hidden; width: auto; height: 345px;">
+                                                        <div class="product-list pdlist"
+                                                            style="overflow: hidden; width: auto; height: 345px;">
+                                                            <div class="table-responsive" id="addfoodlist">
+                                                                <table class="table table-bordered" border="1"
+                                                                    width="100%" id="addinvoice">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Item </th>
+                                                                            <th>Price </th>
+                                                                            <th>Qty </th>
+                                                                            <th>Total </th>
+                                                                            <th>Action </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="itemNumber">
+                                                                        <tr id="1">
+                                                                            {{-- Item Name --}}
+                                                                            <th id="product_name_MFU4E">
+                                                                                Satay chicken<br>
+                                                                                <a class="serach pl-15"
+                                                                                    onclick="itemnote('01ff4b44c7eab1494a03c1c0d9ea85a5','',1,2)"
+                                                                                    title="Food Note">
+                                                                                    <i class="fa fa-sticky-note"
+                                                                                        aria-hidden="true">
+                                                                                    </i>
+                                                                                </a>
+                                                                            </th>
+
+                                                                            {{-- Price --}}
+                                                                            <td>
+                                                                                650
+                                                                            </td>
+
+                                                                            {{-- Qty --}}
+                                                                            <td scope="row">
+                                                                                <a class="btn btn-info btn-sm btnleftalign"
+                                                                                    onclick="posupdatecart('01ff4b44c7eab1494a03c1c0d9ea85a5',14,15,1,'add')">
+                                                                                    <i class="fa fa-plus"></i>
+                                                                                </a>
+                                                                                <span id="productionsetting-14-15">
+                                                                                    1
+                                                                                </span>
+                                                                                <a class="btn btn-danger btn-sm btnrightalign"
+                                                                                    onclick="posupdatecart('01ff4b44c7eab1494a03c1c0d9ea85a5',14,15,1,'del')">
+                                                                                    <i class="fa fa-minus"></i>
+                                                                                </a>
+                                                                            </td>
+
+                                                                            {{-- Total --}}
+                                                                            <td>
+                                                                                650
+                                                                            </td>
+
+                                                                            {{-- Action --}}
+                                                                            <td>
+                                                                                <a class="btn btn-danger btn-sm btnrightalign"
+                                                                                    onclick="removecart('01ff4b44c7eab1494a03c1c0d9ea85a5')">
+                                                                                    <i class="fa fa-trash-o"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
 
-
+                                                {{-- Button Procress --}}
                                                 <div class="fixedclasspos">
                                                     <div class="row d-flex flex-wrap align-items-center">
                                                         <div class="col-sm-6 leftview">
-                                                            <input name="distype" id="distype" type="hidden"
-                                                                value="1" />
-
-                                                            <input name="sdtype" id="sdtype" type="hidden"
-                                                                value="1" />
-
-                                                            <input type="hidden" id="orginattotal" value="0"
-                                                                name="orginattotal">
-
-                                                            <input type="hidden" id="invoice_discount"
-                                                                class="form-control text-right" name="invoice_discount"
-                                                                value="0">
-
                                                             <table class="table table-bordered footersumtotal">
                                                                 <tr>
                                                                     <td>
@@ -298,7 +346,12 @@
                 var imageStoragePath = storagePath.split('public/');
                 var ImageUrl = imageStoragePath[0] + imageStoragePath[1];
 
-                menu_list += '<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">';
+                var dataId = res.menu_lists[i].id;
+                var price = res.menu_lists[i].price;
+
+                menu_list += '<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3 add_to_order" data-id="' +
+                    dataId + '" data-price="' +
+                    price + '">';
                 menu_list += '<div class="panel panel-bd product-panel select_product">';
 
                 // Image
@@ -324,6 +377,55 @@
             }
 
             $('#MenuList').html(menu_list);
+        }
+
+
+        // Add to Order 
+        $(document).on("click", ".add_to_order", function() {
+            var menu_list_id = $(this).data('id');
+            var price = $(this).data('price');
+
+            if (menu_list_id == null || menu_list_id == "") {
+                alert("Please Select item");
+                return false;
+            }
+
+            var url = '{{ url('store_temporary_order_item') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    menu_list_id: menu_list_id,
+                    price: price,
+                },
+                success: function(data) {
+                    audioPlay();
+                    getTemporaryOrderItem();
+                },
+                error: function(data) {}
+            });
+        });
+
+        function getTemporaryOrderItem() {
+            var url = '{{ url('get_temporary_order_item') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    console.log(data)
+                }
+            });
+        }
+
+        function audioPlay() {
+            var song = new Audio();
+            song.src = "{{ URL::asset('data/order_success.mp3') }}";
+            song.play();
         }
     </script>
 @endsection

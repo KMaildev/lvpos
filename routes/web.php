@@ -13,6 +13,7 @@ use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableListsController;
 use App\Http\Controllers\OrderManagement\PosSystemController;
+use App\Http\Controllers\OrderManagement\TemporaryOrderItemController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('get_menu_lists', [PosSystemController::class, 'getMenuList'])->name('get_menu_lists');
     Route::get('search_menu_lists_by_category', [PosSystemController::class, 'getSearchByCategory'])->name('search_menu_lists_by_category');
 
+    Route::resource('temporary_order_item', TemporaryOrderItemController::class);
+    Route::post('store_temporary_order_item', [TemporaryOrderItemController::class, 'store'])->name('store_temporary_order_item');
+    Route::get('get_temporary_order_item', [TemporaryOrderItemController::class, 'index'])->name('get_temporary_order_item');
 
     Route::resource('employee', EmployeeController::class);
     Route::resource('department', DepartmentController::class);
