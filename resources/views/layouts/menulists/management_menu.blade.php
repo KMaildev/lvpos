@@ -25,15 +25,15 @@
                         </a>
                     </li>
 
-                    <li class="{{ Request::is('department') ? 'active' : '' }}">
-                        <a href="{{ route('department.index') }}">
+                    <li class="{{ Request::is('menu_list') ? 'active' : '' }}">
+                        <a href="{{ route('menu_list.index') }}">
                             <i class="fa-solid fa-kitchen-set"></i>
                             Menu List
                         </a>
                     </li>
 
-                    <li class="{{ Request::is('department') ? 'active' : '' }}">
-                        <a href="{{ route('department.index') }}">
+                    <li class="{{ Request::is('ingredients') ? 'active' : '' }}">
+                        <a href="{{ route('ingredients.index') }}">
                             <i class="fa-solid fa-mug-hot"></i>
                             Ingredients
                         </a>

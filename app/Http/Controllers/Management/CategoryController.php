@@ -102,4 +102,13 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->back()->with('success', 'Your processing has been completed.');
     }
+
+
+    public function getCategoryWithMainCategory($id = null)
+    {
+        $category = Category::findOrFail($id);
+        $main_categorie_id = $category->main_categorie_id;
+        $main_categories = MainCategory::findOrFail($main_categorie_id);
+        return json_encode($main_categories);
+    }
 }
