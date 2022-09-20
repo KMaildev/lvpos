@@ -32,17 +32,7 @@
 
                                                 {{-- Menu Category --}}
                                                 <div class="col-md-3">
-                                                    <div class="product-category">
-                                                        <div class="listcat">All </div>
-                                                    </div>
-
-                                                    <div class="product-category">
-                                                        <div class="listcat">All </div>
-                                                    </div>
-
-                                                    <div class="product-category">
-                                                        <div class="listcat">All </div>
-                                                    </div>
+                                                    @include('order_management.shared.menu_category')
                                                 </div>
 
 
@@ -50,64 +40,23 @@
                                                 <div class="col-md-9">
                                                     <div style="height:100%">
                                                         <div class="product-grid">
-                                                            <div class="row row-m-3 myscroll" id="product_search">
+                                                            <div class="row row-m-3 myscroll" id="MenuList">
                                                                 <!-- Item List  -->
-                                                                @for ($i = 0; $i < 100; $i++)
+                                                                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">
                                                                     <div
-                                                                        class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">
-                                                                        <div
-                                                                            class="panel panel-bd product-panel select_product">
-                                                                            <div class="panel-body">
-                                                                                <img src="https://restaurant.bdtask.com/demo-classic/application/modules/itemmanage/assets/images/small/08.png"
-                                                                                    class="img-responsive"
-                                                                                    alt="Bangla Set Menu Rice Boarta">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_id"
-                                                                                    class="select_product_id"
-                                                                                    value="2">
-                                                                                <input type="hidden"
-                                                                                    name="select_totalvarient"
-                                                                                    class="select_totalvarient"
-                                                                                    value="2">
-                                                                                <input type="hidden"
-                                                                                    name="select_iscustomeqty"
-                                                                                    class="select_iscustomeqty"
-                                                                                    value="0">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_size"
-                                                                                    class="select_product_size"
-                                                                                    value="2">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_isgroup"
-                                                                                    class="select_product_isgroup"
-                                                                                    value="">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_cat"
-                                                                                    class="select_product_cat"
-                                                                                    value="2">
-                                                                                <input type="hidden"
-                                                                                    name="select_varient_name"
-                                                                                    class="select_varient_name"
-                                                                                    value="1:2">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_name"
-                                                                                    class="select_product_name"
-                                                                                    value="Bangla Set Menu Rice Boarta">
-                                                                                <input type="hidden"
-                                                                                    name="select_product_price"
-                                                                                    class="select_product_price"
-                                                                                    value="24.00">
-                                                                                <input type="hidden" name="select_addons"
-                                                                                    class="select_addons" value="1">
-                                                                            </div>
-                                                                            <div class="panel-footer">
-                                                                                <span>
-                                                                                    Bangla Set Menu Rice Boarta (1:2)
-                                                                                </span>
-                                                                            </div>
+                                                                        class="panel panel-bd product-panel select_product">
+                                                                        <div class="panel-body">
+                                                                            <img src="https://restaurant.bdtask.com/demo-classic/application/modules/itemmanage/assets/images/small/08.png"
+                                                                                class="img-responsive"
+                                                                                alt="Bangla Set Menu Rice Boarta">
+                                                                        </div>
+                                                                        <div class="panel-footer">
+                                                                            <span>
+                                                                                Bangla Set Menu Rice Boarta (1:2)
+                                                                            </span>
                                                                         </div>
                                                                     </div>
-                                                                @endfor
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -143,8 +92,7 @@
                                                             Customer type
                                                             <span class="color-red">*</span>
                                                         </label>
-                                                        <select name="ctypeid" class="form-control" id="ctypeid"
-                                                            required>
+                                                        <select name="ctypeid" class="form-control" id="ctypeid" required>
                                                             <option value="">Select Customer Type</option>
                                                         </select>
                                                     </div>
@@ -156,8 +104,8 @@
                                                                 <label for="store_id">Waiter
                                                                     <span class="color-red">*</span>
                                                                 </label>
-                                                                <select name="waiter" class="form-control"
-                                                                    id="waiter" required>
+                                                                <select name="waiter" class="form-control" id="waiter"
+                                                                    required>
                                                                     <option value="">Select Waiter</option>
                                                                 </select>
                                                             </div>
@@ -169,9 +117,8 @@
                                                                     class="btn btn-primary  form-control width-auto"
                                                                     onclick="showTablemodal()" id="table_person"
                                                                     value="Person">
-                                                                <input type="hidden" id="table_member"
-                                                                    name="table_member" class="form-control"
-                                                                    value="" />
+                                                                <input type="hidden" id="table_member" name="table_member"
+                                                                    class="form-control" value="" />
                                                             </div>
 
                                                             <div class="col-md-3 form-group" id="tblsec">
@@ -303,4 +250,42 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    {!! JsValidator::formRequest('App\Http\Requests\StoreMenuLists', '#create-form') !!}
+    <script type="text/javascript">
+        function getMenuLists() {
+            var url = '{{ url('get_menu_lists') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    let menu_list = '';
+                    $.each(JSON.parse(data), function(key, value) {
+                        let k = key + 1;
+
+                        menu_list += '<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-p-3">';
+                        menu_list += '<div class="panel panel-bd product-panel select_product">';
+
+                        // Image
+                        menu_list += '<div class="panel-body">';
+                        menu_list += '<img src="' + value.photo + '" class="img-responsive">';
+                        menu_list += '</div>';
+
+                        // Title 
+                        menu_list += '<div class="panel-footer">';
+                        menu_list += '<span style="text-align: center;">';
+                        menu_list += value.name;
+                        menu_list += '</span>';
+                        menu_list += '</div>';
+
+                        menu_list += '</div>';
+                        menu_list += '</div>';
+                    });
+                    $('#MenuList').html(menu_list);
+                }
+            });
+        }
+        getMenuLists();
+    </script>
 @endsection

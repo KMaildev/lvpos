@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\OrderManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\MenuList;
 use Illuminate\Http\Request;
 
 class PosSystemController extends Controller
@@ -14,7 +16,14 @@ class PosSystemController extends Controller
      */
     public function index()
     {
-        return view('order_management.pos_system.index');
+        $categories = Category::all();
+        return view('order_management.pos_system.index', compact('categories'));
+    }
+
+    public function getMenuList()
+    {
+        $menu_lists = MenuList::all();
+        return json_encode($menu_lists);
     }
 
     /**

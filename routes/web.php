@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('table_lists', TableListsController::class);
 
     Route::resource('pos_system', PosSystemController::class);
+    Route::get('get_menu_lists', [PosSystemController::class, 'getMenuList'])->name('get_menu_lists');
 
 
     Route::resource('employee', EmployeeController::class);

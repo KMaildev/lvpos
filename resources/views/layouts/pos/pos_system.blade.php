@@ -78,6 +78,7 @@
     </div>
     <script src="{{ asset('pos/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('pos/js/bootstrap-tagsinput.js') }}" type="text/javascript"></script>
+    @yield('script')
 </body>
 
 </html>
