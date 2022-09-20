@@ -18,7 +18,6 @@ class MenuIngredientsController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -43,6 +42,7 @@ class MenuIngredientsController extends Controller
         $menu_ingredients->no_of_unit = $request->no_of_unit;
         $menu_ingredients->price = $request->price;
         $menu_ingredients->ingredient_id = $request->ingredient_id;
+        $menu_ingredients->menu_list_id = $request->menu_list_id;
         $menu_ingredients->user_id = auth()->user()->id ?? 0;
         $menu_ingredients->save();
         return json_encode(array(
@@ -100,5 +100,20 @@ class MenuIngredientsController extends Controller
         $menu_list = MenuList::findOrFail($id);
         $ingredients = Ingredients::all();
         return view('management.menu_ingredient.create', compact('menu_list', 'ingredients'));
+    }
+
+    public function getMenuIngredient($id = null)
+    {
+        $menu_ingredients = MenuIngredients::with('ingredients_table')->orderBy('id')->where('menu_list_id', $id)->get();
+        echo json_encode($menu_ingredients);
+    }
+
+    public function removeMenuIngredient($id)
+    {
+        $remove = MenuIngredients::findOrFail($id);
+        $remove->delete();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 }

@@ -5,11 +5,13 @@ use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Management\CategoryController;
+use App\Http\Controllers\Management\FloorController;
 use App\Http\Controllers\Management\IngredientsController;
 use App\Http\Controllers\Management\MainCategoryController;
 use App\Http\Controllers\Management\ManagementDashboardController;
 use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
+use App\Http\Controllers\Management\TableListsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('menu_ingredients', MenuIngredientsController::class);
     Route::get('create_menu_ingredient/{id}', [MenuIngredientsController::class, 'createMenuIngredient'])->name('create_menu_ingredient');
     Route::post('store_menu_ingredient', [MenuIngredientsController::class, 'store'])->name('store_menu_ingredient');
-
-
+    Route::get('get_menu_ingredient/{id}', [MenuIngredientsController::class, 'getMenuIngredient'])->name('get_menu_ingredient');
+    Route::get('remove_menu_ingredient/{id}', [MenuIngredientsController::class, 'removeMenuIngredient'])->name('remove_menu_ingredient');
+    Route::resource('floor', FloorController::class);
+    Route::resource('table_lists', TableListsController::class);
 
 
     Route::resource('employee', EmployeeController::class);

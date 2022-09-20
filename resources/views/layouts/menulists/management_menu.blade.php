@@ -40,16 +40,16 @@
                     </li>
 
 
-                    <li class="{{ Request::is('department') ? 'active' : '' }}">
-                        <a href="{{ route('department.index') }}">
+                    <li class="{{ Request::is('floor') ? 'active' : '' }}">
+                        <a href="{{ route('floor.index') }}">
                             <i class="fa-solid fa-bars"></i>
                             Floor List
                         </a>
                     </li>
 
 
-                    <li class="{{ Request::is('department') ? 'active' : '' }}">
-                        <a href="{{ route('department.index') }}">
+                    <li class="{{ Request::is('table_lists') ? 'active' : '' }}">
+                        <a href="{{ route('table_lists.index') }}">
                             <i class="fa-solid fa-table-cells"></i>
                             Table list
                         </a>
