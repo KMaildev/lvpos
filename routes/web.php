@@ -13,6 +13,7 @@ use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableListsController;
 use App\Http\Controllers\OrderManagement\CustomerController;
+use App\Http\Controllers\OrderManagement\OrderConfirmController;
 use App\Http\Controllers\OrderManagement\PosSystemController;
 use App\Http\Controllers\OrderManagement\TemporaryOrderItemController;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class);
     Route::get('get_customer', [CustomerController::class, 'index'])->name('get_customer');
     Route::post('store_customer', [CustomerController::class, 'store'])->name('store_customer');
+
+    Route::resource('order_confirm', OrderConfirmController::class);
+    Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
+
 
     Route::resource('employee', EmployeeController::class);
     Route::resource('department', DepartmentController::class);

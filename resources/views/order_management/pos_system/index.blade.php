@@ -52,8 +52,7 @@
 
                                         <!-- Customer & Order Info  -->
                                         <div class="col-md-4">
-                                            <form action="" class="form-vertical" id="onlineordersubmit"
-                                                enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                                            <form action="#" class="form-vertical orderConfirm" method="post">
                                                 <div class="row">
 
                                                     {{-- Add Customer --}}
@@ -62,7 +61,8 @@
                                                             Customer name
                                                         </label>
                                                         <div class="d-flex">
-                                                            <select class="form-control select2" id="customerLists">
+                                                            <select class="form-control select2" id="customerLists"
+                                                                name="customer_id">
                                                             </select>
 
                                                             <button type="button" class="btn btn-primary ml-l"
@@ -79,10 +79,11 @@
                                                             Table
                                                             <span class="color-red">*</span>
                                                         </label>
-                                                        <select class="form-control select2">
+                                                        <select class="form-control select2" name="table_list_id"
+                                                            id="tableListId">
                                                             <option value="">--Select Table--</option>
                                                             @foreach ($table_lists as $table_list)
-                                                                <option value="">
+                                                                <option value="{{ $table_list->id }}">
                                                                     {{ $table_list->table_name ?? '' }}
                                                                 </option>
                                                             @endforeach
@@ -129,9 +130,9 @@
                                                             </a>
 
                                                             <input type="button" class="btn btn-primary btn-large cusbtn"
-                                                                value="Grand total: 1000">
+                                                                value="0" id="totalAmountShow">
 
-                                                            <input type="button" class="btn btn-success btn-large cusbtn"
+                                                            <input type="submit" class="btn btn-success btn-large cusbtn"
                                                                 value="Order Confirm">
                                                         </div>
                                                     </div>
@@ -288,15 +289,16 @@
         // Show Order Items 
         function showOrderItems(res) {
             let order_item_list = '';
-
+            var totalAmount = 0;
             for (let i = 0; i < res.temporary_order_items.length; i++) {
                 let item_id = res.temporary_order_items[i].id;
                 let itemName = res.temporary_order_items[i].menu_lists_table.name;
                 let price = res.temporary_order_items[i].price;
                 let qty = res.temporary_order_items[i].qty;
                 let totalItemPrice = qty * price;
-
+                totalAmount += totalItemPrice;
                 let dataId = res.temporary_order_items[i].menu_list_id;
+
 
                 order_item_list += '<tr>';
 
@@ -344,6 +346,7 @@
             }
 
             $('#orderItemList').html(order_item_list);
+            totalAmountShow.value = 'Grand total: ' + (totalAmount).toLocaleString('en');
         }
 
         // RemoveItem
@@ -424,7 +427,6 @@
             });
         })
 
-
         // add to customer 
         $('.store_customer').submit(function(e) {
             e.preventDefault();
@@ -482,6 +484,7 @@
         }
         getCustomerLists();
 
+        // Show All Customer 
         function showAllCustomer(res) {
             let customers = '';
 
@@ -500,6 +503,39 @@
         }
 
 
+        $('.orderConfirm').submit(function(e) {
+            e.preventDefault();
+            let form = $(this);
+
+            let customer_id = document.getElementById("customerLists").value;
+            let table_list_id = document.getElementById("tableListId").value;
+
+            if (table_list_id == null || table_list_id == "") {
+                return false;
+            }
+
+            var url = '{{ url('store_order_confirm') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    customer_id: customer_id,
+                    table_list_id: table_list_id,
+                },
+                success: function(data) {
+                    audioPlay();
+                    getTemporaryOrderItem();
+                },
+                error: function(data) {}
+            });
+
+
+        })
 
         function audioPlay() {
             var song = new Audio();
