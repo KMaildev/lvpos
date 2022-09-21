@@ -1,34 +1,36 @@
-<div class="modal fade" id="vieworder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+{{-- Food Note --}}
+<div class="modal fade" id="addFoodNote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h5 class="modal-title" id="exampleModalLabel">Food Note</h5>
-
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Food Note
+                </h5>
             </div>
             <div class="modal-body pd-15">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label" for="user_email">Food Note</label>
-                            <textarea cols="45" rows="3" id="foodnote" class="form-control" name="foodnote"></textarea>
-                            <input name="foodqty" id="foodqty" type="hidden" />
-                            <input name="foodgroup" id="foodgroup" type="hidden" />
-                            <input name="foodid" id="foodid" type="hidden" />
-                            <input name="foodvid" id="foodvid" type="hidden" />
-                            <input name="foodcartid" id="foodcartid" type="hidden" />
+                    <form class="save_temporary_order_item_food_note" action="#" method="POST">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="user_email">Food Note</label>
+                                <div id="showFoodRemark"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <a onclick="addnotetoitem()" class="btn btn-success btn-md text-white" id="notesmbt">Add
-                            Note</a>
-                    </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success btn-md text-white">
+                                Add Note
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -56,20 +58,15 @@
                                         onClick="calcNumbers(addb.value)">
                                 </div>
                                 <div class="calcrow">
-                                    <input type="button" name="b4" value="4"
-                                        onClick="calcNumbers(b4.value)">
-                                    <input type="button" name="b5" value="5"
-                                        onClick="calcNumbers(b5.value)">
-                                    <input type="button" name="b6" value="6"
-                                        onClick="calcNumbers(b6.value)">
+                                    <input type="button" name="b4" value="4" onClick="calcNumbers(b4.value)">
+                                    <input type="button" name="b5" value="5" onClick="calcNumbers(b5.value)">
+                                    <input type="button" name="b6" value="6" onClick="calcNumbers(b6.value)">
                                     <input type="button" name="subb" value="-"
                                         onClick="calcNumbers(subb.value)">
                                 </div>
                                 <div class="calcrow">
-                                    <input type="button" name="b1" value="1"
-                                        onClick="calcNumbers(b1.value)">
-                                    <input type="button" name="b2" value="2"
-                                        onClick="calcNumbers(b2.value)">
+                                    <input type="button" name="b1" value="1" onClick="calcNumbers(b1.value)">
+                                    <input type="button" name="b2" value="2" onClick="calcNumbers(b2.value)">
                                     <input type="button" name="b3" value="3"
                                         onClick="calcNumbers(b3.value)">
                                     <input type="button" name="mulb" value="*"

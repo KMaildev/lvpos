@@ -396,7 +396,7 @@
                 order_item_list += '<th>';
                 order_item_list += itemName;
                 order_item_list += '</br>';
-                order_item_list += '<a class="serach pl-15">';
+                order_item_list += '<a class="serach pl-15 add_order_note" data-id="' + item_id + '">';
                 order_item_list += '<i class="fa fa-sticky-note"></i>';
                 order_item_list += '</a>';
                 order_item_list += '</th>';
@@ -465,6 +465,58 @@
                 }
             });
         });
+
+
+        // Order Note 
+        $(document).on("click", ".add_order_note", function() {
+            var id = $(this).data('id');
+            $('#addFoodNote').modal('show');
+            var url = '{{ url('get_order_note_temporary_order_item') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    console.log(data);
+                    $('#showFoodRemark').html(data.html);
+                }
+            });
+        });
+
+
+        $('.save_temporary_order_item_food_note').submit(function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let data = form.serializeArray();
+            let temporary_order_item_id = form.find("input[name=temporary_order_item_id]").val();
+            let foodnoteremark = form.find("textarea[name=foodnoteremark]").val();
+
+            if (temporary_order_item_id == null || temporary_order_item_id == "") {
+                alert("Something went wrong please try again");
+                return false;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var url = '{{ url('add_order_note_temporary_order_item') }}';
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    temporary_order_item_id: temporary_order_item_id,
+                    foodnoteremark: foodnoteremark,
+                },
+                success: function(data) {
+                    audioPlay();
+                    getTemporaryOrderItem();
+                },
+                error: function(data) {}
+            });
+        })
+
 
         function audioPlay() {
             var song = new Audio();

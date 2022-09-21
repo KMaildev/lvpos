@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::get('get_temporary_order_item', [TemporaryOrderItemController::class, 'index'])->name('get_temporary_order_item');
     Route::get('remove_temporary_order_item/{id}', [TemporaryOrderItemController::class, 'removeTemporaryOrderItem'])->name('remove_temporary_order_item');
     Route::get('qty_minus_temporary_order_item/{id}', [TemporaryOrderItemController::class, 'qtyMinusTemporaryOrderItem'])->name('qty_minus_temporary_order_item');
+    Route::get('get_order_note_temporary_order_item/{id}', [TemporaryOrderItemController::class, 'getOrderNoteTemporaryOrderItem'])->name('get_order_note_temporary_order_item');
+    Route::post('add_order_note_temporary_order_item', [TemporaryOrderItemController::class, 'addOrderNoteTemporaryOrderItem'])->name('add_order_note_temporary_order_item');
+
 
 
     Route::resource('employee', EmployeeController::class);

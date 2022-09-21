@@ -147,4 +147,33 @@ class TemporaryOrderItemController extends Controller
             "statusCode" => 200,
         ));
     }
+
+
+    function getOrderNoteTemporaryOrderItem($id = null)
+    {
+        $order_item = TemporaryOrderItem::findOrFail($id);
+        $html = '';
+        $html .= '<input type="hidden" value="' . $id . '" name="temporary_order_item_id">';
+        $html .= '<textarea cols="45" rows="3" name="foodnoteremark" class="form-control">';
+        $html .= $order_item->remark;
+        $html .= '</textarea>';
+        return response()->json(['html' => $html]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addOrderNoteTemporaryOrderItem(Request $request)
+    {
+        $temporary_order_item_id = $request->temporary_order_item_id;
+        $order_item = TemporaryOrderItem::findOrFail($temporary_order_item_id);
+        $order_item->remark = $request->foodnoteremark;
+        $order_item->update();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
+    }
 }
