@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\OrderManagement;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\MenuList;
-use App\Models\TableList;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
-class PosSystemController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,39 +15,9 @@ class PosSystemController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        $table_lists = TableList::all();
-        return view('order_management.pos_system.index', compact('categories', 'table_lists'));
-    }
-
-    public function getMenuList(Request $request)
-    {
-        $keyword = $request->keyword;
-        $menu_lists = MenuList::query();
-        if ($keyword) {
-            $menu_lists->where('name', 'Like', '%' . $keyword . '%');
-        }
-
-        $menu_lists = $menu_lists->orderBy('id', 'ASC')->get();
-
+        $customers = Customer::orderBy('id', 'DESC')->get();
         return response()->json([
-            'menu_lists' => $menu_lists
-        ]);
-    }
-
-
-    public function getSearchByCategory(Request $request)
-    {
-        $category_id = $request->category_id;
-        $menu_lists = MenuList::query();
-        if ($category_id) {
-            $menu_lists->where('categorie_id', 'Like', '%' . $category_id . '%');
-        }
-
-        $menu_lists = $menu_lists->orderBy('id', 'ASC')->get();
-
-        return response()->json([
-            'menu_lists' => $menu_lists
+            'customers' => $customers
         ]);
     }
 
@@ -71,7 +39,16 @@ class PosSystemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = new Customer();
+        $customer->customer_name = $request->customer_name;
+        $customer->email = $request->email;
+        $customer->mobile = $request->mobile;
+        $customer->address = $request->address;
+        $customer->remark = $request->remark;
+        $customer->save();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 
     /**

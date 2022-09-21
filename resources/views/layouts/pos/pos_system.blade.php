@@ -18,7 +18,7 @@
     <script src="{{ asset('pos/js/jquery-1.12.4.min.js') }}" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('pos/css/posordernew.css') }}">
     <script src="{{ asset('pos/js/postop.js') }}" type="text/javascript"></script>
-
+    <link rel="stylesheet" href="{{ asset('pos/css/select2.min.css') }}">
     <style>
         .loading:after {
             content: ' .';
@@ -57,10 +57,14 @@
         }
 
         div.myscroll {
-            background-color: lightblue;
             width: 100%;
             height: 600px;
             overflow: scroll;
+        }
+
+        .table_myscroll {
+            height: 500px;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -78,7 +82,14 @@
     </div>
     <script src="{{ asset('pos/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('pos/js/bootstrap-tagsinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('pos/js/select2.min.js') }}"></script>
+    <script src="{{ asset('pos/js/custom.js') }}" type="text/javascript"></script>
     @yield('script')
+
+    <script>
+        $('.select2').select2();
+        $('b[role="presentation"]').hide();
+    </script>
 </body>
 
 </html>

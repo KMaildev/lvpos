@@ -24,7 +24,6 @@ class TemporaryOrderItemController extends Controller
             ->where('user_id', $user_id)
             ->get();
 
-
         return response()->json([
             'temporary_order_items' => $temporary_order_items
         ]);

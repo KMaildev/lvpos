@@ -39,7 +39,7 @@
 
                                                 {{-- Menu Lists --}}
                                                 <div class="col-md-9">
-                                                    <div style="height:100%">
+                                                    <div style="height: 100%">
                                                         <div class="product-grid">
                                                             <div class="row row-m-3 myscroll" id="MenuList">
                                                                 <!-- Item List Here  -->
@@ -56,81 +56,47 @@
                                                 enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                 <div class="row">
 
+                                                    {{-- Add Customer --}}
                                                     <div class="col-md-6 form-group">
-                                                        <label for="customer_name">Customer name
-                                                            <span class="color-red">*</span>
+                                                        <label for="customer_name">
+                                                            Customer name
                                                         </label>
                                                         <div class="d-flex">
-                                                            <select name="" id=""
-                                                                class="postform resizeselect form-control">
-                                                                <option value="">Customer</option>
+                                                            <select class="form-control select2" id="customerLists">
                                                             </select>
+
                                                             <button type="button" class="btn btn-primary ml-l"
                                                                 aria-hidden="true" data-toggle="modal"
                                                                 data-target="#client-info">
-                                                                <i class="ti-plus"></i>
+                                                                <i class="fa fa-plus"></i>
                                                             </button>
                                                         </div>
                                                     </div>
 
+
                                                     <div class="col-md-6 form-group">
                                                         <label for="store_id">
-                                                            Customer type
+                                                            Table
                                                             <span class="color-red">*</span>
                                                         </label>
-                                                        <select name="ctypeid" class="form-control" id="ctypeid" required>
-                                                            <option value="">Select Customer Type</option>
+                                                        <select class="form-control select2">
+                                                            <option value="">--Select Table--</option>
+                                                            @foreach ($table_lists as $table_list)
+                                                                <option value="">
+                                                                    {{ $table_list->table_name ?? '' }}
+                                                                </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
-
-                                                    <div id="nonthirdparty" class="col-md-12">
-                                                        <div class="row">
-
-                                                            <div class="col-md-4 form-group">
-                                                                <label for="store_id">Waiter
-                                                                    <span class="color-red">*</span>
-                                                                </label>
-                                                                <select name="waiter" class="form-control" id="waiter"
-                                                                    required>
-                                                                    <option value="">Select Waiter</option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="col-md-2 form-group pl-0" id="tblsecp">
-                                                                <label for="store_id" class="wpr_100 person"> <span
-                                                                        class="color-red">&nbsp;&nbsp;</span></label>
-                                                                <input name="" type="button"
-                                                                    class="btn btn-primary  form-control width-auto"
-                                                                    onclick="showTablemodal()" id="table_person"
-                                                                    value="Person">
-                                                                <input type="hidden" id="table_member" name="table_member"
-                                                                    class="form-control" value="" />
-                                                            </div>
-
-                                                            <div class="col-md-3 form-group" id="tblsec">
-                                                                <label for="store_id">Table
-                                                                    <span class="color-red">*</span>
-                                                                </label>
-                                                                <select name="tableid"
-                                                                    class="postform resizeselect form-control"
-                                                                    id="tableid" required onchange="checktable()">
-                                                                    <option value="" selected="selected">
-                                                                        Select Table
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
-
 
                                                 {{-- Order Items --}}
                                                 <div class="productlist">
                                                     <div class="slimScrollDiv"
-                                                        style="position: relative; overflow: hidden; width: auto; height: 345px;">
+                                                        style="position: relative; overflow: hidden; width: auto; height: 500px;">
                                                         <div class="product-list pdlist"
-                                                            style="overflow: hidden; width: auto; height: 345px;">
-                                                            <div class="table-responsive" id="addfoodlist">
+                                                            style="overflow: hidden; width: auto; height: 500px;">
+                                                            <div class="table-responsive table_myscroll" id="addfoodlist">
                                                                 <table class="table table-bordered" border="1"
                                                                     width="100%" id="addinvoice">
                                                                     <thead>
@@ -143,14 +109,12 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="orderItemList">
-
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
 
                                                 {{-- Button Procress --}}
                                                 <div class="fixedclasspos">
@@ -210,6 +174,7 @@
                                                         </div>
 
                                                         <div class="col-sm-6 text-right">
+                                                            {{-- calculator --}}
                                                             <a class="btn btn-primary cusbtn" data-toggle="modal"
                                                                 data-target="#exampleModal">
                                                                 <i class="fa fa-calculator" aria-hidden="true"></i>
@@ -224,7 +189,6 @@
                                                                 class="btn btn-success btn-large cusbtn"
                                                                 onclick="placeorder()" name="add-payment"
                                                                 value="Place Order">
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -466,7 +430,6 @@
             });
         });
 
-
         // Order Note 
         $(document).on("click", ".add_order_note", function() {
             var id = $(this).data('id');
@@ -482,7 +445,7 @@
             });
         });
 
-
+        // Save Order Note 
         $('.save_temporary_order_item_food_note').submit(function(e) {
             e.preventDefault();
             let form = $(this);
@@ -516,6 +479,82 @@
                 error: function(data) {}
             });
         })
+
+
+        // add to customer 
+        $('.store_customer').submit(function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let data = form.serializeArray();
+            let customer_name = form.find("input[name=customer_name]").val();
+            let email = form.find("input[name=email]").val();
+            let mobile = form.find("input[name=mobile]").val();
+            let address = form.find("textarea[name=address]").val();
+            let remark = form.find("textarea[name=remark]").val();
+
+            if (customer_name == null || customer_name == "") {
+                return false;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var url = '{{ url('store_customer') }}';
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    customer_name: customer_name,
+                    email: email,
+                    mobile: mobile,
+                    address: address,
+                    remark: remark,
+                },
+                success: function(data) {
+                    getCustomerLists();
+                    document.getElementById('customer_name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('mobile').value = '';
+                    document.getElementById('address').value = '';
+                    document.getElementById('remark').value = '';
+                },
+                error: function(data) {}
+            });
+        })
+
+        // Get Customer 
+        function getCustomerLists() {
+            var url = '{{ url('get_customer') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    showAllCustomer(data);
+                }
+            });
+        }
+        getCustomerLists();
+
+        function showAllCustomer(res) {
+            let customers = '';
+
+            customers += '<option value="">';
+            customers += '---Customer---';
+            customers += '</option>';
+
+            for (let i = 0; i < res.customers.length; i++) {
+                let id = res.customers[i].id;
+                let customer_name = res.customers[i].customer_name;
+                customers += '<option value="' + id + '">';
+                customers += customer_name;
+                customers += '</option>';
+            }
+            $('#customerLists').html(customers);
+        }
+
 
 
         function audioPlay() {
