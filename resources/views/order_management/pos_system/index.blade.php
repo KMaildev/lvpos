@@ -119,59 +119,7 @@
                                                 {{-- Button Procress --}}
                                                 <div class="fixedclasspos">
                                                     <div class="row d-flex flex-wrap align-items-center">
-                                                        <div class="col-sm-6 leftview">
-                                                            <table class="table table-bordered footersumtotal">
-                                                                <tr>
-                                                                    <td>
-                                                                        <div class="row m-0">
-                                                                            <label for="date"
-                                                                                class="col-sm-8 mb-0">Vat/Tax:
-                                                                            </label>
-                                                                            <label class="col-sm-4 mb-0">
-                                                                                <input type="hidden" id="vat"
-                                                                                    name="vat" value="0" />
-                                                                            </label>
-                                                                            <strong>
-                                                                                <span id="calvat"> 0</span>
-                                                                            </strong>
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-
-                                                                    <td rowspan="2">
-                                                                        <label for="date" class="mb-0 col-sm-6">
-                                                                            Grand total :
-                                                                        </label>
-                                                                        <label class="col-sm-6 p-0 mb-0">
-                                                                            <input type="hidden" id="orggrandTotal"
-                                                                                value="0" name="orggrandTotal">
-                                                                            <input name="grandtotal" type="hidden"
-                                                                                value="0" id="grandtotal" />
-                                                                            <span
-                                                                                class="badge badge-primary grandbg font-26">
-                                                                                <strong>
-                                                                                    <span id="caltotal">0</span>
-                                                                                </strong>
-                                                                            </span>
-                                                                        </label>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <label for="date" class="col-sm-8 mb-0">
-                                                                            Service Charge (%) :
-                                                                        </label>
-                                                                        <div class="col-sm-4 p-0">
-                                                                            <input type="text" id="service_charge"
-                                                                                onkeyup="calculatetotal();"
-                                                                                class="form-control text-right mb-5"
-                                                                                value="0" name="service_charge"
-                                                                                placeholder="0.00" />
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
+                                                        <div class="col-sm-6 leftview"></div>
 
                                                         <div class="col-sm-6 text-right">
                                                             {{-- calculator --}}
@@ -180,15 +128,11 @@
                                                                 <i class="fa fa-calculator" aria-hidden="true"></i>
                                                             </a>
 
-                                                            <input type="button" id="add_payment2"
-                                                                class="btn btn-primary btn-large cusbtn"
-                                                                onclick="quickorder()" name="add-payment"
-                                                                value="Quick Order">
+                                                            <input type="button" class="btn btn-primary btn-large cusbtn"
+                                                                value="Grand total: 1000">
 
-                                                            <input type="button" id="add_payment"
-                                                                class="btn btn-success btn-large cusbtn"
-                                                                onclick="placeorder()" name="add-payment"
-                                                                value="Place Order">
+                                                            <input type="button" class="btn btn-success btn-large cusbtn"
+                                                                value="Order Confirm">
                                                         </div>
                                                     </div>
                                                 </div>
