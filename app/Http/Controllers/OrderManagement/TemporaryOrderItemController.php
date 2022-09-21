@@ -24,6 +24,7 @@ class TemporaryOrderItemController extends Controller
             ->where('user_id', $user_id)
             ->get();
 
+
         return response()->json([
             'temporary_order_items' => $temporary_order_items
         ]);
@@ -47,14 +48,34 @@ class TemporaryOrderItemController extends Controller
      */
     public function store(StoreTemporaryOrderItem $request)
     {
-        $temp = new TemporaryOrderItem();
-        $temp->menu_list_id = $request->menu_list_id;
-        $temp->qty = 1;
-        $temp->price = $request->price;
-        $temp->remark = '';
-        $temp->session_id = session()->getId();
-        $temp->user_id = auth()->user()->id ?? 0;
-        $temp->save();
+
+        // Already Item 
+        $already_item = TemporaryOrderItem::updateOrCreate(
+            [
+                'menu_list_id' => $request->menu_list_id,
+                'session_id' => session()->getId(),
+                'user_id' => auth()->user()->id ?? 0,
+            ]
+        );
+        $already_qty = $already_item->qty ?? 0;
+
+        // Update Or Create 
+        TemporaryOrderItem::updateOrCreate(
+            [
+                'menu_list_id' => $request->menu_list_id,
+                'session_id' => session()->getId(),
+                'user_id' => auth()->user()->id ?? 0,
+            ],
+            [
+                'menu_list_id' => $request->menu_list_id,
+                'qty' => 1,
+                'price' => $request->price,
+                'remark' => '',
+                'session_id' => session()->getId(),
+                'user_id' => auth()->user()->id ?? 0,
+            ],
+        )->increment('qty', $already_qty);
+
         return json_encode(array(
             "statusCode" => 200,
         ));
@@ -103,5 +124,14 @@ class TemporaryOrderItemController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function removeTemporaryOrderItem($id = null)
+    {
+        $remove = TemporaryOrderItem::findOrFail($id);
+        $remove->delete();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
     }
 }

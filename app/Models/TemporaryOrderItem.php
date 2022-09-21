@@ -9,6 +9,8 @@ class TemporaryOrderItem extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['menu_list_id', 'qty', 'price', 'remark', 'session_id', 'user_id', 'created_at', 'updated_at'];
+
     public function menu_lists_table()
     {
         return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');

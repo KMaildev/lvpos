@@ -142,53 +142,8 @@
                                                                             <th>Action </th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody class="itemNumber">
-                                                                        <tr id="1">
-                                                                            {{-- Item Name --}}
-                                                                            <th id="product_name_MFU4E">
-                                                                                Satay chicken<br>
-                                                                                <a class="serach pl-15"
-                                                                                    onclick="itemnote('01ff4b44c7eab1494a03c1c0d9ea85a5','',1,2)"
-                                                                                    title="Food Note">
-                                                                                    <i class="fa fa-sticky-note"
-                                                                                        aria-hidden="true">
-                                                                                    </i>
-                                                                                </a>
-                                                                            </th>
+                                                                    <tbody id="orderItemList">
 
-                                                                            {{-- Price --}}
-                                                                            <td>
-                                                                                650
-                                                                            </td>
-
-                                                                            {{-- Qty --}}
-                                                                            <td scope="row">
-                                                                                <a class="btn btn-info btn-sm btnleftalign"
-                                                                                    onclick="posupdatecart('01ff4b44c7eab1494a03c1c0d9ea85a5',14,15,1,'add')">
-                                                                                    <i class="fa fa-plus"></i>
-                                                                                </a>
-                                                                                <span id="productionsetting-14-15">
-                                                                                    1
-                                                                                </span>
-                                                                                <a class="btn btn-danger btn-sm btnrightalign"
-                                                                                    onclick="posupdatecart('01ff4b44c7eab1494a03c1c0d9ea85a5',14,15,1,'del')">
-                                                                                    <i class="fa fa-minus"></i>
-                                                                                </a>
-                                                                            </td>
-
-                                                                            {{-- Total --}}
-                                                                            <td>
-                                                                                650
-                                                                            </td>
-
-                                                                            {{-- Action --}}
-                                                                            <td>
-                                                                                <a class="btn btn-danger btn-sm btnrightalign"
-                                                                                    onclick="removecart('01ff4b44c7eab1494a03c1c0d9ea85a5')">
-                                                                                    <i class="fa fa-trash-o"></i>
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -288,6 +243,7 @@
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\StoreMenuLists', '#create-form') !!}
     <script type="text/javascript">
+        // Get All Menus 
         function getMenuLists() {
             var url = '{{ url('get_menu_lists') }}';
             $.ajax({
@@ -299,7 +255,6 @@
             });
         }
         getMenuLists();
-
 
         // Search Input
         $('#search').on('input', function() {
@@ -417,10 +372,75 @@
                 url: url,
                 method: "GET",
                 success: function(data) {
-                    console.log(data)
+                    showOrderItems(data);
                 }
             });
         }
+        getTemporaryOrderItem();
+
+        // Show Order Items 
+        function showOrderItems(res) {
+            let order_item_list = '';
+
+            for (let i = 0; i < res.temporary_order_items.length; i++) {
+                let item_id = res.temporary_order_items[i].id;
+                let itemName = res.temporary_order_items[i].menu_lists_table.name;
+                let price = res.temporary_order_items[i].price;
+                let qty = res.temporary_order_items[i].qty;
+                let totalItemPrice = qty * price;
+
+                order_item_list += '<tr>';
+
+                // Item Name & Add Note 
+                order_item_list += '<th>';
+                order_item_list += itemName;
+                order_item_list += '</br>';
+                order_item_list += '<a class="serach pl-15">';
+                order_item_list += '<i class="fa fa-sticky-note"></i>';
+                order_item_list += '</a>';
+                order_item_list += '</th>';
+
+
+                // Price 
+                order_item_list += '<th>';
+                order_item_list += price;
+                order_item_list += '</th>';
+
+                // Qty 
+                order_item_list += '<th>';
+                order_item_list += qty;
+                order_item_list += '</th>';
+
+                // Total 
+                order_item_list += '<th>';
+                order_item_list += totalItemPrice;
+                order_item_list += '</th>';
+
+                // Action 
+                order_item_list += '<th>';
+                order_item_list += '<i class="fa fa-trash-can text-danger remove_order_item" data-id="' + item_id +
+                    '"></i>';
+                order_item_list += '</th>';
+
+                order_item_list += '</tr>';
+            }
+
+            $('#orderItemList').html(order_item_list);
+        }
+
+        // RemoveItem
+        $(document).on("click", ".remove_order_item", function() {
+            var id = $(this).data('id');
+            var url = '{{ url('remove_temporary_order_item') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    audioPlay();
+                    getTemporaryOrderItem();
+                }
+            });
+        });
 
         function audioPlay() {
             var song = new Audio();
