@@ -134,4 +134,17 @@ class TemporaryOrderItemController extends Controller
             "statusCode" => 200,
         ));
     }
+
+    public function qtyMinusTemporaryOrderItem($id = null)
+    {
+        $order_item = TemporaryOrderItem::findOrFail($id);
+        $current_qty = $order_item->qty;
+        $update_qty = $current_qty - 1;
+
+        $order_item->qty = $update_qty;
+        $order_item->update();
+        return json_encode(array(
+            "statusCode" => 200,
+        ));
+    }
 }

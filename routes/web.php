@@ -48,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::post('store_temporary_order_item', [TemporaryOrderItemController::class, 'store'])->name('store_temporary_order_item');
     Route::get('get_temporary_order_item', [TemporaryOrderItemController::class, 'index'])->name('get_temporary_order_item');
     Route::get('remove_temporary_order_item/{id}', [TemporaryOrderItemController::class, 'removeTemporaryOrderItem'])->name('remove_temporary_order_item');
+    Route::get('qty_minus_temporary_order_item/{id}', [TemporaryOrderItemController::class, 'qtyMinusTemporaryOrderItem'])->name('qty_minus_temporary_order_item');
+
 
     Route::resource('employee', EmployeeController::class);
     Route::resource('department', DepartmentController::class);

@@ -334,7 +334,6 @@
             $('#MenuList').html(menu_list);
         }
 
-
         // Add to Order 
         $(document).on("click", ".add_to_order", function() {
             var menu_list_id = $(this).data('id');
@@ -389,6 +388,8 @@
                 let qty = res.temporary_order_items[i].qty;
                 let totalItemPrice = qty * price;
 
+                let dataId = res.temporary_order_items[i].menu_list_id;
+
                 order_item_list += '<tr>';
 
                 // Item Name & Add Note 
@@ -407,8 +408,17 @@
                 order_item_list += '</th>';
 
                 // Qty 
-                order_item_list += '<th>';
+                order_item_list += '<th scope="row">';
+                order_item_list += '<a class="btn btn-info btn-sm btnleftalign add_to_order" data-id="' + dataId +
+                    '" data-price="' + price + '">';
+                order_item_list += '<i class="fa fa-plus"></i>';
+                order_item_list += '</a> ';
                 order_item_list += qty;
+
+                order_item_list += ' <a class="btn btn-danger btn-sm btnleftalign order_qty_minus" data-id="' + item_id +
+                    '">';
+                order_item_list += '<i class="fa fa-minus"></i>';
+                order_item_list += '</a>';
                 order_item_list += '</th>';
 
                 // Total 
@@ -432,6 +442,20 @@
         $(document).on("click", ".remove_order_item", function() {
             var id = $(this).data('id');
             var url = '{{ url('remove_temporary_order_item') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    audioPlay();
+                    getTemporaryOrderItem();
+                }
+            });
+        });
+
+        // order_qty_minus
+        $(document).on("click", ".order_qty_minus", function() {
+            var id = $(this).data('id');
+            var url = '{{ url('qty_minus_temporary_order_item') }}';
             $.ajax({
                 url: url + '/' + id,
                 method: "GET",
