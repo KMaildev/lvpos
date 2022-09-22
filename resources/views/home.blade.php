@@ -41,7 +41,7 @@
 
 
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
-                        <a href="" style="text-decoration: none">
+                        <a href="{{ route('counter_dashboard.index') }}" style="text-decoration: none">
                             <div class="card">
                                 <div class="card-body text-center">
                                     <div class="avatar avatar-md mx-auto mb-3">
@@ -149,6 +149,4 @@
             </div>
         </div>
     </div>
-
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi, recusandae! Inventore ratione magni, esse error accusamus facere debitis nam accusantium ipsa maiores id libero. Magnam veniam qui in tenetur ipsa?
 @endsection

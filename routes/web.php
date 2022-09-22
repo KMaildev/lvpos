@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Counter\CounterDashboard;
+use App\Http\Controllers\Counter\CounterDashboardController;
+use App\Http\Controllers\Counter\OrderListController;
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
@@ -27,6 +30,8 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    // Management 
     Route::resource('management_dashboard', ManagementDashboardController::class);
     Route::resource('main_category', MainCategoryController::class);
     Route::resource('category', CategoryController::class);
@@ -42,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('floor', FloorController::class);
     Route::resource('table_lists', TableListsController::class);
 
+    // POS System 
     Route::resource('pos_system', PosSystemController::class);
     Route::get('get_menu_lists', [PosSystemController::class, 'getMenuList'])->name('get_menu_lists');
     Route::get('search_menu_lists_by_category', [PosSystemController::class, 'getSearchByCategory'])->name('search_menu_lists_by_category');
@@ -61,7 +67,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_confirm', OrderConfirmController::class);
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
 
+    // Counter 
+    Route::resource('counter_dashboard', CounterDashboardController::class);
+    Route::resource('order_lists', OrderListController::class);
 
+    // HR 
     Route::resource('employee', EmployeeController::class);
     Route::resource('department', DepartmentController::class);
     Route::resource('permission', PermissionController::class);
