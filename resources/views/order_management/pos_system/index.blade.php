@@ -79,8 +79,8 @@
                                                             Table
                                                             <span class="color-red">*</span>
                                                         </label>
-                                                        <select class="form-control select2" name="table_list_id"
-                                                            id="tableListId">
+                                                        <select class="form-control select2 text-danger"
+                                                            name="table_list_id" id="tableListId">
                                                             <option value="">--Select Table--</option>
                                                             @foreach ($table_lists as $table_list)
                                                                 <option value="{{ $table_list->id }}">
@@ -502,7 +502,6 @@
             $('#customerLists').html(customers);
         }
 
-
         $('.orderConfirm').submit(function(e) {
             e.preventDefault();
             let form = $(this);
@@ -511,6 +510,7 @@
             let table_list_id = document.getElementById("tableListId").value;
 
             if (table_list_id == null || table_list_id == "") {
+                orderFailed();
                 return false;
             }
 
@@ -533,14 +533,25 @@
                 },
                 error: function(data) {}
             });
-
-
         })
 
         function audioPlay() {
             var song = new Audio();
             song.src = "{{ URL::asset('data/order_success.mp3') }}";
             song.play();
+        }
+
+        function orderFailed() {
+            swal({
+                    title: "Order Failed!!!",
+                    text: "Order not placed due to some reason. Please Try Again!!!. Thank You !!!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+
+                });
         }
     </script>
 @endsection
