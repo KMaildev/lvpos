@@ -529,6 +529,7 @@
                 },
                 success: function(data) {
                     audioPlay();
+                    orderSuccess();
                     getTemporaryOrderItem();
                 },
                 error: function(data) {}
@@ -548,6 +549,19 @@
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
+                })
+                .then((willDelete) => {
+
+                });
+        }
+
+        function orderSuccess() {
+            swal({
+                    title: "Order Success",
+                    text: "Your order has been placed!",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
                 })
                 .then((willDelete) => {
 

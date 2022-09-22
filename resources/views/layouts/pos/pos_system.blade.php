@@ -84,7 +84,7 @@
     <script src="{{ asset('pos/js/bootstrap-tagsinput.js') }}" type="text/javascript"></script>
     <script src="{{ asset('pos/js/select2.min.js') }}"></script>
     <script src="{{ asset('pos/js/custom.js') }}" type="text/javascript"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
     @yield('script')
 

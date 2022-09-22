@@ -39,22 +39,6 @@
                         </a>
                     </div>
 
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
-                        <a href="" style="text-decoration: none">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <div class="avatar avatar-md mx-auto mb-3">
-                                        <span class="avatar-initial rounded-circle bg-label-danger">
-                                            <i class='fa fa-bowl-rice fs-1' style="color: #60D0DD"></i>
-                                        </span>
-                                    </div>
-                                    <span class="d-block mb-1 text-nowrap" style="font-size: 19px;">
-                                        Kitchen
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
 
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
                         <a href="" style="text-decoration: none">
@@ -72,6 +56,26 @@
                             </div>
                         </a>
                     </div>
+
+
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
+                        <a href="" style="text-decoration: none">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="avatar avatar-md mx-auto mb-3">
+                                        <span class="avatar-initial rounded-circle bg-label-danger">
+                                            <i class='fa fa-bowl-rice fs-1' style="color: #60D0DD"></i>
+                                        </span>
+                                    </div>
+                                    <span class="d-block mb-1 text-nowrap" style="font-size: 19px;">
+                                        Kitchen
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
 
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 mb-4">
                         <a href="{{ route('employee.index') }}" style="text-decoration: none">

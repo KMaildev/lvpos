@@ -10,7 +10,7 @@
 <script src="{{ asset('main/js/pages/dashboard.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
 <!-- Riday Admin App -->
 <script src="js/template.js"></script>
