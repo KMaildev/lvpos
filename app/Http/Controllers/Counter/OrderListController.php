@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Counter;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,16 @@ class OrderListController extends Controller
      */
     public function show($id)
     {
-        //
+        $order_info = OrderInfo::findOrFail($id);
+        $order_items = OrderItem::where('order_info_id', $id)
+            ->get();
+
+        $viewRender = view('counter.order_list.invoice', compact('order_info', 'order_items'))->render();
+
+        return response()->json([
+            'order_infos' => $id,
+            'html' => $viewRender
+        ]);
     }
 
     /**

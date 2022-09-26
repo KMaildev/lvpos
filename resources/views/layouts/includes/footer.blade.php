@@ -13,8 +13,8 @@
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
 
 <!-- Riday Admin App -->
-<script src="js/template.js"></script>
-<script src="js/pages/order.js"></script>
+{{-- <script src="js/template.js"></script> --}}
+{{-- <script src="js/pages/order.js"></script> --}}
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 
 @yield('script')

@@ -19,4 +19,9 @@ class OrderItem extends Model
     ];
 
     use HasFactory;
+
+    public function menu_lists_table()
+    {
+        return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');
+    }
 }

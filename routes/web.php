@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('counter_dashboard', CounterDashboardController::class);
     Route::resource('order_lists', OrderListController::class);
     Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
+    Route::get('show_order_info/{id}', [OrderListController::class, 'show'])->name('show_order_info');
 
     // HR 
     Route::resource('employee', EmployeeController::class);

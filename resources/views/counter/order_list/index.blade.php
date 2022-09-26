@@ -21,151 +21,7 @@
                 </div>
             </div>
 
-            <style>
-                .mybill {
-                    text-align: center;
-                    justify-content: center;
-                }
-
-                .bill {
-                    width: 100%;
-                    box-shadow: 0 0 3px #aaa;
-                    padding: 10px 10px;
-                    box-sizing: border-box;
-                }
-
-                .flex {
-                    display: flex;
-                }
-
-                .justify-between {
-                    justify-content: space-between;
-                }
-
-                .table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
-
-                .table .header {
-                    border-top: 1px dashed #000;
-                    border-bottom: 1px dashed #000;
-                }
-
-                .table {
-                    text-align: left;
-                }
-
-                .table .total td:first-of-type {
-                    border-top: none;
-                    border-bottom: none;
-                }
-
-                .table .total td {
-                    border-top: 1px dashed #000;
-                    border-bottom: 1px dashed #000;
-                }
-
-                .table .net-amount td:first-of-type {
-                    border-top: none;
-                }
-
-                .table .net-amount td {
-                    border-top: 1px dashed #000;
-                }
-
-                .table .net-amount {
-                    border-bottom: 1px dashed #000;
-                }
-            </style>
-            <div class="col-md-4">
-                <div class="bill">
-                    <div class="mybill">
-                        <div class="brand">
-                            LV Restaurant
-                        </div>
-                        <div class="address">
-                            FLoor 2 Building No 34 Myanmar
-                            <br> Phone No- 0192083910
-                        </div>
-                        <div>
-                            INVOICE
-                        </div>
-                        <br>
-                    </div>
-
-                    <div class="bill-details">
-                        <div class="flex justify-between">
-                            <div>BILL NO: 091</div>
-                            <div>TABLE NO: 091</div>
-                        </div>
-                        <div class="flex justify-between">
-                            <div>BILL DATE: 10/Mar/2022</div>
-                            <div>TIME: 14:10</div>
-                        </div>
-                    </div>
-
-                    <table class="table">
-                        <tr class="header">
-                            <th>
-                                Items
-                            </th>
-                            <th>
-                                Rate
-                            </th>
-                            <th>
-                                Qty
-                            </th>
-                            <th>
-                                Amount
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Head and Shoulder</td>
-                            <td>100</td>
-                            <td>2</td>
-                            <td>200</td>
-                        </tr>
-                        <tr>
-                            <td>Britania</td>
-                            <td>25</td>
-                            <td>2</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>Tomatoes</td>
-                            <td>40</td>
-                            <td>1</td>
-                            <td>40</td>
-                        </tr>
-                        <tr>
-                            <td>Chocolates</td>
-                            <td>5</td>
-                            <td>12</td>
-                            <td>60</td>
-                        </tr>
-                        <tr class="total">
-                            <td></td>
-                            <td>Total</td>
-                            <td>17</td>
-                            <td>350</td>
-                        </tr>
-                        <tr class="net-amount">
-                            <td></td>
-                            <td>Net Amnt</td>
-                            <td></td>
-                            <td>385</td>
-                        </tr>
-                    </table>
-
-                    <p style="text-align: center">
-                        Thank You! <br>
-                        Please visit again
-                    </p>
-                </div>
-            </div>
-
-
+            <div class="col-md-4 viewInvoiceRender"></div>
         </div>
     </section>
 @endsection
@@ -263,7 +119,14 @@
         // Order Note 
         $(document).on("click", ".show_invoice", function() {
             var id = $(this).data('id');
-            alert(id)
+            var url = '{{ url('show_order_info') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    $('.viewInvoiceRender').html(data.html);
+                }
+            });
         });
     </script>
 @endsection
