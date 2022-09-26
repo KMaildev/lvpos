@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     // Counter 
     Route::resource('counter_dashboard', CounterDashboardController::class);
     Route::resource('order_lists', OrderListController::class);
+    Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
 
     // HR 
     Route::resource('employee', EmployeeController::class);

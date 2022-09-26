@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Counter;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrderInfo;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
 class OrderListController extends Controller
@@ -81,5 +83,22 @@ class OrderListController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getOrderInfo(Request $request)
+    {
+        $keyword = $request->keyword;
+        $order_infos = OrderInfo::with('table_lists_table', 'users_table')
+            ->where('check_out_time', NULL)
+            ->get();
+
+        if ($keyword) {
+            $order_infos = OrderInfo::with('table_lists_table', 'users_table')
+                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
+                ->get();
+        }
+        return response()->json([
+            'order_infos' => $order_infos
+        ]);
     }
 }
