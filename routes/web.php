@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Counter\BillController;
+use App\Http\Controllers\Counter\CompletedOrderController;
 use App\Http\Controllers\Counter\CounterDashboard;
 use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\OrderListController;
@@ -77,6 +78,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('bill_info', BillController::class);
     Route::post('store_bill_info', [BillController::class, 'store'])->name('store_bill_info');
 
+    Route::resource('completed_order', CompletedOrderController::class);
+    Route::get('get_completed_order_info', [CompletedOrderController::class, 'getOrderInfo'])->name('get_completed_order_info');
+    Route::get('completed_show_order_info/{id}', [CompletedOrderController::class, 'show'])->name('completed_show_order_info');
 
     // HR 
     Route::resource('employee', EmployeeController::class);

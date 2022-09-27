@@ -14,14 +14,15 @@
                     <li class="{{ Request::is('order_lists') ? 'active' : '' }}">
                         <a href="{{ route('order_lists.index') }}">
                             <i class="fa fa-list"></i>
-                            Order (Processing)
+                            Order list
+                            {{-- Order (Processing) --}}
                         </a>
                     </li>
-               
 
-                    <li class="{{ Request::is('order_lists') ? 'active' : '' }}" hidden>
-                        <a href="{{ route('order_lists.index') }}">
-                            <i class="fa fa-list"></i>
+
+                    <li class="{{ Request::is('completed_order') ? 'active' : '' }}">
+                        <a href="{{ route('completed_order.index') }}">
+                            <i class="fa fa-check"></i>
                             Complete order
                         </a>
                     </li>

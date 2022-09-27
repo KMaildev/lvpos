@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Counter;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillInfo;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
-class OrderListController extends Controller
+class CompletedOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class OrderListController extends Controller
      */
     public function index()
     {
-        return view('counter.order_list.index');
+        return view('counter.completed_order.index');
     }
 
     /**
@@ -53,7 +53,9 @@ class OrderListController extends Controller
         $order_items = OrderItem::where('order_info_id', $id)
             ->get();
 
-        $viewRender = view('counter.order_list.invoice', compact('order_info', 'order_items'))->render();
+        $bill_info = BillInfo::where('order_info_id', $id)
+            ->first();
+        $viewRender = view('counter.completed_order.invoice', compact('order_info', 'order_items', 'bill_info'))->render();
 
         return response()->json([
             'order_infos' => $id,
@@ -99,12 +101,12 @@ class OrderListController extends Controller
     {
         $keyword = $request->keyword;
         $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-            ->where('check_out_time', NULL)
+            ->whereNotNull('check_out_time')
             ->get();
 
         if ($keyword) {
             $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-                ->where('check_out_time', NULL)
+                ->whereNotNull('check_out_time')
                 ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
                 ->get();
         }

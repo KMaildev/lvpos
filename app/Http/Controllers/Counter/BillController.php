@@ -40,7 +40,7 @@ class BillController extends Controller
         // Store Bill Info 
         $bill_info = new BillInfo();
         $bill_info->total_amount = $request->amount;
-        $bill_info->bill_date = date('Y-m-d h:i:s A');
+        $bill_info->bill_date = date('d/M/Y');
         $bill_info->bill_time = date('h:i:s A');
         $bill_info->bill_date_time = date('Y-m-d h:i:s A');
         $bill_info->order_info_id = $request->order_info_id ?? 0;
