@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2022 at 01:55 PM
+-- Generation Time: Sep 27, 2022 at 05:55 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `lv_pos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill_infos`
+--
+
+CREATE TABLE `bill_infos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `total_amount` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bill_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bill_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bill_date_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_info_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bill_infos`
+--
+
+INSERT INTO `bill_infos` (`id`, `total_amount`, `bill_date`, `bill_time`, `bill_date_time`, `order_info_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, '14400', '2022-09-27 10:16:06 AM', '10:16:06 AM', '2022-09-27 10:16:06 AM', '1', '1', '2022-09-27 03:46:06', '2022-09-27 03:46:06'),
+(2, '13700', '2022-09-27 10:18:06 AM', '10:18:06 AM', '2022-09-27 10:18:06 AM', '2', '1', '2022-09-27 03:48:06', '2022-09-27 03:48:06'),
+(3, '25700', '2022-09-27 10:18:09 AM', '10:18:09 AM', '2022-09-27 10:18:09 AM', '4', '1', '2022-09-27 03:48:09', '2022-09-27 03:48:09'),
+(4, '22100', '2022-09-27 10:24:35 AM', '10:24:35 AM', '2022-09-27 10:24:35 AM', '3', '1', '2022-09-27 03:54:35', '2022-09-27 03:54:35'),
+(5, '4200', '2022-09-27 10:25:00 AM', '10:25:00 AM', '2022-09-27 10:25:00 AM', '6', '1', '2022-09-27 03:55:00', '2022-09-27 03:55:00');
 
 -- --------------------------------------------------------
 
@@ -324,7 +353,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2022_09_21_070830_create_customers_table', 14),
 (19, '2022_09_21_121330_create_order_infos_table', 15),
 (20, '2022_09_22_144125_add_order_no_to_order_infos_table', 16),
-(21, '2022_09_22_145406_create_order_items_table', 17);
+(21, '2022_09_22_145406_create_order_items_table', 17),
+(23, '2022_09_27_092956_create_bill_infos_table', 18),
+(24, '2022_09_27_095049_add_bill_no_to_order_infos_table', 18),
+(25, '2022_09_27_101427_add_check_out_status_to_order_infos_table', 19);
 
 -- --------------------------------------------------------
 
@@ -375,22 +407,22 @@ CREATE TABLE `order_infos` (
   `user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `order_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `order_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bill_no` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `check_out_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order_infos`
 --
 
-INSERT INTO `order_infos` (`id`, `customer_id`, `table_list_id`, `order_date`, `check_in_time`, `check_out_time`, `user_id`, `created_at`, `updated_at`, `order_no`) VALUES
-(1, '0', '2', '2022-09-22 03:04:34 PM', '2022-09-22 03:04:34 PM', NULL, '1', '2022-09-22 08:34:34', '2022-09-22 08:34:34', '000001'),
-(2, '0', '1', '2022-09-22 03:28:41 PM', '2022-09-22 03:28:41 PM', NULL, '1', '2022-09-22 08:58:41', '2022-09-22 08:58:41', '000002'),
-(3, '0', '3', '2022-09-22 03:32:55 PM', '2022-09-22 03:32:55 PM', NULL, '1', '2022-09-22 09:02:55', '2022-09-22 09:02:55', '000003'),
-(4, '0', '4', '2022-09-22 03:34:01 PM', '2022-09-22 03:34:01 PM', NULL, '1', '2022-09-22 09:04:01', '2022-09-22 09:04:01', '000004'),
-(5, '0', '3', '2022-09-22 03:36:15 PM', '2022-09-22 03:36:15 PM', NULL, '1', '2022-09-22 09:06:15', '2022-09-22 09:06:15', '000005'),
-(6, '0', '1', '2022-09-22 03:39:35 PM', '2022-09-22 03:39:35 PM', NULL, '1', '2022-09-22 09:09:35', '2022-09-22 09:09:35', '000006'),
-(7, '0', '1', '2022-09-22 03:58:01 PM', '2022-09-22 03:58:01 PM', NULL, '1', '2022-09-22 09:28:01', '2022-09-22 09:28:01', '000007'),
-(8, '0', '1', '2022-09-26 03:31:05 AM', '2022-09-26 03:31:05 AM', NULL, '1', '2022-09-25 21:01:05', '2022-09-25 21:01:05', '000008');
+INSERT INTO `order_infos` (`id`, `customer_id`, `table_list_id`, `order_date`, `check_in_time`, `check_out_time`, `user_id`, `created_at`, `updated_at`, `order_no`, `bill_no`, `check_out_status`) VALUES
+(1, '0', '1', '2022-09-27 09:55:39 AM', '2022-09-27 09:55:39 AM', '2022-09-27 10:16:06 AM', '1', '2022-09-27 03:25:39', '2022-09-27 03:46:06', '000001', 'B00001', 'finished'),
+(2, '0', '2', '2022-09-27 09:56:12 AM', '2022-09-27 09:56:12 AM', '2022-09-27 10:18:06 AM', '1', '2022-09-27 03:26:12', '2022-09-27 03:48:06', '000002', 'B00002', 'finished'),
+(3, '0', '3', '2022-09-27 09:56:19 AM', '2022-09-27 09:56:19 AM', '2022-09-27 10:24:35 AM', '1', '2022-09-27 03:26:19', '2022-09-27 03:54:35', '000003', 'B00003', 'finished'),
+(4, '0', '4', '2022-09-27 09:56:26 AM', '2022-09-27 09:56:26 AM', '2022-09-27 10:18:09 AM', '1', '2022-09-27 03:26:26', '2022-09-27 03:48:09', '000004', 'B00004', 'finished'),
+(5, '0', '3', '2022-09-27 10:15:10 AM', '2022-09-27 10:15:10 AM', NULL, '1', '2022-09-27 03:45:10', '2022-09-27 03:45:10', '000005', 'B00005', NULL),
+(6, '0', '1', '2022-09-27 10:21:25 AM', '2022-09-27 10:21:25 AM', '2022-09-27 10:25:00 AM', '1', '2022-09-27 03:51:25', '2022-09-27 03:55:00', '000006', 'B00006', 'finished');
 
 -- --------------------------------------------------------
 
@@ -415,23 +447,26 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `menu_list_id`, `qty`, `price`, `remark`, `order_info_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, '3', '2', '3500', '', 1, 1, '2022-09-22 08:34:34', '2022-09-22 08:34:34'),
-(2, '8', '1', '4200', '', 1, 1, '2022-09-22 08:34:34', '2022-09-22 08:34:34'),
-(3, '12', '1', '3500', '', 1, 1, '2022-09-22 08:34:34', '2022-09-22 08:34:34'),
-(4, '13', '1', '6000', '', 2, 1, '2022-09-22 08:58:41', '2022-09-22 08:58:41'),
-(5, '12', '1', '3500', '', 2, 1, '2022-09-22 08:58:41', '2022-09-22 08:58:41'),
-(6, '4', '1', '6000', '', 3, 1, '2022-09-22 09:02:55', '2022-09-22 09:02:55'),
-(7, '8', '1', '4200', '', 3, 1, '2022-09-22 09:02:55', '2022-09-22 09:02:55'),
-(8, '12', '1', '3500', '', 3, 1, '2022-09-22 09:02:55', '2022-09-22 09:02:55'),
-(9, '2', '1', '4200', '', 4, 1, '2022-09-22 09:04:01', '2022-09-22 09:04:01'),
-(10, '7', '1', '6000', '', 4, 1, '2022-09-22 09:04:01', '2022-09-22 09:04:01'),
-(11, '11', '1', '4200', '', 4, 1, '2022-09-22 09:04:01', '2022-09-22 09:04:01'),
-(12, '8', '1', '4200', '', 5, 1, '2022-09-22 09:06:15', '2022-09-22 09:06:15'),
-(13, '12', '1', '3500', '', 5, 1, '2022-09-22 09:06:15', '2022-09-22 09:06:15'),
-(14, '9', '1', '3500', '', 6, 1, '2022-09-22 09:09:35', '2022-09-22 09:09:35'),
-(15, '13', '1', '6000', '', 6, 1, '2022-09-22 09:09:35', '2022-09-22 09:09:35'),
-(16, '8', '1', '4200', '', 8, 1, '2022-09-25 21:01:05', '2022-09-25 21:01:05'),
-(17, '9', '1', '3500', '', 8, 1, '2022-09-25 21:01:05', '2022-09-25 21:01:05');
+(1, '2', '1', '4200', '', 1, 1, '2022-09-27 03:25:39', '2022-09-27 03:25:39'),
+(2, '4', '1', '6000', '', 1, 1, '2022-09-27 03:25:39', '2022-09-27 03:25:39'),
+(3, '5', '1', '4200', '', 1, 1, '2022-09-27 03:25:39', '2022-09-27 03:25:39'),
+(4, '6', '1', '3500', '', 2, 1, '2022-09-27 03:26:12', '2022-09-27 03:26:12'),
+(5, '7', '1', '6000', '', 2, 1, '2022-09-27 03:26:12', '2022-09-27 03:26:12'),
+(6, '8', '1', '4200', '', 2, 1, '2022-09-27 03:26:12', '2022-09-27 03:26:12'),
+(7, '17', '1', '4200', '', 3, 1, '2022-09-27 03:26:19', '2022-09-27 03:26:19'),
+(8, '16', '1', '6000', '', 3, 1, '2022-09-27 03:26:19', '2022-09-27 03:26:19'),
+(9, '15', '1', '3500', '', 3, 1, '2022-09-27 03:26:19', '2022-09-27 03:26:19'),
+(10, '14', '1', '4200', '', 3, 1, '2022-09-27 03:26:19', '2022-09-27 03:26:19'),
+(11, '11', '1', '4200', '', 3, 1, '2022-09-27 03:26:19', '2022-09-27 03:26:19'),
+(12, '13', '1', '6000', '', 4, 1, '2022-09-27 03:26:26', '2022-09-27 03:26:26'),
+(13, '25', '1', '6000', '', 4, 1, '2022-09-27 03:26:26', '2022-09-27 03:26:26'),
+(14, '21', '1', '3500', '', 4, 1, '2022-09-27 03:26:26', '2022-09-27 03:26:26'),
+(15, '20', '1', '4200', '', 4, 1, '2022-09-27 03:26:26', '2022-09-27 03:26:26'),
+(16, '19', '1', '6000', '', 4, 1, '2022-09-27 03:26:26', '2022-09-27 03:26:26'),
+(17, '7', '1', '6000', '', 5, 1, '2022-09-27 03:45:10', '2022-09-27 03:45:10'),
+(18, '8', '1', '4200', '', 5, 1, '2022-09-27 03:45:10', '2022-09-27 03:45:10'),
+(19, '12', '1', '3500', '', 5, 1, '2022-09-27 03:45:10', '2022-09-27 03:45:10'),
+(20, '8', '1', '4200', '', 6, 1, '2022-09-27 03:51:25', '2022-09-27 03:51:25');
 
 -- --------------------------------------------------------
 
@@ -634,6 +669,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
+-- Indexes for table `bill_infos`
+--
+ALTER TABLE `bill_infos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -786,6 +827,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bill_infos`
+--
+ALTER TABLE `bill_infos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -849,19 +896,19 @@ ALTER TABLE `menu_lists`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `order_infos`
 --
 ALTER TABLE `order_infos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -891,7 +938,7 @@ ALTER TABLE `table_lists`
 -- AUTO_INCREMENT for table `temporary_order_items`
 --
 ALTER TABLE `temporary_order_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `users`

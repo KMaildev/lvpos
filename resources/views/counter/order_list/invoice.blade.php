@@ -73,7 +73,7 @@
 
     <div class="bill-details">
         <div class="flex justify-between">
-            <div>BILL NO: 091</div>
+            <div>BILL NO: {{ $order_info->bill_no ?? '' }}</div>
             <div>TABLE NO: {{ $order_info->order_no ?? '' }}</div>
         </div>
         <div class="flex justify-between">
@@ -153,4 +153,20 @@
         Thank You! <br>
         Please visit again
     </p>
+
+    <div style="text-align: center">
+        <button type="button" class="btn btn-success"
+            onclick="submitPayment({{ $order_info->id }}, {{ $total_amount }})">
+            <i class="fa fa-credit-card"></i>
+            Submit Payment
+        </button>
+
+        <button class="btn btn-warning" type="button">
+            <span>
+                <i class="fa fa-print"></i>
+                Print
+            </span>
+        </button>
+    </div>
+    <br>
 </div>

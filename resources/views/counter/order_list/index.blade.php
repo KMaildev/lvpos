@@ -29,7 +29,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\StoreMenuLists', '#create-form') !!}
     <script type="text/javascript">
         // Get All Order 
-        function getMenuLists() {
+        function getOrderLists() {
             var url = '{{ url('get_order_info') }}';
             $.ajax({
                 url: url,
@@ -40,7 +40,7 @@
                 }
             });
         }
-        getMenuLists();
+        getOrderLists();
 
         // Search Input
         $('#search').on('input', function() {
@@ -116,7 +116,7 @@
             $('#orderInfos').html(order_info);
         }
 
-        // Order Note 
+        // Show Invoice
         $(document).on("click", ".show_invoice", function() {
             var id = $(this).data('id');
             var url = '{{ url('show_order_info') }}';
@@ -125,8 +125,43 @@
                 method: "GET",
                 success: function(data) {
                     $('.viewInvoiceRender').html(data.html);
+                    audioPlay();
                 }
             });
         });
+
+        // Submit Payment 
+        function submitPayment(order_info_id, amount) {
+            if (order_info_id == null || order_info_id == "") {
+                pricressFailed();
+                return false;
+            }
+
+            if (amount == null || amount == "") {
+                pricressFailed();
+                return false;
+            }
+
+            var url = '{{ url('store_bill_info') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    order_info_id: order_info_id,
+                    amount: amount,
+                },
+                success: function(data) {
+                    paymentSuccess();
+                    getOrderLists();
+                    $('.viewInvoiceRender').html('');
+                },
+                error: function(data) {}
+            });
+        }
     </script>
 @endsection

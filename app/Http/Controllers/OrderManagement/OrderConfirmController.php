@@ -41,6 +41,7 @@ class OrderConfirmController extends Controller
     {
         $countOrderInfo = OrderInfo::count();
         $order_no = sprintf('%06d', $countOrderInfo + 1);
+        $bill_no = sprintf('B' . '%05d', $countOrderInfo + 1);
 
         // Order Info
         $order_info = new OrderInfo();
@@ -51,6 +52,7 @@ class OrderConfirmController extends Controller
         $order_info->check_out_time = null;
         $order_info->user_id = auth()->user()->id ?? 0;
         $order_info->order_no = $order_no;
+        $order_info->bill_no = $bill_no;
         $order_info->save();
         $order_info_id = $order_info->id;
 

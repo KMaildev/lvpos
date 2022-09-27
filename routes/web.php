@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Counter\BillController;
 use App\Http\Controllers\Counter\CounterDashboard;
 use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\OrderListController;
@@ -72,6 +73,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_lists', OrderListController::class);
     Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
     Route::get('show_order_info/{id}', [OrderListController::class, 'show'])->name('show_order_info');
+
+    Route::resource('bill_info', BillController::class);
+    Route::post('store_bill_info', [BillController::class, 'store'])->name('store_bill_info');
+
 
     // HR 
     Route::resource('employee', EmployeeController::class);

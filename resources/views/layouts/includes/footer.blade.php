@@ -17,7 +17,7 @@
 {{-- <script src="js/pages/order.js"></script> --}}
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 
-@yield('script')
+
 
 <script>
     $(document).ready(function() {
@@ -48,7 +48,44 @@
                 });
         });
     });
+
+
+    function audioPlay() {
+        var song = new Audio();
+        song.src = "{{ URL::asset('data/order_success.mp3') }}";
+        song.play();
+    }
+
+    function pricressFailed() {
+        swal({
+                title: "Process Failed!",
+                text: "Something went wrong please try again",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+
+            });
+    }
+
+
+    function paymentSuccess() {
+        swal({
+                title: "Payment Successful!",
+                text: "Your processing has been completed!",
+                icon: "success",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+
+            });
+    }
 </script>
+
+@yield('script')
+
 </body>
 
 </html>
