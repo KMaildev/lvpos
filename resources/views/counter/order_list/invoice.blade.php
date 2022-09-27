@@ -1,62 +1,6 @@
-<style>
-    .mybill {
-        text-align: center;
-        justify-content: center;
-    }
+<link rel="stylesheet" href="{{ asset('assets/css/bill.css') }}">
 
-    .bill {
-        width: 100%;
-        box-shadow: 0 0 3px #aaa;
-        padding: 10px 10px;
-        box-sizing: border-box;
-    }
-
-    .flex {
-        display: flex;
-    }
-
-    .justify-between {
-        justify-content: space-between;
-    }
-
-    .table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    .table .header {
-        border-top: 1px dashed #000;
-        border-bottom: 1px dashed #000;
-    }
-
-    .table {
-        text-align: left;
-    }
-
-    .table .total td:first-of-type {
-        border-top: none;
-        border-bottom: none;
-    }
-
-    .table .total td {
-        border-top: 1px dashed #000;
-        border-bottom: 1px dashed #000;
-    }
-
-    .table .net-amount td:first-of-type {
-        border-top: none;
-    }
-
-    .table .net-amount td {
-        border-top: 1px dashed #000;
-    }
-
-    .table .net-amount {
-        border-bottom: 1px dashed #000;
-    }
-</style>
-
-<div class="bill">
+<div class="bill" id="printArea" style="background-color: white;">
     <div class="mybill">
         <div class="brand">
             LV Restaurant
@@ -153,20 +97,21 @@
         Thank You! <br>
         Please visit again
     </p>
-
-    <div style="text-align: center">
-        <button type="button" class="btn btn-success"
-            onclick="submitPayment({{ $order_info->id }}, {{ $total_amount }})">
-            <i class="fa fa-credit-card"></i>
-            Submit Payment
-        </button>
-
-        <button class="btn btn-warning" type="button">
-            <span>
-                <i class="fa fa-print"></i>
-                Print
-            </span>
-        </button>
-    </div>
-    <br>
 </div>
+
+<br>
+<div style="text-align: center">
+    <button type="button" class="btn btn-success" onclick="submitPayment({{ $order_info->id }}, {{ $total_amount }})">
+        <i class="fa fa-credit-card"></i>
+        Submit Payment
+    </button>
+
+    <button class="btn btn-warning" type="button" onclick="printInvoice()">
+        <span>
+            <i class="fa fa-print"></i>
+            Print
+        </span>
+    </button>
+</div>
+<br><br>
+<br><br>

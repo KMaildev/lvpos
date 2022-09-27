@@ -16,7 +16,7 @@
 {{-- <script src="js/template.js"></script> --}}
 {{-- <script src="js/pages/order.js"></script> --}}
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-
+<script src="{{ asset('assets/print/print.min.js') }}"></script>
 
 
 <script>

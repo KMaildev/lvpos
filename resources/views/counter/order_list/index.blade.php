@@ -1,22 +1,29 @@
 @extends('layouts.menus.counter')
 @section('content')
     <section class="content">
+
         <div class="row">
-            <div class="col-12">
-                <div class="box">
-                    <div class="box-header no-border">
-                        <h4 class="box-title">
-                            Order list
-                        </h4>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Order list
+                    </h4>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="#" class="waves-effect waves-light btn btn-info" onclick="getOrderLists()">
+                            <i class="fa fa-rotate"></i>
+                            Update
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-8">
                 <input type="text" class="form-control" placeholder="Table Name" id="search" autocomplete="off">
                 <br>
                 {{-- Order Lists  --}}
-                {{-- id="orderInfos" --}}
                 <div class="row py-5" id="orderInfos">
                 </div>
             </div>
@@ -41,6 +48,7 @@
             });
         }
         getOrderLists();
+        setInterval(getOrderLists, 10000);
 
         // Search Input
         $('#search').on('input', function() {
@@ -161,6 +169,18 @@
                     $('.viewInvoiceRender').html('');
                 },
                 error: function(data) {}
+            });
+        }
+
+        // Print Invoice 
+        function printInvoice() {
+            printJS({
+                printable: "printArea",
+                type: "html",
+                css: [
+                    "{{ asset('assets/css/bill.css') }}"
+                ],
+                scanStyles: false
             });
         }
     </script>
