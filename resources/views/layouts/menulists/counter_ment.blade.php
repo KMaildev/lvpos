@@ -27,6 +27,14 @@
                         </a>
                     </li>
 
+
+                    <li class="{{ Request::is('completed_order') ? 'active' : '' }}">
+                        <a href="{{ route('completed_order.index') }}">
+                            <i class="fa fa-table"></i>
+                            Table Management
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>

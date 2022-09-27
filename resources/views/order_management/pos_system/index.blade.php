@@ -79,15 +79,23 @@
                                                             Table
                                                             <span class="color-red">*</span>
                                                         </label>
-                                                        <select class="form-control select2 text-danger"
-                                                            name="table_list_id" id="tableListId">
-                                                            <option value="">--Select Table--</option>
-                                                            @foreach ($table_lists as $table_list)
-                                                                <option value="{{ $table_list->id }}">
-                                                                    {{ $table_list->table_name ?? '' }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
+                                                        <div class="d-flex">
+                                                            <select class="form-control select2 text-danger"
+                                                                name="table_list_id" id="tableListId">
+                                                                <option value="">--Select Table--</option>
+                                                                @foreach ($table_lists as $table_list)
+                                                                    <option value="{{ $table_list->id }}">
+                                                                        {{ $table_list->table_name ?? '' }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+
+                                                            <button type="button" class="btn btn-primary ml-l"
+                                                                aria-hidden="true" data-toggle="modal"
+                                                                data-target="#showTableLists">
+                                                                <i class="fa fa-table"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
 
