@@ -1,6 +1,7 @@
 @extends('layouts.pos.pos_system')
 @section('content')
     @include('order_management.shared.model')
+    @include('order_management.shared.show_table_modal')
 
     <div class="row pos">
         <div class="panel">
@@ -80,15 +81,9 @@
                                                             <span class="color-red">*</span>
                                                         </label>
                                                         <div class="d-flex">
-                                                            <select class="form-control select2 text-danger"
-                                                                name="table_list_id" id="tableListId">
-                                                                <option value="">--Select Table--</option>
-                                                                @foreach ($table_lists as $table_list)
-                                                                    <option value="{{ $table_list->id }}">
-                                                                        {{ $table_list->table_name ?? '' }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
+
+                                                            <input type="text" id="tableNameForShow" readonly>
+                                                            <input type="hidden" id="tableListId">
 
                                                             <button type="button" class="btn btn-primary ml-l"
                                                                 aria-hidden="true" data-toggle="modal"
@@ -574,6 +569,14 @@
                 .then((willDelete) => {
 
                 });
+        }
+
+        // TableId Set 
+        function setTableId(table_id, table_name) {
+            document.getElementById("tableListId").value = table_id;
+            document.getElementById("tableNameForShow").value = table_name;
+            audioPlay();
+            $('#showTableLists').modal('hide');
         }
     </script>
 @endsection
