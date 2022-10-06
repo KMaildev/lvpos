@@ -9,6 +9,7 @@ use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
+use App\Http\Controllers\Kitchen\KitchenDashboardController;
 use App\Http\Controllers\Management\CategoryController;
 use App\Http\Controllers\Management\FloorController;
 use App\Http\Controllers\Management\IngredientsController;
@@ -81,6 +82,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('completed_order', CompletedOrderController::class);
     Route::get('get_completed_order_info', [CompletedOrderController::class, 'getOrderInfo'])->name('get_completed_order_info');
     Route::get('completed_show_order_info/{id}', [CompletedOrderController::class, 'show'])->name('completed_show_order_info');
+
+
+    // Kitchen 
+    Route::resource('kitchen_dashboard', KitchenDashboardController::class);
+
+
 
     // HR 
     Route::resource('employee', EmployeeController::class);
