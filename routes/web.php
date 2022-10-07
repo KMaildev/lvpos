@@ -10,6 +10,7 @@ use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
 use App\Http\Controllers\Kitchen\KitchenDashboardController;
+use App\Http\Controllers\Kitchen\OrderPreparationController;
 use App\Http\Controllers\Management\CategoryController;
 use App\Http\Controllers\Management\FloorController;
 use App\Http\Controllers\Management\IngredientsController;
@@ -86,6 +87,7 @@ Route::middleware('auth')->group(function () {
 
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
+    Route::resource('order_preparation', OrderPreparationController::class);
 
 
 
