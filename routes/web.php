@@ -89,7 +89,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
     Route::resource('order_preparation', OrderPreparationController::class);
     Route::get('get_order_info_preparation', [OrderPreparationController::class, 'getOrderInfoPreparation'])->name('get_order_info_preparation');
-
+    Route::post('update_order_preparation_status', [OrderPreparationController::class, 'updateOrderPreparationStatus'])->name('update_order_preparation_status');
+    Route::post('update_all_item_status', [OrderPreparationController::class, 'updateAllItemStatus'])->name('update_all_item_status');
 
 
     // HR 

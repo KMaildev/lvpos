@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Kitchen;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\updateAllItemStatus;
+use App\Http\Requests\updateOrderPreparationStatus;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderPreparationController extends Controller
@@ -88,15 +91,62 @@ class OrderPreparationController extends Controller
     {
         $keyword = $request->keyword;
         $order_infos = OrderInfo::with('table_lists_table')
-            ->where('check_out_time', NULL)
+            ->where('order_preparation_status', NULL)
             ->orderBy('id', 'DESC')
             ->get();
 
+        if ($keyword) {
+            $order_infos = OrderInfo::with('table_lists_table', 'order_items_table')
+                ->where('order_preparation_status', NULL)
+                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
+                ->get();
+        }
 
         $viewRender = view('kitchen.order_preparation.components.order_preparation', compact('order_infos'))->render();
 
         return response()->json([
             'html' => $viewRender
+        ]);
+    }
+
+    public function updateOrderPreparationStatus(updateOrderPreparationStatus $request)
+    {
+        $order_item_id = $request->order_item_id;
+        $order_item = OrderItem::findOrFail($order_item_id);
+        $order_item->preparation_date = date('Y-m-d h:i:s A');
+        $order_item->preparation_status = $request->order_status;
+        $order_item->preparation_user_id = auth()->user()->id ?? 0;
+        $order_item->update();
+
+        return response()->json([
+            "statusCode" => 200,
+            'procress' => 'success',
+        ]);
+    }
+
+
+    public function updateAllItemStatus(updateAllItemStatus $request)
+    {
+        $order_info_id = $request->order_info_id;
+        OrderItem::where('order_info_id', $order_info_id)->update(
+            [
+                'preparation_status' => $request->order_status,
+                'preparation_user_id' => auth()->user()->id ?? 0,
+                'preparation_date' => date('Y-m-d h:i:s A'),
+            ]
+        );
+
+        if ($request->order_status == 'Done') {
+            $order_info = OrderInfo::findOrFail($order_info_id);
+            $order_info->order_preparation_status = $request->order_status;
+            $order_info->order_preparation_date = date('Y-m-d h:i:s A');
+            $order_info->order_preparation_user_id = auth()->user()->id ?? 0;
+            $order_info->update();
+        }
+
+        return response()->json([
+            "statusCode" => 200,
+            'procress' => 'success',
         ]);
     }
 }

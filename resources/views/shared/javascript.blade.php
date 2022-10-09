@@ -151,8 +151,6 @@
         }
     </script>
 
-
-
     {{-- Order Management --}}
     <script type="text/javascript">
         // Get All Menus 
@@ -581,8 +579,6 @@
     </script>
 
 
-
-
     {{-- kitchen Module  --}}
     <script type="text/javascript">
         // Get All Order 
@@ -601,7 +597,81 @@
 
         // Search Input
         $('#searchOrderInfoPreparation').on('input', function() {
-            getOrderInfoPreparation();
+            searchOrderInfoPreparation();
         });
+
+        function searchOrderInfoPreparation() {
+            var keyword = $('#searchOrderInfoPreparation').val();
+            var url = '{{ url('get_order_info_preparation') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    $('.viewOrderInfoPreparation').html(data.html);
+                }
+            });
+        }
+
+        // Order Item Status 
+        function changeOrderItemStatus(order_item_id, order_status) {
+
+            if (order_item_id == null || order_item_id == "" || order_status == null || order_status == "") {
+                pricressFailed();
+                return false;
+            }
+
+            var url = '{{ url('update_order_preparation_status') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    order_item_id: order_item_id,
+                    order_status: order_status,
+                },
+                success: function(data) {
+                    getOrderInfoPreparation();
+                },
+                error: function(data) {
+                    pricressFailed();
+                }
+            });
+        }
+
+        // AllPreparation
+        function changeAllOrderItem(order_info_id, order_status) {
+            if (order_info_id == null || order_info_id == "") {
+                pricressFailed();
+                return false;
+            }
+
+            var url = '{{ url('update_all_item_status') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    order_info_id: order_info_id,
+                    order_status: order_status,
+                },
+                success: function(data) {
+                    getOrderInfoPreparation();
+                },
+                error: function(data) {
+                    pricressFailed();
+                }
+            });
+        }
     </script>
 @endsection
