@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
     Route::resource('order_preparation', OrderPreparationController::class);
+    Route::get('get_order_info_preparation', [OrderPreparationController::class, 'getOrderInfoPreparation'])->name('get_order_info_preparation');
 
 
 

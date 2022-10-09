@@ -84,21 +84,19 @@ class OrderPreparationController extends Controller
         //
     }
 
-    public function getOrderInfo(Request $request)
+    public function getOrderInfoPreparation(Request $request)
     {
         $keyword = $request->keyword;
-        $order_infos = OrderInfo::with('table_lists_table', 'users_table')
+        $order_infos = OrderInfo::with('table_lists_table')
             ->where('check_out_time', NULL)
+            ->orderBy('id', 'DESC')
             ->get();
 
-        if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-                ->where('check_out_time', NULL)
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
-                ->get();
-        }
+
+        $viewRender = view('kitchen.order_preparation.components.order_preparation', compact('order_infos'))->render();
+
         return response()->json([
-            'order_infos' => $order_infos
+            'html' => $viewRender
         ]);
     }
 }

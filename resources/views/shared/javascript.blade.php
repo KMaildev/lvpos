@@ -579,4 +579,29 @@
             $('#showTableLists').modal('hide');
         }
     </script>
+
+
+
+
+    {{-- kitchen Module  --}}
+    <script type="text/javascript">
+        // Get All Order 
+        function getOrderInfoPreparation() {
+            var url = '{{ url('get_order_info_preparation') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    $('.viewOrderInfoPreparation').html(data.html);
+                }
+            });
+        }
+        getOrderInfoPreparation();
+        setInterval(getOrderInfoPreparation, 10000); //10 Sec
+
+        // Search Input
+        $('#searchOrderInfoPreparation').on('input', function() {
+            getOrderInfoPreparation();
+        });
+    </script>
 @endsection

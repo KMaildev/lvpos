@@ -4,19 +4,14 @@
         <div class="app-menu">
             <ul class="header-megamenu nav">
 
-                <li class="btn-group nav-item d-none d-xl-inline-block">
+                <li class="btn-group">
                     <div class="app-menu">
                         <div class="search-bx mx-5">
-                            <form>
-                                <div class="input-group">
-                                    <input type="search" class="form-control" placeholder="Search" aria-label="Search"
-                                        aria-describedby="button-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn" type="submit" id="button-addon3"><i
-                                                class="ti-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+                            <a href="{{ route('home') }}" class="btn btn-primary"
+                                style="background-color: #277CCF; color: white;">
+                                <i class="fa fa-home"></i>
+                                Home
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -26,7 +21,8 @@
                         <div class="search-bx mx-5">
                             <a href="{{ route('order_preparation.index') }}" class="btn btn-primary"
                                 style="background-color: #277CCF; color: white;">
-                                Order Preparation
+                                <i class="fa fa-bowl-rice"></i>
+                                Order
                             </a>
                         </div>
                     </div>
@@ -36,6 +32,7 @@
                     <div class="app-menu">
                         <div class="search-bx mx-5">
                             <a href="" class="btn btn-primary" style="background-color: #53A107; color: white;">
+                                <i class="fa fa-check-double"></i>
                                 Done
                             </a>
                         </div>

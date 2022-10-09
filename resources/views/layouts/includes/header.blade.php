@@ -23,6 +23,10 @@
             background-color: #418108;
             color: white;
         }
+
+        .fz19{
+            font-size: 19px;
+        }
     </style>
 </head>
 
