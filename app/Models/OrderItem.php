@@ -24,4 +24,10 @@ class OrderItem extends Model
     {
         return $this->belongsTo(MenuList::class, 'menu_list_id', 'id');
     }
+
+
+    public function user_table()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

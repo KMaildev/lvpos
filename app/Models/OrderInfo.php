@@ -19,6 +19,13 @@ class OrderInfo extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+
+    public function users_table_preparation()
+    {
+        return $this->belongsTo(User::class, 'order_preparation_user_id', 'id');
+    }
+
+
     public function order_items_table()
     {
         return $this->hasMany(OrderItem::class, 'order_info_id', 'id');

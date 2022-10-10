@@ -13,8 +13,8 @@
             });
         }
         getOrderLists();
-        // setInterval(getOrderLists, 10000); 10 Sec
-        setInterval(getOrderLists, 5000); //5Sec 
+        setInterval(getOrderLists, 10000);
+        // 10 Sec
 
         // Search Input
         $('#searchOrderList').on('input', function() {
@@ -594,6 +594,7 @@
         }
         getOrderInfoPreparation();
         setInterval(getOrderInfoPreparation, 10000); //10 Sec
+        // setInterval(getOrderInfoPreparation, 5000);
 
         // Search Input
         $('#searchOrderInfoPreparation').on('input', function() {
@@ -670,6 +671,40 @@
                 },
                 error: function(data) {
                     pricressFailed();
+                }
+            });
+        }
+
+        // Get All Order 
+        function getOrderInfoDone() {
+            var url = '{{ url('get_order_info_done') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    $('.viewOrderInfoDone').html(data.html);
+                }
+            });
+        }
+        getOrderInfoDone();
+        setInterval(getOrderInfoDone, 10000); //10 Sec
+
+        // Search Input
+        $('#searchOrderInfoDone').on('input', function() {
+            searchOrderInfoPreparation();
+        });
+
+        function searchOrderInfoPreparation() {
+            var keyword = $('#searchOrderInfoDone').val();
+            var url = '{{ url('get_order_info_done') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    $('.viewOrderInfoDone').html(data.html);
                 }
             });
         }

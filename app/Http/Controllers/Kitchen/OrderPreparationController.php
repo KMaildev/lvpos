@@ -140,6 +140,7 @@ class OrderPreparationController extends Controller
             $order_info = OrderInfo::findOrFail($order_info_id);
             $order_info->order_preparation_status = $request->order_status;
             $order_info->order_preparation_date = date('Y-m-d h:i:s A');
+            $order_info->preparation_date = date('Y-m-d');
             $order_info->order_preparation_user_id = auth()->user()->id ?? 0;
             $order_info->update();
         }

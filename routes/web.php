@@ -9,7 +9,9 @@ use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
 use App\Http\Controllers\Hr\RoleController;
+use App\Http\Controllers\Kitchen\AllOrderDoneController;
 use App\Http\Controllers\Kitchen\KitchenDashboardController;
+use App\Http\Controllers\Kitchen\OrderDoneController;
 use App\Http\Controllers\Kitchen\OrderPreparationController;
 use App\Http\Controllers\Management\CategoryController;
 use App\Http\Controllers\Management\FloorController;
@@ -92,6 +94,10 @@ Route::middleware('auth')->group(function () {
     Route::post('update_order_preparation_status', [OrderPreparationController::class, 'updateOrderPreparationStatus'])->name('update_order_preparation_status');
     Route::post('update_all_item_status', [OrderPreparationController::class, 'updateAllItemStatus'])->name('update_all_item_status');
 
+    Route::resource('order_done', OrderDoneController::class);
+    Route::get('get_order_info_done', [OrderDoneController::class, 'getOrderInfoDone'])->name('get_order_info_done');
+
+    Route::resource('all_order_done', AllOrderDoneController::class);
 
     // HR 
     Route::resource('employee', EmployeeController::class);

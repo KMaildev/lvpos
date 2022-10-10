@@ -31,9 +31,22 @@
                 <li class="btn-group">
                     <div class="app-menu">
                         <div class="search-bx mx-5">
-                            <a href="" class="btn btn-primary" style="background-color: #53A107; color: white;">
+                            <a href="{{ route('order_done.index') }}" class="btn btn-primary"
+                                style="background-color: #53A107; color: white;">
                                 <i class="fa fa-check-double"></i>
-                                Done
+                                Done (Today)
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="btn-group">
+                    <div class="app-menu">
+                        <div class="search-bx mx-5">
+                            <a href="{{ route('all_order_done.index') }}" class="btn btn-info"
+                                style="background-color: #53A107; color: white;">
+                                <i class="fa fa-calendar"></i>
+                                Done (All)
                             </a>
                         </div>
                     </div>
