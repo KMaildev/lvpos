@@ -268,6 +268,7 @@
                     price: price,
                 },
                 success: function(data) {
+                    console.log(data)
                     audioPlay();
                     getTemporaryOrderItem();
                 },
@@ -450,10 +451,12 @@
             });
 
             var url = '{{ url('store_customer') }}';
+
             $.ajax({
                 method: 'POST',
                 url: url,
                 data: {
+                    "_token": "{{ csrf_token() }}",
                     customer_name: customer_name,
                     email: email,
                     mobile: mobile,

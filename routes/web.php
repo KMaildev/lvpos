@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get_customer', [CustomerController::class, 'index'])->name('get_customer');
     Route::post('store_customer', [CustomerController::class, 'store'])->name('store_customer');
 
+
     Route::resource('order_confirm', OrderConfirmController::class);
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
 

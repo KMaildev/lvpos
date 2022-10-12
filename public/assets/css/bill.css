@@ -1,13 +1,20 @@
-.mybill {
-    text-align: center;
-    justify-content: center;
+.receipt {
+    padding: 5mm;
+    width: 70mm;
 }
 
 .bill {
-    width: 100%;
-    /* box-shadow: 0 0 3px #aaa; */
+    /* width: 100%;
     padding: 10px 10px;
-    box-sizing: border-box;
+    box-sizing: border-box; */
+
+    padding: 3mm;
+    width: 80mm;
+}
+
+.mybill {
+    text-align: center;
+    justify-content: center;
 }
 
 .flex {
