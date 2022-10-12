@@ -13,4 +13,9 @@ class TableList extends Model
     {
         return $this->belongsTo(Floor::class, 'floor_id', 'id');
     }
+
+    public function order_infos_table()
+    {
+        return $this->hasMany(OrderInfo::class, 'table_list_id', 'id');
+    }
 }

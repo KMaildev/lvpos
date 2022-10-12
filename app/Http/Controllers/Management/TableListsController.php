@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTableList;
 use App\Http\Requests\UpdateTableList;
 use App\Models\Floor;
+use App\Models\TableIcon;
 use App\Models\TableList;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,8 @@ class TableListsController extends Controller
     public function create()
     {
         $floors = Floor::all();
-        return view('management.table_lists.create', compact('floors'));
+        $table_icon = TableIcon::all();
+        return view('management.table_lists.create', compact('floors', 'table_icon'));
     }
 
     /**
@@ -41,14 +43,10 @@ class TableListsController extends Controller
      */
     public function store(StoreTableList $request)
     {
-        if ($request->hasFile('table_icon')) {
-            $table_icon = $request->file('table_icon');
-            $table_icon_path = $table_icon->store('public/table_icons');
-        }
         $table_list = new TableList();
         $table_list->floor_id = $request->floor_id;
         $table_list->table_name = $request->table_name;
-        $table_list->table_icon = $table_icon_path ?? '';
+        $table_list->table_icon = $request->table_icon ?? '';
         $table_list->reservation = $request->reservation;
         $table_list->save();
         return redirect()->back()->with('success', 'Your processing has been completed.');
@@ -75,7 +73,8 @@ class TableListsController extends Controller
     {
         $table_list = TableList::findOrFail($id);
         $floors = Floor::all();
-        return view('management.table_lists.edit', compact('table_list', 'floors'));
+        $table_icon = TableIcon::all();
+        return view('management.table_lists.edit', compact('table_list', 'floors', 'table_icon'));
     }
 
     /**
@@ -87,14 +86,10 @@ class TableListsController extends Controller
      */
     public function update(UpdateTableList $request, $id)
     {
-        if ($request->hasFile('table_icon')) {
-            $table_icon = $request->file('table_icon');
-            $table_icon_path = $table_icon->store('public/table_icons');
-        }
         $table_list = TableList::findOrFail($id);
         $table_list->floor_id = $request->floor_id;
         $table_list->table_name = $request->table_name;
-        $table_list->table_icon = $table_icon_path ?? $table_list->table_icon;
+        $table_list->table_icon = $request->table_icon ?? $table_list->table_icon;
         $table_list->reservation = $request->reservation;
         $table_list->update();
         return redirect()->back()->with('success', 'Your processing has been completed.');

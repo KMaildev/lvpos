@@ -5,6 +5,7 @@ use App\Http\Controllers\Counter\CompletedOrderController;
 use App\Http\Controllers\Counter\CounterDashboard;
 use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\OrderListController;
+use App\Http\Controllers\Counter\TableManagementController;
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Management\MainCategoryController;
 use App\Http\Controllers\Management\ManagementDashboardController;
 use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
+use App\Http\Controllers\Management\TableIconController;
 use App\Http\Controllers\Management\TableListsController;
 use App\Http\Controllers\OrderManagement\CustomerController;
 use App\Http\Controllers\OrderManagement\OrderConfirmController;
@@ -52,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::get('remove_menu_ingredient/{id}', [MenuIngredientsController::class, 'removeMenuIngredient'])->name('remove_menu_ingredient');
     Route::resource('floor', FloorController::class);
     Route::resource('table_lists', TableListsController::class);
+    Route::resource('table_icon', TableIconController::class);
+
 
     // POS System 
     Route::resource('pos_system', PosSystemController::class);
@@ -85,6 +89,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('completed_order', CompletedOrderController::class);
     Route::get('get_completed_order_info', [CompletedOrderController::class, 'getOrderInfo'])->name('get_completed_order_info');
     Route::get('completed_show_order_info/{id}', [CompletedOrderController::class, 'show'])->name('completed_show_order_info');
+    Route::resource('table_management', TableManagementController::class);
 
 
     // Kitchen 
@@ -96,7 +101,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('order_done', OrderDoneController::class);
     Route::get('get_order_info_done', [OrderDoneController::class, 'getOrderInfoDone'])->name('get_order_info_done');
-
     Route::resource('all_order_done', AllOrderDoneController::class);
 
     // HR 

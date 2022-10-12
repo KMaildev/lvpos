@@ -70,13 +70,20 @@
                                 Table Icon
                             </label>
                             <div class="col-md-9">
-                                <input class="form-control @error('table_icon') is-invalid @enderror" type="file"
-                                    name="table_icon" />
-                                @error('table_icon')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <div class="input-group mb-3">
+                                    <input class="form-control @error('table_icon') is-invalid @enderror" type="text"
+                                        name="table_icon" id="getIcon" />
+
+                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#tableIconModal">
+                                        Show
+                                    </button>
+                                    @error('table_icon')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
 
                                 <div class="preview_img my-2">
                                     @if ($table_list->table_icon)
@@ -97,7 +104,14 @@
             </div>
         </div>
     </div>
+    @include('management.table_icon.index')
 @endsection
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\UpdateTableList', '#create-form') !!}
+    <script>
+        function setTableIcon(icon_path) {
+            document.getElementById("getIcon").value = icon_path;
+            $('#tableIconModal').modal('hide');
+        }
+    </script>
 @endsection
