@@ -58,7 +58,7 @@
     }
 </style>
 {{-- Table Lists  --}}
-<div class="modal fade modal-warning" id="showTableLists" role="dialog">
+<div class="modal fade modal-warning" id="showTableLists" role="dialog" style="background-color: white">
     <div class="modal-dialog modal-fullscreen" role="document">
         <div class="modal-content">
             <div class="modal-header">

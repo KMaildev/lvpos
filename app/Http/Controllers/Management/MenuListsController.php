@@ -53,7 +53,7 @@ class MenuListsController extends Controller
         $menu_list = new MenuList();
         $menu_list->name = $request->name;
         $menu_list->price = $request->price;
-        $menu_list->photo = $photo_path ?? '';
+        $menu_list->photo = $photo_path ?? 'public/images/noimage.png';
         $menu_list->categorie_id = $request->categorie_id;
         $menu_list->main_categorie_id = $request->main_categorie_id;
         $menu_list->user_id =  auth()->user()->id ?? 0;
