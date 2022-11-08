@@ -30,4 +30,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function order_info_table()
+    {
+        return $this->belongsTo(OrderInfo::class, 'order_info_id', 'id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\updateAllItemStatus;
 use App\Http\Requests\updateOrderPreparationStatus;
 use App\Models\OrderInfo;
 use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderPreparationController extends Controller
@@ -89,25 +90,19 @@ class OrderPreparationController extends Controller
 
     public function getOrderInfoPreparation(Request $request)
     {
-        $keyword = $request->keyword;
-        $order_infos = OrderInfo::with('table_lists_table')
-            ->where('order_preparation_status', NULL)
-            ->orderBy('id', 'DESC')
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            ->where('preparation_status', 'Preparation')
+            ->orWhereNull('preparation_status')
+            ->orderBy('menu_list_id', 'DESC')
             ->get();
 
-        if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'order_items_table')
-                ->where('order_preparation_status', NULL)
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
-                ->get();
-        }
-
-        $viewRender = view('kitchen.order_preparation.components.order_preparation', compact('order_infos'))->render();
+        $viewRender = view('kitchen.order_preparation.components.order_preparation', compact('order_items'))->render();
 
         return response()->json([
             'html' => $viewRender
         ]);
     }
+
 
     public function updateOrderPreparationStatus(updateOrderPreparationStatus $request)
     {
@@ -116,8 +111,10 @@ class OrderPreparationController extends Controller
         $order_item->preparation_date = date('Y-m-d h:i:s A');
         $order_item->preparation_status = $request->order_status;
         $order_item->preparation_user_id = auth()->user()->id ?? 0;
-        $order_item->update();
 
+        $order_item->difference_time = $order_item->created_at->diffInMinutes(Carbon::now());
+
+        $order_item->update();
         return response()->json([
             "statusCode" => 200,
             'procress' => 'success',

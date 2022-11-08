@@ -22,7 +22,7 @@
                             <a href="{{ route('order_preparation.index') }}" class="btn btn-primary"
                                 style="background-color: #277CCF; color: white;">
                                 <i class="fa fa-bowl-rice"></i>
-                                Order
+                                Preparation
                             </a>
                         </div>
                     </div>

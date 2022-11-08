@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Kitchen;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderDoneController extends Controller
@@ -86,21 +88,13 @@ class OrderDoneController extends Controller
 
     public function getOrderInfoDone(Request $request)
     {
-        $keyword = $request->keyword;
-        $today = date('Y-m-d');
-        $order_infos = OrderInfo::with('table_lists_table')
-            ->where('preparation_date', $today)
-            ->orderBy('id', 'DESC')
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            ->whereIn('preparation_status', ['Done', 'Reject'])
+            ->where('updated_at', '>=', Carbon::today())
+            ->orderBy('menu_list_id', 'DESC')
             ->get();
 
-        if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'order_items_table')
-                ->where('preparation_date', $today)
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
-                ->get();
-        }
-
-        $viewRender = view('kitchen.order_done.components.order_done', compact('order_infos'))->render();
+        $viewRender = view('kitchen.order_done.components.order_done', compact('order_items'))->render();
 
         return response()->json([
             'html' => $viewRender

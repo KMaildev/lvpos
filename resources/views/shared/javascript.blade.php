@@ -615,24 +615,24 @@
         // setInterval(getOrderInfoPreparation, 5000);
 
         // Search Input
-        $('#searchOrderInfoPreparation').on('input', function() {
-            searchOrderInfoPreparation();
-        });
+        // $('#searchOrderInfoPreparation').on('input', function() {
+        //     searchOrderInfoPreparation();
+        // });
 
-        function searchOrderInfoPreparation() {
-            var keyword = $('#searchOrderInfoPreparation').val();
-            var url = '{{ url('get_order_info_preparation') }}';
-            $.ajax({
-                url: url,
-                method: "GET",
-                data: {
-                    keyword: keyword,
-                },
-                success: function(data) {
-                    $('.viewOrderInfoPreparation').html(data.html);
-                }
-            });
-        }
+        // function searchOrderInfoPreparation() {
+        //     var keyword = $('#searchOrderInfoPreparation').val();
+        //     var url = '{{ url('get_order_info_preparation') }}';
+        //     $.ajax({
+        //         url: url,
+        //         method: "GET",
+        //         data: {
+        //             keyword: keyword,
+        //         },
+        //         success: function(data) {
+        //             $('.viewOrderInfoPreparation').html(data.html);
+        //         }
+        //     });
+        // }
 
         // Order Item Status 
         function changeOrderItemStatus(order_item_id, order_status) {
@@ -705,26 +705,19 @@
             });
         }
         getOrderInfoDone();
-        setInterval(getOrderInfoDone, 10000); //10 Sec
+        setInterval(getOrderInfoDone, 50000); //50 Sec
+    </script>
 
-        // Search Input
-        $('#searchOrderInfoDone').on('input', function() {
-            searchOrderInfoPreparation();
-        });
 
-        function searchOrderInfoPreparation() {
-            var keyword = $('#searchOrderInfoDone').val();
-            var url = '{{ url('get_order_info_done') }}';
-            $.ajax({
-                url: url,
-                method: "GET",
-                data: {
-                    keyword: keyword,
-                },
-                success: function(data) {
-                    $('.viewOrderInfoDone').html(data.html);
-                }
+
+    <script>
+        $(document).ready(function() {
+            $("#searchInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".order_preparation tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
-        }
+        });
     </script>
 @endsection

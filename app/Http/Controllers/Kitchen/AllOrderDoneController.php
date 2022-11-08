@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kitchen;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class AllOrderDoneController extends Controller
@@ -16,18 +17,19 @@ class AllOrderDoneController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->keyword;
-        $order_infos = OrderInfo::with('table_lists_table')
-            ->where('order_preparation_status', 'Done')
-            ->orderBy('id', 'DESC')
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            ->orderBy('menu_list_id', 'DESC')
+            ->whereIn('preparation_status', ['Done', 'Reject'])
             ->get();
 
         if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'order_items_table')
-                ->where('order_preparation_status', 'Done')
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
+            $order_items = OrderItem::with('order_info_table', 'user_table', 'menu_lists_table')
+                ->orderBy('menu_list_id', 'DESC')
+                ->whereIn('preparation_status', ['Done', 'Reject'])
+                ->whereRelation('menu_lists_table', 'name', 'like', '%' . $keyword . '%')
                 ->get();
         }
-        return view('kitchen.all_order_done.index', compact('order_infos'));
+        return view('kitchen.all_order_done.index', compact('order_items'));
     }
 
     /**
