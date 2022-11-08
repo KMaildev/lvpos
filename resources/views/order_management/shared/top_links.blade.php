@@ -8,15 +8,14 @@
         </li>
 
         <li class="active">
-            <a href="#home" role="tab" data-toggle="tab" title="New Order" id="fhome" autofocus
-                class="home newtab">
+            <a href="#new_order" role="tab" data-toggle="tab" title="New Order" autofocus class="home newtab">
                 <i class="fa fa-plus smallview"></i>
                 <span class="responsiveview">New Order</span>
             </a>
         </li>
 
         <li>
-            <a href="#profile" role="tab" data-toggle="tab" class="ongord newtab" id="ongoingorder">
+            <a href="#ongoingorder" role="tab" data-toggle="tab" class="ongord newtab">
                 <i class="fa fa-hourglass-start smallview"></i>
                 <span class="responsiveview">On Going Order</span>
             </a>

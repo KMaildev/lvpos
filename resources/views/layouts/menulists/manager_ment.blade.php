@@ -4,8 +4,8 @@
             <div class="multinav-scroll" style="height: 100%;">
                 <ul class="sidebar-menu" data-widget="tree">
 
-                    <li class="{{ Request::is('counter_dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('counter_dashboard.index') }}">
+                    <li class="{{ Request::is('manager_dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('manager_dashboard.index') }}">
                             <i class="fa fa-home"></i>
                             Dashboard
                         </a>

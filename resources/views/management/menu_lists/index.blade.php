@@ -2,14 +2,14 @@
 @section('content')
     <section class="content">
         <div class="row">
-            <div class="card">
+            <div class="card" style="background-color:#74bf37;">
                 <div class="card-header">
-                    <h4 class="card-title">
+                    <h4 class="card-title" style="color:white;">
                         Menu List
                     </h4>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('menu_list.create') }}" class="waves-effect waves-light btn btn-info">
+                        <a href="{{ route('menu_list.create') }}" class="waves-effect waves-light btn btn-warning">
                             <i class="fa fa-plus"></i>
                             Create New
                         </a>
@@ -24,7 +24,7 @@
 
             @foreach ($menu_lists as $menu_list)
                 <div class="col-xxxl-3 col-xl-3 col-lg-6 col-12">
-                    <div class="box food-box">
+                    <div class="box food-box" style="height: 250px;">
                         <div class="box-body text-center">
                             <div class="menu-item">
                                 @if ($menu_list->photo)

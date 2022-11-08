@@ -506,39 +506,54 @@
             $('#customerLists').html(customers);
         }
 
+
         $('.orderConfirm').submit(function(e) {
             e.preventDefault();
             let form = $(this);
+            swal({
+                    title: "Order Process",
+                    text: "Are you sure want to order?",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        let customer_id = document.getElementById("customerLists").value;
+                        let table_list_id = document.getElementById("tableListId").value;
 
-            let customer_id = document.getElementById("customerLists").value;
-            let table_list_id = document.getElementById("tableListId").value;
+                        if (table_list_id == null || table_list_id == "") {
+                            orderFailed();
+                            return false;
+                        }
 
-            if (table_list_id == null || table_list_id == "") {
-                orderFailed();
-                return false;
-            }
+                        var url = '{{ url('store_order_confirm') }}';
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: 'POST',
+                            url: url,
+                            data: {
+                                customer_id: customer_id,
+                                table_list_id: table_list_id,
+                            },
+                            success: function(data) {
+                                audioPlay();
+                                orderSuccess();
+                                getTemporaryOrderItem();
+                            },
+                            error: function(data) {}
+                        });
+                    } else {
+                        swal("The process has been canceled.");
+                    }
+                });
 
-            var url = '{{ url('store_order_confirm') }}';
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: {
-                    customer_id: customer_id,
-                    table_list_id: table_list_id,
-                },
-                success: function(data) {
-                    audioPlay();
-                    orderSuccess();
-                    getTemporaryOrderItem();
-                },
-                error: function(data) {}
-            });
         })
+
 
         function audioPlay() {
             var song = new Audio();
@@ -596,7 +611,7 @@
             });
         }
         getOrderInfoPreparation();
-        setInterval(getOrderInfoPreparation, 10000); //10 Sec
+        // setInterval(getOrderInfoPreparation, 10000); //10 Sec
         // setInterval(getOrderInfoPreparation, 5000);
 
         // Search Input

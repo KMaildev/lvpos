@@ -27,12 +27,12 @@
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">
+                    <h4 class="card-title" style="text-shadow:1px 1px 1px gray; font-weight:bold;">
                         Category
                     </h4>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('category.create') }}" class="waves-effect waves-light btn btn-info">
+                        <a href="{{ route('category.create') }}" class="waves-effect waves-light btn btn-success" >
                             <i class="fa fa-plus"></i>
                             Create New
                         </a>

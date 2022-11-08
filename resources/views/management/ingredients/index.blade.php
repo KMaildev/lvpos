@@ -2,14 +2,14 @@
 @section('content')
     <section class="content">
         <div class="row">
-            <div class="card">
+            <div class="card" style="background-color:#8dd6c5;">
                 <div class="card-header">
                     <h4 class="card-title">
                         Ingredients
                     </h4>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('ingredients.create') }}" class="waves-effect waves-light btn btn-info">
+                        <a href="{{ route('ingredients.create') }}" class="waves-effect waves-light btn btn-danger">
                             <i class="fa fa-plus"></i>
                             Create New
                         </a>

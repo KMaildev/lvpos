@@ -11,7 +11,7 @@
         <a href="{{ route('home') }}" class="logo">
             <div class="logo-lg">
                 <span class="light-logo">
-                    <img src="{{ asset('images/logo-dark-text.png') }}" alt="logo">
+                    <img src="{{ asset('data/pos_logo.webp') }}" alt="logo" style="height:100px;">
                 </span>
             </div>
         </a>
@@ -54,7 +54,7 @@
                 <!-- Notifications -->
                 <li class="dropdown notifications-menu">
                     <span class="label label-primary">5</span>
-                    <a href="#" class="waves-effect waves-light dropdown-toggle btn-primary-light"
+                    <a href="#" class="waves-effect waves-light dropdown-toggle btn-success-light"
                         data-bs-toggle="dropdown" title="Notifications">
                         <i class="icon-Notifications"><span class="path1"></span><span class="path2"></span></i>
                     </a>
@@ -265,7 +265,7 @@
                         <strong class="d-md-inline-block d-none">
                             {{ auth()->user()->name ?? '' }}
                         </strong>
-                        <img src="{{ asset('images/avatar/avatar-11.png') }}"
+                        <img src="{{ asset('data/user_icon.png') }}"
                             class="user-image rounded-circle avatar bg-white mx-10" alt="User Image">
                     </a>
                     <ul class="dropdown-menu animated flipInX">

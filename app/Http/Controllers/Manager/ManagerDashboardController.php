@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Counter;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CounterDashboardController extends Controller
+class ManagerDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CounterDashboardController extends Controller
      */
     public function index()
     {
-        return view('counter.dashboard.index');
+        return view('manager.dashboard.index');
     }
 
     /**

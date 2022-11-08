@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Counter\BillController;
-use App\Http\Controllers\Counter\CompletedOrderController;
-use App\Http\Controllers\Counter\CounterDashboard;
-use App\Http\Controllers\Counter\CounterDashboardController;
-use App\Http\Controllers\Counter\OrderListController;
-use App\Http\Controllers\Counter\TableManagementController;
+use App\Http\Controllers\Manager\BillController;
+use App\Http\Controllers\Manager\CompletedOrderController;
+use App\Http\Controllers\Manager\CounterDashboard;
+use App\Http\Controllers\Manager\CounterDashboardController;
+use App\Http\Controllers\Manager\OrderListController;
+use App\Http\Controllers\Manager\TableManagementController;
+
 use App\Http\Controllers\Hr\DepartmentController;
 use App\Http\Controllers\Hr\EmployeeController;
 use App\Http\Controllers\Hr\PermissionController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableIconController;
 use App\Http\Controllers\Management\TableListsController;
+use App\Http\Controllers\Manager\ManagerDashboardController;
 use App\Http\Controllers\OrderManagement\CustomerController;
 use App\Http\Controllers\OrderManagement\OrderConfirmController;
 use App\Http\Controllers\OrderManagement\PosSystemController;
@@ -78,8 +80,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_confirm', OrderConfirmController::class);
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
 
-    // Counter 
-    Route::resource('counter_dashboard', CounterDashboardController::class);
+
+    
+    // Manager 
+    Route::resource('manager_dashboard', ManagerDashboardController::class);
     Route::resource('order_lists', OrderListController::class);
     Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
     Route::get('show_order_info/{id}', [OrderListController::class, 'show'])->name('show_order_info');
@@ -92,6 +96,8 @@ Route::middleware('auth')->group(function () {
     Route::get('completed_show_order_info/{id}', [CompletedOrderController::class, 'show'])->name('completed_show_order_info');
     Route::resource('table_management', TableManagementController::class);
 
+
+    
 
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);

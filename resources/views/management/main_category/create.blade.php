@@ -12,7 +12,7 @@
                         id="create-form" role="form">
                         @csrf
                         <div class="form-group row">
-                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                            <label for="html5-text-input" class="col-md-3 col-form-label" >
                                 Title
                             </label>
                             <div class="col-md-9">

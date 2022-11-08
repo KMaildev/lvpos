@@ -1,6 +1,6 @@
 @include('layouts.includes.header')
 @include('layouts.includes.top')
-@include('layouts.menulists.counter_ment')
+@include('layouts.menulists.manager_ment')
 
 <div class="content-wrapper">
     <div class="container-full">

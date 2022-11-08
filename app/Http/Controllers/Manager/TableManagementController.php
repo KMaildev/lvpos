@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Counter;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Models\OrderInfo;
-use App\Models\OrderItem;
-use Illuminate\Database\Query\Builder;
+use App\Models\TableList;
 use Illuminate\Http\Request;
 
-class OrderListController extends Controller
+class TableManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,8 @@ class OrderListController extends Controller
      */
     public function index()
     {
-        return view('counter.order_list.index');
+        $table_lists = TableList::all();
+        return view('manager.table_management.index', compact('table_lists'));
     }
 
     /**
@@ -49,16 +48,7 @@ class OrderListController extends Controller
      */
     public function show($id)
     {
-        $order_info = OrderInfo::findOrFail($id);
-        $order_items = OrderItem::where('order_info_id', $id)
-            ->get();
-
-        $viewRender = view('counter.order_list.invoice', compact('order_info', 'order_items'))->render();
-
-        return response()->json([
-            'order_infos' => $id,
-            'html' => $viewRender
-        ]);
+        //
     }
 
     /**
@@ -93,23 +83,5 @@ class OrderListController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getOrderInfo(Request $request)
-    {
-        $keyword = $request->keyword;
-        $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-            ->where('check_out_time', NULL)
-            ->get();
-
-        if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-                ->where('check_out_time', NULL)
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
-                ->get();
-        }
-        return response()->json([
-            'order_infos' => $order_infos
-        ]);
     }
 }

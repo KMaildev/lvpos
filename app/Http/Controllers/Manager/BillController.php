@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Counter;
+namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Models\BillInfo;
 use App\Models\OrderInfo;
-use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
-class CompletedOrderController extends Controller
+class BillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class CompletedOrderController extends Controller
      */
     public function index()
     {
-        return view('counter.completed_order.index');
+        //
     }
 
     /**
@@ -38,7 +37,26 @@ class CompletedOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Store Bill Info 
+        $bill_info = new BillInfo();
+        $bill_info->total_amount = $request->amount;
+        $bill_info->bill_date = date('d/M/Y');
+        $bill_info->bill_time = date('h:i:s A');
+        $bill_info->bill_date_time = date('Y-m-d h:i:s A');
+        $bill_info->order_info_id = $request->order_info_id ?? 0;
+        $bill_info->user_id = auth()->user()->id ?? 0;
+        $bill_info->save();
+
+        $order_info_id = $request->order_info_id ?? 0;
+        $order_info = OrderInfo::findOrFail($order_info_id);
+        $order_info->check_out_time = date('Y-m-d h:i:s A');
+        $order_info->check_out_status = 'finished';
+        $order_info->update();
+
+        return response()->json([
+            "statusCode" => 200,
+            'procress' => 'success',
+        ]);
     }
 
     /**
@@ -49,18 +67,7 @@ class CompletedOrderController extends Controller
      */
     public function show($id)
     {
-        $order_info = OrderInfo::findOrFail($id);
-        $order_items = OrderItem::where('order_info_id', $id)
-            ->get();
-
-        $bill_info = BillInfo::where('order_info_id', $id)
-            ->first();
-        $viewRender = view('counter.completed_order.invoice', compact('order_info', 'order_items', 'bill_info'))->render();
-
-        return response()->json([
-            'order_infos' => $id,
-            'html' => $viewRender
-        ]);
+        //
     }
 
     /**
@@ -95,23 +102,5 @@ class CompletedOrderController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function getOrderInfo(Request $request)
-    {
-        $keyword = $request->keyword;
-        $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-            ->whereNotNull('check_out_time')
-            ->get();
-
-        if ($keyword) {
-            $order_infos = OrderInfo::with('table_lists_table', 'users_table')
-                ->whereNotNull('check_out_time')
-                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
-                ->get();
-        }
-        return response()->json([
-            'order_infos' => $order_infos
-        ]);
     }
 }
