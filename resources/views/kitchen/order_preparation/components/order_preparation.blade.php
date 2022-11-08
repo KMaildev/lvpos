@@ -36,7 +36,9 @@
 
                                     <td>
                                         <span class="badge badge-pill badge-info">
-                                            {{ $order_item->qty ?? 0 }}
+                                            <span style="color: white">
+                                                {{ $order_item->qty ?? 0 }}
+                                            </span>
                                         </span>
                                     </td>
 
@@ -90,7 +92,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

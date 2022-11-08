@@ -5,8 +5,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="Search"
-                        id="searchInput">
+                    <input type="text" class="form-control form-control-lg" placeholder="Search" id="searchInput">
 
                     <button type="button" class="btn btn-info btn-sm" onclick="getOrderInfoPreparation()">
                         <i class="fa fa-rotate"></i>

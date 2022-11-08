@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\General\CounterController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
 use App\Http\Controllers\Manager\CounterDashboard;
@@ -81,7 +82,7 @@ Route::middleware('auth')->group(function () {
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
 
 
-    
+
     // Manager 
     Route::resource('manager_dashboard', ManagerDashboardController::class);
     Route::resource('order_lists', OrderListController::class);
@@ -97,8 +98,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('table_management', TableManagementController::class);
 
 
-    
-
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
     Route::resource('order_preparation', OrderPreparationController::class);
@@ -109,6 +108,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_done', OrderDoneController::class);
     Route::get('get_order_info_done', [OrderDoneController::class, 'getOrderInfoDone'])->name('get_order_info_done');
     Route::resource('all_order_done', AllOrderDoneController::class);
+
+
+
+    // General 
+    Route::resource('counter', CounterController::class);
+    Route::get('get_counter', [CounterController::class, 'index'])->name('get_counter');
+
 
     // HR 
     Route::resource('employee', EmployeeController::class);

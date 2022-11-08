@@ -614,26 +614,6 @@
         // setInterval(getOrderInfoPreparation, 10000); //10 Sec
         // setInterval(getOrderInfoPreparation, 5000);
 
-        // Search Input
-        // $('#searchOrderInfoPreparation').on('input', function() {
-        //     searchOrderInfoPreparation();
-        // });
-
-        // function searchOrderInfoPreparation() {
-        //     var keyword = $('#searchOrderInfoPreparation').val();
-        //     var url = '{{ url('get_order_info_preparation') }}';
-        //     $.ajax({
-        //         url: url,
-        //         method: "GET",
-        //         data: {
-        //             keyword: keyword,
-        //         },
-        //         success: function(data) {
-        //             $('.viewOrderInfoPreparation').html(data.html);
-        //         }
-        //     });
-        // }
-
         // Order Item Status 
         function changeOrderItemStatus(order_item_id, order_status) {
 
@@ -709,8 +689,21 @@
     </script>
 
 
-
+    {{-- Search  --}}
     <script>
+        function orderPreparationCount() {
+            var url = '{{ url('get_counter') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    $("#orderTotalPreparation").text(data.order_total_treparation);
+                }
+            });
+        }
+        orderPreparationCount();
+        setInterval(orderPreparationCount, 10000); //10 Sec
+
         $(document).ready(function() {
             $("#searchInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();

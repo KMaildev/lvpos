@@ -15,7 +15,7 @@
         </li>
 
         <li>
-            <a href="#ongoingorder" role="tab" data-toggle="tab" class="ongord newtab">
+            <a href="#ongoingorder" role="tab" data-toggle="tab" class="ongord newtab" onclick="getOrderInfoPreparation()">
                 <i class="fa fa-hourglass-start smallview"></i>
                 <span class="responsiveview">On Going Order</span>
             </a>

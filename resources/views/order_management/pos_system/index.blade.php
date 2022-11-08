@@ -14,7 +14,7 @@
                         @include('order_management.components.new_order')
                     </div>
 
-                    <div class="tab-pane fade  in" id="ongoingorder">
+                    <div class="tab-pane fade in" id="ongoingorder">
                         @include('order_management.components.ongoingorder')
                     </div>
                 </div>

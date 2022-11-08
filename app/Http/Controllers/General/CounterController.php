@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Kitchen;
+namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\MenuList;
-use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class KitchenDashboardController extends Controller
+class CounterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,13 +15,14 @@ class KitchenDashboardController extends Controller
      */
     public function index()
     {
-        $total_menu_lists = MenuList::count();
-        $total_customers = Customer::count();
-        $total_order_infos = OrderInfo::count();
+        $order_total_treparation = OrderItem::where('preparation_status', 'Preparation')
+            ->orWhereNull('preparation_status')
+            ->orderBy('menu_list_id', 'DESC')
+            ->count();
 
-        $total_price = OrderItem::where('preparation_status', 'Done')
-            ->sum(DB::raw('price * qty'));
-        return view('kitchen.dashboard.index', compact('total_menu_lists', 'total_customers', 'total_order_infos', 'total_price'));
+        return response()->json([
+            'order_total_treparation' => $order_total_treparation
+        ]);
     }
 
     /**
