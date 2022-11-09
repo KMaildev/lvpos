@@ -1,4 +1,4 @@
-@extends('layouts.menus.manager')
+@extends('layouts.menus.counter')
 @section('content')
     <section class="content">
         <div class="row">

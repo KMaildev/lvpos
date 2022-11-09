@@ -594,6 +594,21 @@
             audioPlay();
             $('#showTableLists').modal('hide');
         }
+
+
+
+        // On Going Order
+        function getOnGoingOrder() {
+            var url = '{{ url('get_on_goind_order') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    $('.viewOnGoingOrderList').html(data.html);
+                }
+            });
+        }
+        getOnGoingOrder();
     </script>
 
 

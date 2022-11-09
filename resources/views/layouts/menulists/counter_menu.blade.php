@@ -4,18 +4,18 @@
             <div class="multinav-scroll" style="height: 100%;">
                 <ul class="sidebar-menu" data-widget="tree">
 
-                    <li class="{{ Request::is('manager_dashboard') ? 'active' : '' }}">
-                        <a href="{{ route('manager_dashboard.index') }}">
+                    <li class="{{ Request::is('counter_dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('counter_dashboard.index') }}">
                             <i class="fa fa-home"></i>
                             Dashboard
                         </a>
                     </li>
 
+
                     <li class="{{ Request::is('order_lists') ? 'active' : '' }}">
                         <a href="{{ route('order_lists.index') }}">
                             <i class="fa fa-list"></i>
                             Orders
-                            {{-- Order (Processing) --}}
                         </a>
                     </li>
 
@@ -24,14 +24,6 @@
                         <a href="{{ route('completed_order.index') }}">
                             <i class="fa fa-check"></i>
                             Complete order
-                        </a>
-                    </li>
-
-
-                    <li class="{{ Request::is('table_management') ? 'active' : '' }}">
-                        <a href="{{ route('table_management.index') }}">
-                            <i class="fa fa-table"></i>
-                            Table Management
                         </a>
                     </li>
 

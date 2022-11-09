@@ -3,7 +3,6 @@
 use App\Http\Controllers\General\CounterController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
-use App\Http\Controllers\Manager\CounterDashboard;
 use App\Http\Controllers\Manager\CounterDashboardController;
 use App\Http\Controllers\Manager\OrderListController;
 use App\Http\Controllers\Manager\TableManagementController;
@@ -77,10 +76,9 @@ Route::middleware('auth')->group(function () {
     Route::get('get_customer', [CustomerController::class, 'index'])->name('get_customer');
     Route::post('store_customer', [CustomerController::class, 'store'])->name('store_customer');
 
-
     Route::resource('order_confirm', OrderConfirmController::class);
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
-
+    Route::get('get_on_goind_order', [OrderPreparationController::class, 'getOnGoingOrder'])->name('get_on_goind_order');
 
 
     // Manager 
@@ -98,10 +96,15 @@ Route::middleware('auth')->group(function () {
     Route::resource('table_management', TableManagementController::class);
 
 
+
+    // Counter 
+    Route::resource('counter_dashboard', CounterDashboardController::class);
+
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
     Route::resource('order_preparation', OrderPreparationController::class);
     Route::get('get_order_info_preparation', [OrderPreparationController::class, 'getOrderInfoPreparation'])->name('get_order_info_preparation');
+    
     Route::post('update_order_preparation_status', [OrderPreparationController::class, 'updateOrderPreparationStatus'])->name('update_order_preparation_status');
     Route::post('update_all_item_status', [OrderPreparationController::class, 'updateAllItemStatus'])->name('update_all_item_status');
 

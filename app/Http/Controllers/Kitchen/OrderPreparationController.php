@@ -88,11 +88,27 @@ class OrderPreparationController extends Controller
         //
     }
 
+
     public function getOrderInfoPreparation(Request $request)
     {
         $order_items = OrderItem::with('order_info_table', 'user_table')
             ->where('preparation_status', 'Preparation')
             ->orWhereNull('preparation_status')
+            ->orderBy('menu_list_id', 'DESC')
+            ->get();
+
+        $viewRender = view('kitchen.order_preparation.components.order_preparation', compact('order_items'))->render();
+
+        return response()->json([
+            'html' => $viewRender
+        ]);
+    }
+
+
+    public function getOnGoingOrder(Request $request)
+    {
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            // ->orWhereNull('preparation_status')
             ->orderBy('menu_list_id', 'DESC')
             ->get();
 
