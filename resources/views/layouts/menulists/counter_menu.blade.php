@@ -12,8 +12,8 @@
                     </li>
 
 
-                    <li class="{{ Request::is('order_lists') ? 'active' : '' }}">
-                        <a href="{{ route('order_lists.index') }}">
+                    <li class="{{ Request::is('counter_order') ? 'active' : '' }}">
+                        <a href="{{ route('counter_order.index') }}">
                             <i class="fa fa-list"></i>
                             Orders
                         </a>

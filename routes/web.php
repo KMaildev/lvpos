@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Counter\OrdersController;
 use App\Http\Controllers\General\CounterController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
@@ -99,12 +100,15 @@ Route::middleware('auth')->group(function () {
 
     // Counter 
     Route::resource('counter_dashboard', CounterDashboardController::class);
+    Route::resource('counter_order', OrdersController::class);
+    Route::get('get_counter_order', [OrdersController::class, 'getCounterOrderInfo'])->name('get_counter_order');
+    Route::get('counter_order_info_items/{id}', [OrdersController::class, 'show'])->name('counter_order_info_items');
 
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);
     Route::resource('order_preparation', OrderPreparationController::class);
     Route::get('get_order_info_preparation', [OrderPreparationController::class, 'getOrderInfoPreparation'])->name('get_order_info_preparation');
-    
+
     Route::post('update_order_preparation_status', [OrderPreparationController::class, 'updateOrderPreparationStatus'])->name('update_order_preparation_status');
     Route::post('update_all_item_status', [OrderPreparationController::class, 'updateAllItemStatus'])->name('update_all_item_status');
 

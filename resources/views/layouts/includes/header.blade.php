@@ -16,8 +16,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="{{ asset('assets/print/print.min.css') }}">
-    @yield('cssscript')
+    
 
+    @yield('cssscript')
     <style>
         .tablebg {
             background-color: #418108;

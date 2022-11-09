@@ -115,27 +115,39 @@
                 pricressFailed();
                 return false;
             }
-
-            var url = '{{ url('store_bill_info') }}';
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: {
-                    order_info_id: order_info_id,
-                    amount: amount,
-                },
-                success: function(data) {
-                    paymentSuccess();
-                    getOrderLists();
-                    $('.viewInvoiceRender').html('');
-                },
-                error: function(data) {}
-            });
+            swal({
+                    title: "Payment Process",
+                    text: "Are you sure continue to this process?",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var url = '{{ url('store_bill_info') }}';
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: 'POST',
+                            url: url,
+                            data: {
+                                order_info_id: order_info_id,
+                                amount: amount,
+                            },
+                            success: function(data) {
+                                paymentSuccess();
+                                getCounterOrderLists();
+                                // $('.viewInvoiceRender').html('');
+                            },
+                            error: function(data) {}
+                        });
+                    } else {
+                        swal("The process has been canceled.");
+                    }
+                });
         }
 
         // Print Invoice 
@@ -150,6 +162,7 @@
             });
         }
     </script>
+
 
     {{-- Order Management --}}
     <script type="text/javascript">
@@ -506,7 +519,6 @@
             $('#customerLists').html(customers);
         }
 
-
         $('.orderConfirm').submit(function(e) {
             e.preventDefault();
             let form = $(this);
@@ -541,11 +553,14 @@
                                 table_list_id: table_list_id,
                             },
                             success: function(data) {
+                                console.log(data);
                                 audioPlay();
                                 orderSuccess();
                                 getTemporaryOrderItem();
                             },
-                            error: function(data) {}
+                            error: function(data) {
+                                console.log(data);
+                            }
                         });
                     } else {
                         swal("The process has been canceled.");
@@ -594,7 +609,6 @@
             audioPlay();
             $('#showTableLists').modal('hide');
         }
-
 
 
         // On Going Order
@@ -703,6 +717,104 @@
         setInterval(getOrderInfoDone, 50000); //50 Sec
     </script>
 
+
+    {{-- Counter  --}}
+    <script>
+        // Search Input
+        $('#searchCounterOrderList').on('input', function() {
+            searchCounterOrderList();
+        });
+
+        function searchCounterOrderList() {
+            var keyword = $('#searchCounterOrderList').val();
+            var url = '{{ url('get_counter_order') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    showCounterOrderLists(data);
+                }
+            });
+        }
+
+
+        // Get All Order 
+        function getCounterOrderLists() {
+            var url = '{{ url('get_counter_order') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    showCounterOrderLists(data);
+                }
+            });
+        }
+        getCounterOrderLists();
+
+        // Show Order Lists 
+        function showCounterOrderLists(res) {
+            let order_info = '';
+            for (let i = 0; i < res.order_infos.length; i++) {
+                order_info += '<tr class="hover-primary show_invoice_items" data-id="' + res.order_infos[i].id + '">';
+
+                order_info += '<td>1</td>';
+
+                // Order No
+                order_info += '<td>';
+                order_info += res.order_infos[i].order_no;
+                order_info += '</td>';
+
+                // Bill No
+                order_info += '<td>';
+                order_info += res.order_infos[i].bill_no;
+                order_info += '</td>';
+
+                // Date
+                order_info += '<td>';
+                order_info += res.order_infos[i].order_date;
+                order_info += '</td>';
+
+                // Table Name 
+                order_info += '<td>';
+                order_info += res.order_infos[i].table_lists_table.table_name;
+                order_info += '</td>';
+
+                // Waiter
+                order_info += '<td>';
+                order_info += res.order_infos[i].users_table.name;
+                order_info += '</td>';
+
+                order_info += '</tr>';
+            }
+
+            if (res.order_infos.length <= 0) {
+                order_info += '<h1 style="color: red; padding: 20px;">';
+                order_info += 'No data found.';
+                order_info += '</h1>';
+            }
+
+            $('#orderCounterInfos').html(order_info);
+        }
+
+
+        // Invoice Items 
+        $(document).on("click", ".show_invoice_items", function() {
+            var id = $(this).data('id');
+            var url = '{{ url('counter_order_info_items') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    $('.viewInvoiceRender').html(data.html);
+                    $('#showInvoiceItemsData').modal('show');
+                    audioPlay();
+                }
+            });
+        });
+    </script>
 
     {{-- Search  --}}
     <script>

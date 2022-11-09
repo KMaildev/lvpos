@@ -11,6 +11,9 @@
 <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+
+{{-- <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('assets/js/pages/data-table.js') }}"></script> --}}
 <!-- Riday Admin App -->
 
 {{-- <script src="js/pages/order.js"></script> --}}

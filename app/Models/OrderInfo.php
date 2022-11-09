@@ -9,9 +9,32 @@ class OrderInfo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'customer_id',
+        'table_list_id',
+        'order_date',
+        'check_in_time',
+        'check_out_time',
+        'user_id',
+        'created_at',
+        'updated_at',
+        'order_no',
+        'bill_no',
+        'check_out_status',
+        'order_preparation_status',
+        'order_preparation_date',
+        'order_preparation_user_id',
+        'preparation_date',
+    ];
+
     public function table_lists_table()
     {
         return $this->belongsTo(TableList::class, 'table_list_id', 'id');
+    }
+
+    public function customer_table()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
 
     public function users_table()
