@@ -19,6 +19,29 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="mb-3 row">
+                            <label for="html5-text-input" class="col-md-3 col-form-label">
+                                Status
+                            </label>
+                            <div class="col-md-9">
+                                <select name="status" id="" class="form-control" required>
+                                    <option value="">
+                                        -- Select --
+                                    </option>
+                                    <option value="module">
+                                        Module
+                                    </option>
+                                    <option value="function">
+                                        Function
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="box-footer">
                             <button type="submit" class="btn btn-info pull-right">
                                 Save

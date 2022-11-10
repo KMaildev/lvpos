@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Counter\CompletedCounterOrderController;
+use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\OrdersController;
 use App\Http\Controllers\General\CounterController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
-use App\Http\Controllers\Manager\CounterDashboardController;
 use App\Http\Controllers\Manager\OrderListController;
 use App\Http\Controllers\Manager\TableManagementController;
 
@@ -26,6 +27,7 @@ use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableIconController;
 use App\Http\Controllers\Management\TableListsController;
 use App\Http\Controllers\Manager\ManagerDashboardController;
+use App\Http\Controllers\OrderInfo\OrderInfoController;
 use App\Http\Controllers\OrderManagement\CustomerController;
 use App\Http\Controllers\OrderManagement\OrderConfirmController;
 use App\Http\Controllers\OrderManagement\PosSystemController;
@@ -103,6 +105,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('counter_order', OrdersController::class);
     Route::get('get_counter_order', [OrdersController::class, 'getCounterOrderInfo'])->name('get_counter_order');
     Route::get('counter_order_info_items/{id}', [OrdersController::class, 'show'])->name('counter_order_info_items');
+    Route::resource('counter_completed_order', CompletedCounterOrderController::class);
+
+
+    // Order Procress 
+    Route::get('get_order_info_finished', [OrderInfoController::class, 'getOrderInfoFinished'])->name('get_order_info_finished');
+    Route::get('get_invoice_order_info_finished/{id}', [OrderInfoController::class, 'InvoiceOrderInfoFinished'])->name('get_invoice_order_info_finished');
+
 
     // Kitchen 
     Route::resource('kitchen_dashboard', KitchenDashboardController::class);

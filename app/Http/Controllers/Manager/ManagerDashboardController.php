@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\MenuList;
+use App\Models\OrderInfo;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManagerDashboardController extends Controller
 {
@@ -14,7 +19,14 @@ class ManagerDashboardController extends Controller
      */
     public function index()
     {
-        return view('manager.dashboard.index');
+
+        $total_menu_lists = MenuList::count();
+        $total_customers = Customer::count();
+        $total_order_infos = OrderInfo::count();
+
+        $total_price = OrderItem::where('preparation_status', 'Done')
+            ->sum(DB::raw('price * qty'));
+        return view('manager.dashboard.index', compact('total_menu_lists', 'total_customers', 'total_order_infos', 'total_price'));
     }
 
     /**

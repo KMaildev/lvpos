@@ -15,9 +15,21 @@ class OrderListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('manager.order_list.index');
+        $keyword = $request->keyword;
+        $order_infos = OrderInfo::with('table_lists_table', 'users_table', 'customer_table', 'check_out_users_table')
+            // ->where('check_out_status', 'finished')
+            ->get();
+
+        if ($keyword) {
+            $order_infos = OrderInfo::with('table_lists_table', 'users_table', 'customer_table', 'check_out_users_table')
+                // ->where('check_out_status', 'finished')
+                ->whereRelation('table_lists_table', 'table_name', 'like', '%' . $keyword . '%')
+                ->get();
+        }
+
+        return view('manager.orders.index', compact('order_infos'));
     }
 
     /**
@@ -49,16 +61,24 @@ class OrderListController extends Controller
      */
     public function show($id)
     {
+
         $order_info = OrderInfo::findOrFail($id);
         $order_items = OrderItem::where('order_info_id', $id)
             ->get();
 
-        $viewRender = view('manager.order_list.invoice', compact('order_info', 'order_items'))->render();
+        return view('counter.completed_order.show', compact('order_info', 'order_items'));
 
-        return response()->json([
-            'order_infos' => $id,
-            'html' => $viewRender
-        ]);
+
+        // $order_info = OrderInfo::findOrFail($id);
+        // $order_items = OrderItem::where('order_info_id', $id)
+        //     ->get();
+
+        // $viewRender = view('manager.order_list.invoice', compact('order_info', 'order_items'))->render();
+
+        // return response()->json([
+        //     'order_infos' => $id,
+        //     'html' => $viewRender
+        // ]);
     }
 
     /**

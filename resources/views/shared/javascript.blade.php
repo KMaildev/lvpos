@@ -740,7 +740,6 @@
             });
         }
 
-
         // Get All Order 
         function getCounterOrderLists() {
             var url = '{{ url('get_counter_order') }}';
@@ -799,11 +798,136 @@
             $('#orderCounterInfos').html(order_info);
         }
 
-
         // Invoice Items 
         $(document).on("click", ".show_invoice_items", function() {
             var id = $(this).data('id');
             var url = '{{ url('counter_order_info_items') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    $('.viewInvoiceRender').html(data.html);
+                    $('#showInvoiceItemsData').modal('show');
+                    audioPlay();
+                }
+            });
+        });
+
+
+
+
+
+        // Completed  Procress
+
+        // Search Input
+        $('#searchOrderInfoFinished').on('input', function() {
+            searchOrderInfoFinished();
+        });
+
+        function searchOrderInfoFinished() {
+            var keyword = $('#searchOrderInfoFinished').val();
+            var url = '{{ url('get_order_info_finished') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    showCompletedOrderLists(data);
+                }
+            });
+        }
+
+        // Get All Order 
+        function getCompletedOrderLists() {
+            var url = '{{ url('get_order_info_finished') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    showCompletedOrderLists(data);
+                }
+            });
+        }
+        getCompletedOrderLists();
+
+
+        // Show Completed Order Lists 
+        function showCompletedOrderLists(res) {
+            let order_info = '';
+
+            for (let i = 0; i < res.order_infos.length; i++) {
+                let customer_name = '';
+                if (res.order_infos[i].customer_id == 0) {
+                    customer_name = '';
+                } else {
+                    customer_name = res.order_infos[i].customer_table.customer_name;
+                }
+
+                order_info += '<tr class="hover-primary finished_invoice_items" data-id="' + res.order_infos[i].id +
+                    '">';
+
+                order_info += '<td>1</td>';
+
+                // Order No
+                order_info += '<td>';
+                order_info += res.order_infos[i].order_no;
+                order_info += '</td>';
+
+                // Bill No
+                order_info += '<td>';
+                order_info += res.order_infos[i].bill_no;
+                order_info += '</td>';
+
+                // Customer
+                order_info += '<td>';
+                order_info += customer_name;
+                order_info += '</td>';
+
+                // Date
+                order_info += '<td>';
+                order_info += res.order_infos[i].order_date;
+                order_info += '</td>';
+
+                // Date
+                order_info += '<td>';
+                order_info += res.order_infos[i].check_out_time;
+                order_info += '</td>';
+
+                // Table Name 
+                order_info += '<td>';
+                order_info += res.order_infos[i].table_lists_table.table_name;
+                order_info += '</td>';
+
+                // Waiter
+                order_info += '<td>';
+                order_info += res.order_infos[i].users_table.name;
+                order_info += '</td>';
+
+                // check_out_users_table
+                order_info += '<td>';
+                order_info += res.order_infos[i].check_out_users_table.name;
+                order_info += '</td>';
+
+                order_info += '</tr>';
+            }
+
+            if (res.order_infos.length <= 0) {
+                order_info += '<h1 style="color: red; padding: 20px;">';
+                order_info += 'No data found.';
+                order_info += '</h1>';
+            }
+
+            $('#getOrderInfoFinished').html(order_info);
+        }
+
+
+
+        // Invoice Items 
+        $(document).on("click", ".finished_invoice_items", function() {
+            var id = $(this).data('id');
+            var url = '{{ url('get_invoice_order_info_finished') }}';
             $.ajax({
                 url: url + '/' + id,
                 method: "GET",

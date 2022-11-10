@@ -43,6 +43,7 @@
                                     <tr class="tablebg">
                                         <th class="text-center" style="width: 1%;">#</th>
                                         <th class="text-center">Title</th>
+                                        <th class="text-center">Status</th>
                                         <th class="text-center" style="width: 5%;">Actions</th>
                                     </tr>
                                 </thead>
@@ -55,7 +56,11 @@
                                             </td>
 
                                             <td class="text-center">
-                                                {{ $value->name }}
+                                                {{ $value->name ?? '' }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                {{ $value->status ?? '' }}
                                             </td>
 
                                             <td class="text-center">

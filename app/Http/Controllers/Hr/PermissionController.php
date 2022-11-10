@@ -42,6 +42,7 @@ class PermissionController extends Controller
     {
         $permission = new Permission();
         $permission->name = $request->name;
+        $permission->status = $request->status;
         $permission->save();
         return redirect()->back()->with('success', 'Permission is successfully created.');
     }
@@ -80,6 +81,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permission->name = $request->name;
+        $permission->status = $request->status;
         $permission->update();
         return redirect()->back()->with('success', 'Permission is successfully updated.');
     }

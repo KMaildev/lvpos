@@ -20,10 +20,10 @@
                     </li>
 
 
-                    <li class="{{ Request::is('completed_order') ? 'active' : '' }}">
-                        <a href="{{ route('completed_order.index') }}">
+                    <li class="{{ Request::is('counter_completed_order') ? 'active' : '' }}">
+                        <a href="{{ route('counter_completed_order.index') }}">
                             <i class="fa fa-check"></i>
-                            Complete order
+                            Complete
                         </a>
                     </li>
 

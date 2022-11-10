@@ -74,20 +74,26 @@
                                         </button>
                                         <div class="dropdown-menu">
 
-                                            <a class="dropdown-item fz19" href="#"
-                                                onclick="changeOrderItemStatus({{ $order_item->id }}, 'Preparation')">
-                                                Preparation
-                                            </a>
+                                            @can('preparation_button')
+                                                <a class="dropdown-item fz19" href="#"
+                                                    onclick="changeOrderItemStatus({{ $order_item->id }}, 'Preparation')">
+                                                    Preparation
+                                                </a>
+                                            @endcan
 
-                                            <a class="dropdown-item fz19" href="#"
-                                                onclick="changeOrderItemStatus({{ $order_item->id }}, 'Done')">
-                                                Done
-                                            </a>
+                                            @can('done_button')
+                                                <a class="dropdown-item fz19" href="#"
+                                                    onclick="changeOrderItemStatus({{ $order_item->id }}, 'Done')">
+                                                    Done
+                                                </a>
+                                            @endcan
 
-                                            <a class="dropdown-item fz19" href="#"
-                                                onclick="changeOrderItemStatus({{ $order_item->id }}, 'Reject')">
-                                                Reject
-                                            </a>
+                                            @can('reject_button')
+                                                <a class="dropdown-item fz19" href="#"
+                                                    onclick="changeOrderItemStatus({{ $order_item->id }}, 'Reject')">
+                                                    Reject
+                                                </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

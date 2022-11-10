@@ -25,6 +25,7 @@ class KitchenDashboardController extends Controller
 
         $total_price = OrderItem::where('preparation_status', 'Done')
             ->sum(DB::raw('price * qty'));
+
         return view('kitchen.dashboard.index', compact('total_menu_lists', 'total_customers', 'total_order_infos', 'total_price'));
     }
 

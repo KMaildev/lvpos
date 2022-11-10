@@ -25,6 +25,7 @@ class OrderInfo extends Model
         'order_preparation_date',
         'order_preparation_user_id',
         'preparation_date',
+        'check_out_user_id',
     ];
 
     public function table_lists_table()
@@ -40,6 +41,11 @@ class OrderInfo extends Model
     public function users_table()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function check_out_users_table()
+    {
+        return $this->belongsTo(User::class, 'check_out_user_id', 'id');
     }
 
 

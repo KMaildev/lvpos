@@ -1,4 +1,4 @@
-@extends('layouts.menus.counter')
+@extends('layouts.menus.manager')
 @section('content')
     <section class="content">
 
@@ -24,7 +24,7 @@
         <div class="row">
 
             <div class="col-md-12 col-lg-12 col-sm-12">
-                <form action="{{ route('counter_completed_order.index') }}" method="get">
+                <form action="{{ route('order_lists.index') }}" method="get">
                     <input type="text" class="form-control" placeholder="Table Name" autocomplete="off" name="keyword">
                 </form>
                 <br>
@@ -97,7 +97,7 @@
                                                         </a>
 
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a href="{{ route('counter_completed_order.show', $order_info->id) }}"
+                                                            <a href="{{ route('order_lists.show', $order_info->id) }}"
                                                                 class="dropdown-item">
                                                                 <i class="fa fa-download"></i>
                                                                 Invoice

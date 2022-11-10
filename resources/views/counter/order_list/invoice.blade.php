@@ -57,8 +57,19 @@
                                 $total_qty = [];
                                 $total_amount = [];
                             @endphp
+
                             @foreach ($order_items as $order_item)
-                                <tr style="padding: 10px;">
+                                @if ($order_item->preparation_status == 'Reject')
+                                    @php
+                                        $color = 'red';
+                                    @endphp
+                                @else
+                                    @php
+                                        $color = 'black';
+                                    @endphp
+                                @endif
+                                <tr style="padding: 10px; color: {{ $color }};">
+
                                     <td style="text-align: left; font-size: 12px;">
                                         {{ $order_item->menu_lists_table->name ?? '' }}
                                     </td>
@@ -75,12 +86,30 @@
                                     </td>
 
                                     <td style="text-align: center; font-size: 12px;">
-                                        @php
+                                        {{-- @php
                                             $qty = $order_item->qty ?? 0;
                                             $mount = $qty * $price;
                                             echo number_format($mount);
                                             $total_qty[] = $qty;
                                             $total_amount[] = $mount;
+                                        @endphp --}}
+
+                                        @php
+                                            $price = $order_item->price ?? 0;
+                                            $qty = $order_item->qty ?? 0;
+                                            $total_cost = $price * $qty;
+                                            echo number_format($total_cost, 2);
+                                            
+                                            if ($order_item->preparation_status == 'Reject') {
+                                                $price = 0;
+                                                $qty = 0;
+                                            } else {
+                                                $price = $order_item->price ?? 0;
+                                                $qty = $order_item->qty ?? 0;
+                                            }
+                                            $total_cost = $price * $qty;
+                                            $total_amount[] = $total_cost;
+                                            $total_qty[] = $qty;
                                         @endphp
                                     </td>
                                 </tr>
@@ -116,9 +145,6 @@
                 </div>
             </center>
             <div class="modal-footer" style="text-align: center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                </button>
 
                 <button type="button" class="btn btn-success"
                     onclick="submitPayment({{ $order_info->id }}, {{ $total_amount }})">

@@ -44,7 +44,7 @@ class BillController extends Controller
         $bill_info->bill_time = date('h:i:s A');
         $bill_info->bill_date_time = date('Y-m-d h:i:s A');
         $bill_info->order_info_id = $request->order_info_id ?? 0;
-        $bill_info->user_id = auth()->user()->id ?? 0;
+        $bill_info->check_out_user_id = auth()->user()->id ?? 0;
         $bill_info->save();
 
         $order_info_id = $request->order_info_id ?? 0;
