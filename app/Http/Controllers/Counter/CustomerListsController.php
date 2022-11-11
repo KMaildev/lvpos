@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Counter;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
-use App\Models\MenuList;
 use App\Models\OrderInfo;
-use App\Models\OrderItem;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CounterDashboardController extends Controller
+class CustomerListsController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -22,35 +16,14 @@ class CounterDashboardController extends Controller
      */
     public function index()
     {
-        $total_menu_lists = MenuList::count();
-        $total_customers = Customer::count();
-        $total_order_infos = OrderInfo::count();
+        $customers = Customer::query();
+        if (request('search')) {
+            $customers->where('customer_name', 'Like', '%' . request('search') . '%');
+            $customers->orWhere('email', 'Like', '%' . request('search') . '%');
+        }
+        $customers = $customers->paginate(30);
 
-        $total_price = OrderItem::where('preparation_status', 'Done')
-            ->sum(DB::raw('price * qty'));
-
-
-        // Customer Chart 
-        $customer = $customer = Customer::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $customer_labels = $customer->keys();
-        $customer_data = $customer->values();
-
-        // Orde Item
-        $order_items = OrderItem::select(DB::raw("SUM(price) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $order_items_labels = $order_items->keys();
-        $order_items_data = $order_items->values();
-
-        return view('counter.dashboard.index', compact('total_menu_lists', 'total_customers', 'total_order_infos', 'total_price', 'customer_labels', 'customer_data', 'order_items_labels', 'order_items_data'));
+        return view('counter.customer_lists.index', compact('customers'));
     }
 
     /**
@@ -82,7 +55,12 @@ class CounterDashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        $customer = Customer::FindOrFail($id);
+
+        $order_infos = OrderInfo::with('table_lists_table', 'users_table', 'customer_table', 'check_out_users_table')
+            ->where('customer_id', $id)
+            ->get();
+        return view('counter.customer_lists.show', compact('customer', 'order_infos'));
     }
 
     /**

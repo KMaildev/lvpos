@@ -26,7 +26,7 @@
                     <div class="text-end pb-15">
                         <button class="btn btn-success" type="button">
                             <span>
-                                <i class="fa fa-print"></i>
+                                <i class="fa fa-download"></i>
                                 PDF
                             </span>
                         </button>
@@ -230,6 +230,7 @@
             </div>
             <!-- /.col -->
         </div>
+
         <div class="row">
             <div class="col-12 text-end">
                 <p class="lead">
@@ -252,6 +253,7 @@
             </div>
             <!-- /.col -->
         </div>
+
     </div>
 
 </section>

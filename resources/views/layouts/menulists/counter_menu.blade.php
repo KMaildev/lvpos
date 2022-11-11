@@ -27,6 +27,13 @@
                         </a>
                     </li>
 
+                    <li class="{{ Request::is('counter_customer_lists') ? 'active' : '' }}">
+                        <a href="{{ route('counter_customer_lists.index') }}">
+                            <i class="fa fa-users"></i>
+                            Customer
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>

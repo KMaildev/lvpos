@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Counter\CompletedCounterOrderController;
 use App\Http\Controllers\Counter\CounterDashboardController;
+use App\Http\Controllers\Counter\CustomerListsController;
 use App\Http\Controllers\Counter\OrdersController;
 use App\Http\Controllers\General\CounterController;
 use App\Http\Controllers\Manager\BillController;
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get_counter_order', [OrdersController::class, 'getCounterOrderInfo'])->name('get_counter_order');
     Route::get('counter_order_info_items/{id}', [OrdersController::class, 'show'])->name('counter_order_info_items');
     Route::resource('counter_completed_order', CompletedCounterOrderController::class);
+    Route::resource('counter_customer_lists', CustomerListsController::class);
 
 
     // Order Procress 

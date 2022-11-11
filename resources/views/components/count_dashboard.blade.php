@@ -82,39 +82,51 @@
             </div>
         </div>
 
-        <div class="col-xxxl-7 col-xl-6 col-lg-6 col-12">
+    </div>
+
+    <div class="row">
+
+        <div class="col-xxxl-12 col-xl-12 col-lg-12 col-12">
             <div class="box">
                 <div class="box-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h4 class="box-title mb-0">Daily Revenue</h4>
-                            <p class="mb-0 text-mute">Lorem ipsum dolor</p>
+                            <h4 class="box-title mb-0">Income</h4>
+                            <p class="mb-0 text-mute">
+                                Chart
+                            </p>
                         </div>
                         <div class="text-end">
-                            <h3 class="box-title mb-0 fw-700">$ 154K</h3>
-                            <p class="mb-0"><span class="text-success">+ 1.5%</span> than last week</p>
+                            <h3 class="box-title mb-0 fw-700">
+                                {{ number_format($total_price ?? 0) }}
+                            </h3>
                         </div>
                     </div>
-                    <div id="chart" class="mt-20"></div>
+                    <canvas id="incomeChart" height="100px"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="col-xxxl-5 col-xl-6 col-lg-6 col-12">
+        <div class="col-xxxl-12 col-xl-12 col-lg-12 col-12">
             <div class="box">
                 <div class="box-body">
-                    <h4 class="box-title">Customer</h4>
-                    <div class="d-md-flex d-block justify-content-between">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <h3 class="mb-0 fw-700">$2,780k</h3>
+                            <h4 class="box-title mb-0">Customer</h4>
+                            <p class="mb-0 text-mute">
+                                Chart
+                            </p>
                         </div>
-                        <div>
-                            <h3 class="mb-0 fw-700">$1,410k</h3>
+                        <div class="text-end">
+                            <h3 class="box-title mb-0 fw-700">
+                                {{ $total_customers ?? 0 }}
+                            </h3>
                         </div>
                     </div>
-                    <div id="yearly-comparison"></div>
+                    <canvas id="customerChart" height="100px"></canvas>
                 </div>
             </div>
         </div>
+
     </div>
 </section>
