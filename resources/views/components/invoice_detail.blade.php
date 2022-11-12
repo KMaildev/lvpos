@@ -24,12 +24,12 @@
             <div class="col-12">
                 <div class="bb-1 clearFix">
                     <div class="text-end pb-15">
-                        <button class="btn btn-success" type="button">
+                        <a class="btn btn-success" href="{{ route('invoice_pdf_download', $order_info->id) }}" target="_blank">
                             <span>
                                 <i class="fa fa-download"></i>
                                 PDF
                             </span>
-                        </button>
+                        </a>
 
                         <button id="print2" class="btn btn-warning" type="button">
                             <span>

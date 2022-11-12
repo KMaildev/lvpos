@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Conponents\InvoicePdfController;
 use App\Http\Controllers\Counter\CompletedCounterOrderController;
 use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\CustomerListsController;
@@ -132,6 +133,9 @@ Route::middleware('auth')->group(function () {
     // General 
     Route::resource('counter', CounterController::class);
     Route::get('get_counter', [CounterController::class, 'index'])->name('get_counter');
+
+    // Conponents 
+    Route::get('invoice_pdf_download/{id}', [InvoicePdfController::class, 'InvoicePDFDownload'])->name('invoice_pdf_download');
 
 
     // HR 
