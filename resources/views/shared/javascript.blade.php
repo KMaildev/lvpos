@@ -817,8 +817,6 @@
 
 
 
-
-
         // Completed  Procress
 
         // Search Input
@@ -925,7 +923,6 @@
         }
 
 
-
         // Invoice Items 
         $(document).on("click", ".finished_invoice_items", function() {
             var id = $(this).data('id');
@@ -960,8 +957,6 @@
         getManagerCurrentOrder();
         setInterval(getManagerCurrentOrder, 10000); //10 Sec
 
-
-
         // Search Input
         $('#searchManagerCurrentOrder').on('input', function() {
             searchManagerCurrentOrder();
@@ -981,7 +976,6 @@
                 }
             });
         }
-
 
         // Manager Remark 
         $(document).on("keyup", ".updateManagerRemark", function() {
@@ -1011,6 +1005,29 @@
                 }
             });
         });
+
+
+
+        // Table Change 
+        function tableChangeModal(id) {
+            var url = '{{ url('get_current_table') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    $('#showTableChangeModal').modal('show');
+                    document.getElementById('CurrentTableId').value = data.order_info.table_lists_table
+                        .table_name;
+                    document.getElementById('CurrentOrderInfoId').value = data.order_info.id;
+                }
+            });
+        }
+
+        function setTableChange(table_id, table_name) {
+            document.getElementById('NewTableId').value = table_id;
+            document.getElementById('NewTableName').value = table_name;
+            audioPlay();
+        }
     </script>
 
     {{-- Search  --}}

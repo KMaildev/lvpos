@@ -18,4 +18,9 @@ class TableList extends Model
     {
         return $this->hasMany(OrderInfo::class, 'table_list_id', 'id');
     }
+
+    public function order_infos_table_change_table()
+    {
+        return $this->belongsTo(OrderInfo::class, 'id', 'table_list_id')->where('check_out_time', NULL);
+    }
 }

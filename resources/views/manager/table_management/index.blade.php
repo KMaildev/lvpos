@@ -1,48 +1,134 @@
 @extends('layouts.menus.manager')
 @section('content')
     <section class="content">
+
         <div class="row">
-            <div class="card">
+            <div class="card" style="background-color:#8dd6c5;">
                 <div class="card-header">
                     <h4 class="card-title">
-                        Table List
+                        Table Change
                     </h4>
                 </div>
             </div>
+        </div>
 
-            @foreach ($table_lists as $table_list)
-                <div class="col-xxxl-3 col-lg-3 col-12">
-                    <div class="box">
-                        <div class="box-body">
-                            <div class="d-flex align-items-start">
-                                <div>
-                                    @if ($table_list->table_icon)
-                                        <img src="{{ Storage::url($table_list->table_icon) }}" class="w-80 me-20"
-                                            style="width: 100%; height: auto; background-size: center; object-fit: cover;" />
-                                    @else
-                                        <img src="{{ asset('data/noimage.png') }}" class="w-80 me-20"
-                                            style="width: 100%; height: auto; background-size: center; object-fit: cover;" />
-                                    @endif
-                                </div>
-                                <div>
-                                    <h2 class="my-0 fw-700">
-                                        {{ $table_list->table_name ?? '' }}
-                                    </h2>
-                                    <p class="text-fade mb-0">
-                                        {{ $table_list->floor_table->title ?? '' }}
-                                    </p>
-                                    <p class="fs-12 mb-0 text-success">
-                                        <span class="badge badge-pill badge-success-light me-5">
-                                            <i class="fa fa-users"></i>
-                                        </span>
-                                        No of {{ $table_list->reservation ?? '' }}
-                                    </p>
-                                </div>
-                            </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <form action="{{ route('counter_completed_order.index') }}" method="get">
+                    <input type="text" class="form-control" placeholder="Table Name" autocomplete="off" name="keyword">
+                </form>
+                <br>
+
+                <div class="box">
+                    <div class="box-body">
+                        <div class="table-responsive rounded card-table">
+                            <table class="table border-no" id="example1" style="margin-bottom: 100px !important">
+
+                                <thead class="table border-no">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Order No</th>
+                                        <th>Bill No</th>
+                                        <th>Customer</th>
+                                        <th>Order Date & Time</th>
+                                        <th>End Date & Time</th>
+                                        <th>Table</th>
+                                        <th>Waiter</th>
+                                        <th>Check Out</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($order_infos as $key => $order_info)
+                                        <tr class="hover-primary finished_invoice_items">
+                                            <td>
+                                                {{ $key + 1 }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->order_no ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->bill_no ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->customer_table->customer_name ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->order_date ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->check_out_time ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                <span class="badge badge-success">
+                                                    {{ $order_info->table_lists_table->table_name ?? '' }}
+                                                </span>
+
+                                                <button type="button" class="waves-effect waves-light btn btn-info btn-xs"
+                                                    onclick="tableChangeModal({{ $order_info->id }})">
+                                                    New Table
+                                                </button>
+
+                                                <button type="button" class="waves-effect waves-light btn btn-info btn-xs">
+                                                    Old Table
+                                                </button>
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->users_table->name ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_info->check_out_users_table->name ?? '' }}
+                                            </td>
+
+                                            <td class="text-center">
+                                                <div class="list-icons d-inline-flex">
+                                                    <div class="list-icons-item dropdown">
+
+                                                        <a href="#" class="list-icons-item dropdown-toggle"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Action
+                                                        </a>
+
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a href="{{ route('counter_completed_order.show', $order_info->id) }}"
+                                                                class="dropdown-item">
+                                                                <i class="fa fa-eye"></i>
+                                                                View Invoice
+                                                            </a>
+
+                                                            <a href="{{ route('invoice_pdf_download', $order_info->id) }}"
+                                                                class="dropdown-item" target="_blank">
+                                                                <i class="fa fa-download"></i>
+                                                                Download Invoice
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            @endforeach
+
+            </div>
         </div>
     </section>
+    @include('manager.table_management.components.new_table_change_modal')
+    @include('shared.javascript')
+@endsection
+@section('script')
+    {!! JsValidator::formRequest('App\Http\Requests\UpdatesubmitChangeNewTable', '#create-new') !!}
 @endsection

@@ -61,7 +61,6 @@ class OrderListController extends Controller
      */
     public function show($id)
     {
-
         $order_info = OrderInfo::findOrFail($id);
         $order_items = OrderItem::where('order_info_id', $id)
             ->get();

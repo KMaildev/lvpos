@@ -94,8 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::get('get_manager_current_order', [CurrentOrderController::class, 'getManagerCurrentOrder'])->name('get_manager_current_order');
 
 
-
-
     Route::resource('order_lists', OrderListController::class);
     Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
     Route::get('show_order_info/{id}', [OrderListController::class, 'show'])->name('show_order_info');
@@ -107,6 +105,8 @@ Route::middleware('auth')->group(function () {
     Route::get('get_completed_order_info', [CompletedOrderController::class, 'getOrderInfo'])->name('get_completed_order_info');
     Route::get('completed_show_order_info/{id}', [CompletedOrderController::class, 'show'])->name('completed_show_order_info');
     Route::resource('table_management', TableManagementController::class);
+    Route::get('get_current_table/{id}', [TableManagementController::class, 'getCurrentTable'])->name('get_current_table');
+    Route::post('submit_change_new_table', [TableManagementController::class, 'submitChangeNewTable'])->name('submit_change_new_table');
 
 
 
