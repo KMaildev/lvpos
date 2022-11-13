@@ -75,10 +75,6 @@
                                                     onclick="tableChangeModal({{ $order_info->id }})">
                                                     New Table
                                                 </button>
-
-                                                <button type="button" class="waves-effect waves-light btn btn-info btn-xs">
-                                                    Old Table
-                                                </button>
                                             </td>
 
                                             <td>

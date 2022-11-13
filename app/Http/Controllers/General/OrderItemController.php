@@ -39,7 +39,7 @@ class OrderItemController extends Controller
             'order_items' => $order_items,
         ];
         $pdf = PDF::loadView('pdf.order_item_pdf', $data);
-        return $pdf->stream('document.pdf');
+        return $pdf->stream('order_items.pdf');
     }
 
 
@@ -47,6 +47,36 @@ class OrderItemController extends Controller
     {
         $order_items = OrderItem::whereDate('created_at', Carbon::today())
             ->with('order_info_table', 'user_table', 'menu_lists_table')
+            ->orderBy('menu_list_id', 'DESC')
+            ->get();
+
+        return Excel::download(new OrderItemExport($order_items), 'order_items_' . date("Y-m-d H:i:s") . '.xlsx');
+    }
+
+
+    // order_preparation
+    public function getKitchenOrderPreparationPdf()
+    {
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            ->where('preparation_status', 'Preparation')
+            ->orWhereNull('preparation_status')
+            ->orderBy('menu_list_id', 'DESC')
+            ->get();
+
+
+        $data = [
+            'order_items' => $order_items,
+        ];
+        $pdf = PDF::loadView('pdf.order_item_pdf', $data);
+        return $pdf->stream('order_items.pdf');
+    }
+
+
+    public function getKitchenOrderPreparationExcel()
+    {
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            ->where('preparation_status', 'Preparation')
+            ->orWhereNull('preparation_status')
             ->orderBy('menu_list_id', 'DESC')
             ->get();
 

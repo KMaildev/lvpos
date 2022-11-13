@@ -46,7 +46,7 @@
                             <a href="{{ route('order_done.index') }}" class="btn btn-primary"
                                 style="background-color: #53A107; color: white;">
                                 <i class="fa fa-check-double"></i>
-                                Done (Today)
+                                Completed (Today)
                             </a>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             <a href="{{ route('all_order_done.index') }}" class="btn btn-info"
                                 style="background-color: #1b3204; color: white;">
                                 <i class="fa fa-calendar"></i>
-                                Done (All)
+                                Completed (All)
                             </a>
                         </div>
                     </div>

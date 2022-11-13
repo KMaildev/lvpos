@@ -11,6 +11,22 @@
                         <i class="fa fa-rotate"></i>
                         Update
                     </button>
+
+                    <button class="waves-effect waves-light btn btn-success dropdown-toggle" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="icon ti-download"></i>
+                        Download
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item" href="{{ route('get_kitchen_order_preparation_excel') }}">
+                            Export to Excel
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('get_kitchen_order_preparation_pdf') }}" target="_blank">
+                            Download PDF
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

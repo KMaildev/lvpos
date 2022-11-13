@@ -13,8 +13,7 @@
             });
         }
         getOrderLists();
-        setInterval(getOrderLists, 10000);
-        // 10 Sec
+        setInterval(getOrderLists, 3000); // 10000 = 10 Sec 3000 = 3
 
         // Search Input
         $('#searchOrderList').on('input', function() {
@@ -640,8 +639,7 @@
             });
         }
         getOrderInfoPreparation();
-        setInterval(getOrderInfoPreparation, 10000); //10 Sec
-        // setInterval(getOrderInfoPreparation, 5000);
+        setInterval(getOrderInfoPreparation, 3000); //10 Sec
 
         // Order Item Status 
         function changeOrderItemStatus(order_item_id, order_status) {
@@ -716,7 +714,7 @@
             });
         }
         getOrderInfoDone();
-        setInterval(getOrderInfoDone, 50000); //50 Sec
+        setInterval(getOrderInfoDone, 3000); //50 Sec
     </script>
 
 
@@ -754,6 +752,7 @@
             });
         }
         getCounterOrderLists();
+        setInterval(getCounterOrderLists, 3000); // 10000 = 10 Sec 3000 = 3
 
         // Show Order Lists 
         function showCounterOrderLists(res) {
@@ -816,9 +815,7 @@
         });
 
 
-
         // Completed  Procress
-
         // Search Input
         $('#searchOrderInfoFinished').on('input', function() {
             searchOrderInfoFinished();
@@ -851,7 +848,6 @@
             });
         }
         getCompletedOrderLists();
-
 
         // Show Completed Order Lists 
         function showCompletedOrderLists(res) {
@@ -955,7 +951,7 @@
             });
         }
         getManagerCurrentOrder();
-        setInterval(getManagerCurrentOrder, 10000); //10 Sec
+        setInterval(getManagerCurrentOrder, 3000); //10 Sec
 
         // Search Input
         $('#searchManagerCurrentOrder').on('input', function() {
@@ -1005,7 +1001,6 @@
                 }
             });
         });
-
 
 
         // Table Change 

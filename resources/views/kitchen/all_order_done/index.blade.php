@@ -17,7 +17,7 @@
                 <div class="box">
                     <div class="box-body">
                         <h4 class="box-title">
-                            Order Done (All)
+                            Completed (All)
                         </h4>
                         <div class="table-responsive">
                             <table class="table">
@@ -77,6 +77,10 @@
 
                                             <td>
                                                 {{ $order_item->user_table->name ?? '' }}
+                                            </td>
+
+                                            <td>
+                                                {{ $order_item->manager_remark ?? '' }}
                                             </td>
 
                                             <td>

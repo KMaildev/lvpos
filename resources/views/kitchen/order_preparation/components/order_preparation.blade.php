@@ -2,8 +2,11 @@
         <div class="box">
             <div class="box-body">
                 <h4 class="box-title">
-                    Current Order
+                    Prder Preparation
                 </h4>
+
+
+
                 <div class="table-responsive">
                     <table class="table">
                         @include('components.order_item_header')
