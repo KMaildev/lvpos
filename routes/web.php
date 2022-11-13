@@ -142,9 +142,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('counter', CounterController::class);
     Route::get('get_counter', [CounterController::class, 'index'])->name('get_counter');
     Route::get('update_manager_remark', [OrderItemController::class, 'updateManagerRemark'])->name('update_manager_remark');
+    Route::get('manager_current_order_pdf', [OrderItemController::class, 'getManagerCurrentOrderPdf'])->name('manager_current_order_pdf');
+    Route::get('manager_current_order_excel', [OrderItemController::class, 'getManagerCurrentOrderExcel'])->name('manager_current_order_excel');
+
 
     // Conponents 
     Route::get('invoice_pdf_download/{id}', [InvoicePdfController::class, 'InvoicePDFDownload'])->name('invoice_pdf_download');
+
 
 
     // HR 

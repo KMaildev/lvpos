@@ -961,6 +961,28 @@
         setInterval(getManagerCurrentOrder, 10000); //10 Sec
 
 
+
+        // Search Input
+        $('#searchManagerCurrentOrder').on('input', function() {
+            searchManagerCurrentOrder();
+        });
+
+        function searchManagerCurrentOrder() {
+            var keyword = $('#searchManagerCurrentOrder').val();
+            var url = '{{ url('get_manager_current_order') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    $('.viewManagerCurrentOrder').html(data.html);
+                }
+            });
+        }
+
+
         // Manager Remark 
         $(document).on("keyup", ".updateManagerRemark", function() {
             var id = $(this).data('id');

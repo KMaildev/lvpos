@@ -21,12 +21,10 @@
 
                     <li class="{{ Request::is('order_lists') ? 'active' : '' }}">
                         <a href="{{ route('order_lists.index') }}">
-                            <i class="fa fa-list"></i>
-                            Orders
+                            <i class="fa fa-file"></i>
+                            Invoice
                         </a>
                     </li>
-
-
 
 
                     <li class="{{ Request::is('table_management') ? 'active' : '' }}">
@@ -37,12 +35,7 @@
                     </li>
 
 
-                    <li class="{{ Request::is('table_management') ? 'active' : '' }}">
-                        <a href="{{ route('table_management.index') }}">
-                            <i class="fa fa-table"></i>
-                            Price
-                        </a>
-                    </li>
+    
 
                 </ul>
             </div>

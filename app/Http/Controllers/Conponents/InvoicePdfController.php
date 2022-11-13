@@ -24,6 +24,6 @@ class InvoicePdfController extends Controller
             'order_items' => $order_items,
         ];
         $pdf = PDF::loadView('pdf.invoice_pdf', $data);
-        return $pdf->stream('document.pdf');
+        return $pdf->stream('invoice_pdf.pdf');
     }
 }

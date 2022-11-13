@@ -14,7 +14,7 @@
     }
 
     .inv_table th {
-        background-color: #0fe39d;
+        background-color: #6f7271;
         color: white;
     }
 </style>

@@ -2,11 +2,28 @@
     <div class="box">
         <div class="box-body">
             <h4 class="box-title">
-                Current Order
+                Current Order (Today)
             </h4>
             <div class="table-responsive">
                 <table class="table">
-                    @include('components.order_item_header')
+                    <thead class="bg-info">
+                        <tr>
+                            <th style="width: 1%">No</th>
+                            <th style="width: 5%">Table</th>
+                            <th style="width: 20%">Menu</th>
+                            <th style="width: 2%">Qty</th>
+                            <th style="width: 2%">Price</th>
+                            <th style="width: 2%">Total</th>
+                            <th style="width: 20%">Order Note</th>
+                            <th style="width: 13%">Order Time</th>
+                            <th style="width: 13%">End Time</th>
+                            <th style="width: 10%">Difference</th>
+                            <th style="width: 10%">Preparation</th>
+                            <th style="width: 20%">Manager Remark</th>
+                            <th style="width: 5%">Status</th>
+                        </tr>
+                    </thead>
+
                     <tbody class="order_preparation">
                         @foreach ($order_items as $key => $order_item)
                             @php
@@ -42,6 +59,22 @@
                                     </span>
                                 </td>
 
+                                <td>
+                                    @php
+                                        $price = $order_item->price;
+                                        echo number_format($price);
+                                    @endphp
+                                </td>
+
+                                <td>
+                                    @php
+                                        $price = $order_item->price;
+                                        $qty = $order_item->qty;
+                                        $total = $price * $qty;
+                                        echo number_format($total, 2);
+                                    @endphp
+                                </td>
+
                                 <td style="font-size: 13px;">
                                     {{ $order_item->remark ?? '' }}
                                 </td>
@@ -72,7 +105,6 @@
                                         data-id="{{ $order_item->id }}" class="updateManagerRemark">
                                     <datalist id="suggestion">
                                         <option value="မြန်မြန်လုပ်ပါ">
-                                        <option value="ကြာနေပြီ">
                                     </datalist>
                                 </td>
 
