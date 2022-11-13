@@ -2,10 +2,10 @@
 
 <style>
     .inv_table,
-    td,
-    th {
+    .inv_table td,
+    .inv_table th {
         border: 0.1px solid;
-        padding: 10px;
+        padding: 5px;
         text-align: center;
     }
 
@@ -14,7 +14,7 @@
         border-collapse: collapse;
     }
 
-    th {
+    .inv_table th {
         background-color: #8c8f8e;
         color: white;
     }
@@ -24,102 +24,97 @@
 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
 
 <body style="font-family:Arial Unicode MS, Helvetica , Sans-Serif;">
-    <table style="table-layout: fixed; width: 100%;">
+
+    {{-- Order Info  --}}
+    <table style="width: 100%;">
         <tbody>
             <tr>
-                <td class="">
-                    <div>
-                        <img src="http://logodesignfx.com/wp-content/uploads/2018/09/dummy-logo-png-4.png"
-                            alt="Company Logo" style="max-width: 100%;">
-                    </div>
-                </td>
-                <td width="15%">
+                {{-- Customer Info  --}}
+                <td style="width: 50%;">
+                    <table class="inv_table">
+                        <tr>
+                            <td style="width: 40%;">
+                                Name
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->customer_table->customer_name ?? 'No data' }}
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td>
+                                Address
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->customer_table->address ?? 'No data' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Email
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->customer_table->email ?? 'No data' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Phone
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->customer_table->phone ?? 'No data' }}
+                            </td>
+                        </tr>
+                    </table>
                 </td>
-                <td>
-                    <table class="tbl-padded">
-                        <caption style="text-transform: uppercase; text-align: left; font-size: 30pt;">
-                            <strong>
-                                Invoice
-                            </strong>
-                        </caption>
-                        <tbody>
-                            <tr>
-                                <td style="padding:5px;">
-                                    <strong>Invoice No.</strong>
-                                </td>
-                                <td style="padding:5px;">
-                                    <div>
-                                        INV-24
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding:5px;">
-                                    <strong>Date Issued</strong>
-                                </td>
-                                <td style="padding:5px;">
-                                    July 26, 2018
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding:5px;">
-                                    <strong>Due Date</strong>
-                                </td>
-                                <td style="padding:5px;">
-                                    August 10, 2018
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="padding:5px;">
-                                    <strong>Currency</strong>
-                                </td>
-                                <td style="padding:5px;">
-                                    USD - US Dollar
-                                </td>
-                            </tr>
-                        </tbody>
+
+
+                <td style="width: 50%;">
+                    <table class="inv_table">
+                        <tr>
+                            <td style="width: 40%;">
+                                Order No
+                            </td>
+                            <td style="text-align: left">
+                                #{{ $order_info->order_no ?? '' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Bill No
+                            </td>
+                            <td style="text-align: left">
+                                #{{ $order_info->bill_no ?? '' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Check In Date
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->check_in_time ?? '' }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Check Out Date
+                            </td>
+                            <td style="text-align: left">
+                                {{ $order_info->check_out_time ?? '' }}
+                            </td>
+                        </tr>
                     </table>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    <div style="padding-top: 1cm; padding-bottom: 1cm;">
-        <table style="table-layout: fixed; width: 100%;">
-            <tbody>
-                <tr>
-                    <td>
-                        <div style="padding-bottom: 10px;">
-                            <strong style="text-transform: uppercase;">From</strong>
-                        </div>
-                        <div>
-                            Wolters Kluwer India Pvt. Ltd. <br>
-                            A-202, 2nd Floor<br>
-                            The Qube, C.T.S. No.1498A/2<br>
-                            Village Marol, Andheri (East)
-                        </div>
-                    </td>
-                    <td width="15%">
-
-                    </td>
-                    <td>
-                        <div style="padding-bottom: 10px;">
-                            <strong style="text-transform: uppercase;">Bill To</strong>
-                        </div>
-                        <div>
-                            Wolters Kluwer India Pvt. Ltd. <br>
-                            A-202, 2nd Floor<br>
-                            The Qube, C.T.S. No.1498A/2<br>
-                            Village Marol, Andheri (East)
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-
+    <br>
     {{-- Items  --}}
     <div>
         <table class="inv_table" style="table-layout: fixed; width: 100%;">
@@ -223,50 +218,6 @@
                         </td>
                     </tr>
                 @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    {{-- Sub Total  --}}
-    <div style="border-top: 1px solid #eee;">
-        <table style="table-layout: fixed; width: 100%; border-collapse: collapse;">
-            <tbody>
-                <tr>
-                    <td align="right" style="padding: 5px;">
-                        Subtotal
-                    </td>
-                    <td align="right" width="20%" style="padding: 5px;">
-                        1500.00
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" style="padding: 5px;">
-                        + TAX
-                    </td>
-                    <td align="right" width="20%" style="padding: 5px;">
-                        5.00
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" style="padding: 5px;">
-                        - Discount
-                    </td>
-                    <td align="right" width="20%" style="padding: 5px;">
-                        10.00
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right" style="border-top: 2px solid #eee; padding: 8px;">
-                        <span style="font-size: 16pt;">
-                            Total Amount
-                        </span>
-                    </td>
-                    <td align="right" width="20%" style="border-top: 2px solid #eee; padding: 8px;">
-                        <strong style="font-size: 16pt;">
-                            USD 1495.00
-                        </strong>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
