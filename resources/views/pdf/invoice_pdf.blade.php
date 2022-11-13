@@ -1,5 +1,4 @@
 {{-- https://codepen.io/cyberhemant/pen/GPBOYN --}}
-
 <style>
     .inv_table,
     .inv_table td,
@@ -15,16 +14,20 @@
     }
 
     .inv_table th {
-        background-color: #8c8f8e;
+        background-color: #0fe39d;
         color: white;
     }
 </style>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" lang="en">
+<title>Invoice</title>
 
 <body style="font-family:Arial Unicode MS, Helvetica , Sans-Serif;">
 
+    <h3 style="text-align: center">
+        Invoice
+    </h3>
     {{-- Order Info  --}}
     <table style="width: 100%;">
         <tbody>
@@ -115,6 +118,13 @@
     </table>
 
     <br>
+
+    <span>
+        Cashier:
+        {{ $order_info->check_out_users_table->name ?? 'Name: No data' }}
+        @
+        {{ $order_info->check_out_users_table->phone ?? 'Phone: No data' }}
+    </span>
     {{-- Items  --}}
     <div>
         <table class="inv_table" style="table-layout: fixed; width: 100%;">
@@ -219,8 +229,27 @@
                     </tr>
                 @endforeach
             </tbody>
+            <tr>
+                <td colspan="9">
+                    Total
+                </td>
+
+                <td>
+                    @php
+                        $all_total_qty = array_sum($all_total_qty);
+                        echo number_format($all_total_qty);
+                    @endphp
+                </td>
+                <td>
+                    @php
+                        $all_total_cost = array_sum($all_total_cost);
+                        echo number_format($all_total_cost, 2);
+                    @endphp
+                </td>
+            </tr>
         </table>
     </div>
+
 
 </body>
 

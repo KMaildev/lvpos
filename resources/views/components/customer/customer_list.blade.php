@@ -47,8 +47,9 @@
                         <div class="list-icons d-inline-flex">
                             <div class="list-icons-item dropdown">
                                 <a href="#" class="list-icons-item dropdown-toggle" data-bs-toggle="dropdown">
-                                    <i class="fa fa-gear"></i>
+                                    Action
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-end">
 
                                     <a href="{{ route('counter_customer_lists.show', $customer->id) }}"

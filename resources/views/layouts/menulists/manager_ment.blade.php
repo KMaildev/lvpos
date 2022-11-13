@@ -11,6 +11,14 @@
                         </a>
                     </li>
 
+                    <li class="{{ Request::is('manager_current_order') ? 'active' : '' }}">
+                        <a href="{{ route('manager_current_order.index') }}">
+                            <i class="fa fa-history"></i>
+                            Current Order
+                        </a>
+                    </li>
+
+
                     <li class="{{ Request::is('order_lists') ? 'active' : '' }}">
                         <a href="{{ route('order_lists.index') }}">
                             <i class="fa fa-list"></i>
@@ -19,12 +27,6 @@
                     </li>
 
 
-                    {{-- <li class="{{ Request::is('completed_order') ? 'active' : '' }}">
-                        <a href="{{ route('completed_order.index') }}">
-                            <i class="fa fa-check"></i>
-                            Complete order
-                        </a>
-                    </li> --}}
 
 
                     <li class="{{ Request::is('table_management') ? 'active' : '' }}">
@@ -34,10 +36,11 @@
                         </a>
                     </li>
 
+
                     <li class="{{ Request::is('table_management') ? 'active' : '' }}">
                         <a href="{{ route('table_management.index') }}">
                             <i class="fa fa-table"></i>
-                            Price Control
+                            Price
                         </a>
                     </li>
 

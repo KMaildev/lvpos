@@ -64,8 +64,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{ route('counter_completed_order.show', $order_info->id) }}"
-                                    class="dropdown-item">
+                                <a href="{{ route('order_lists.show', $order_info->id) }}" class="dropdown-item">
                                     <i class="fa fa-eye"></i>
                                     View Invoice
                                 </a>

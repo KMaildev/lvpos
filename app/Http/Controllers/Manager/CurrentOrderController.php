@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\MenuList;
-use App\Models\OrderInfo;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ManagerDashboardController extends Controller
+class CurrentOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,37 +15,23 @@ class ManagerDashboardController extends Controller
      */
     public function index()
     {
-
-        $total_menu_lists = MenuList::count();
-        $total_customers = Customer::count();
-        $total_order_infos = OrderInfo::count();
-
-        $total_price = OrderItem::where('preparation_status', 'Done')
-            ->sum(DB::raw('price * qty'));
+        return view('manager.current_order.index');
+    }
 
 
-        // Customer Chart 
-        $customer = $customer = Customer::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
+    public function getManagerCurrentOrder(Request $request)
+    {
+        $order_items = OrderItem::with('order_info_table', 'user_table')
+            // ->where('preparation_status', 'Preparation')
+            // ->orWhereNull('preparation_status')
+            ->orderBy('menu_list_id', 'DESC')
+            ->get();
 
-        $customer_labels = $customer->keys();
-        $customer_data = $customer->values();
+        $viewRender = view('manager.current_order.components.order_preparation', compact('order_items'))->render();
 
-        // Orde Item
-        $order_items = OrderItem::select(DB::raw("SUM(price) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-            ->whereYear('created_at', date('Y'))
-            ->groupBy(DB::raw("month_name"))
-            ->orderBy('id', 'ASC')
-            ->pluck('count', 'month_name');
-
-        $order_items_labels = $order_items->keys();
-        $order_items_data = $order_items->values();
-
-        return view('manager.dashboard.index', compact('total_menu_lists', 'total_customers', 'total_order_infos', 'total_price', 'customer_labels', 'customer_data', 'order_items_labels', 'order_items_data'));
-
+        return response()->json([
+            'html' => $viewRender
+        ]);
     }
 
     /**

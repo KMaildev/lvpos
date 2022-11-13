@@ -640,7 +640,7 @@
             });
         }
         getOrderInfoPreparation();
-        // setInterval(getOrderInfoPreparation, 10000); //10 Sec
+        setInterval(getOrderInfoPreparation, 10000); //10 Sec
         // setInterval(getOrderInfoPreparation, 5000);
 
         // Order Item Status 
@@ -666,6 +666,7 @@
                 },
                 success: function(data) {
                     getOrderInfoPreparation();
+                    getManagerCurrentOrder();
                 },
                 error: function(data) {
                     pricressFailed();
@@ -695,6 +696,7 @@
                 },
                 success: function(data) {
                     getOrderInfoPreparation();
+                    getManagerCurrentOrder();
                 },
                 error: function(data) {
                     pricressFailed();
@@ -935,6 +937,55 @@
                     $('.viewInvoiceRender').html(data.html);
                     $('#showInvoiceItemsData').modal('show');
                     audioPlay();
+                }
+            });
+        });
+    </script>
+
+
+
+    {{-- Manager  --}}
+    <script>
+        // Get All Order 
+        function getManagerCurrentOrder() {
+            var url = '{{ url('get_manager_current_order') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    $('.viewManagerCurrentOrder').html(data.html);
+                }
+            });
+        }
+        getManagerCurrentOrder();
+        setInterval(getManagerCurrentOrder, 10000); //10 Sec
+
+
+        // Manager Remark 
+        $(document).on("keyup", ".updateManagerRemark", function() {
+            var id = $(this).data('id');
+            var value = $(this).val();
+
+            var url = '{{ url('update_manager_remark') }}';
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'GET',
+                url: url,
+                data: {
+                    id: id,
+                    value: value,
+                },
+                success: function(data) {
+                    console.log(data)
+                    // getManagerCurrentOrder();
+                    getOrderInfoPreparation();
+                },
+                error: function(data) {
+                    console.log(data)
                 }
             });
         });

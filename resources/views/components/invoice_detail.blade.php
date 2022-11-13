@@ -30,13 +30,6 @@
                                 PDF
                             </span>
                         </a>
-
-                        <button id="print2" class="btn btn-warning" type="button">
-                            <span>
-                                <i class="fa fa-print"></i>
-                                Print
-                            </span>
-                        </button>
                     </div>
                 </div>
             </div>

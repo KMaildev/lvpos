@@ -67,6 +67,10 @@
                                     </td>
 
                                     <td>
+                                        {{ $order_item->manager_remark ?? '' }}
+                                    </td>
+
+                                    <td>
                                         <button class="btn btn-sm btn-rounded dropdown-toggle no-caret text-white"
                                             type="button" data-bs-toggle="dropdown"
                                             style="background-color: {{ $bg_color }}">
@@ -96,6 +100,8 @@
                                             @endcan
                                         </div>
                                     </td>
+
+
                                 </tr>
                             @endforeach
                         </tbody>

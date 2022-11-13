@@ -66,19 +66,7 @@ class OrderListController extends Controller
         $order_items = OrderItem::where('order_info_id', $id)
             ->get();
 
-        return view('counter.completed_order.show', compact('order_info', 'order_items'));
-
-
-        // $order_info = OrderInfo::findOrFail($id);
-        // $order_items = OrderItem::where('order_info_id', $id)
-        //     ->get();
-
-        // $viewRender = view('manager.order_list.invoice', compact('order_info', 'order_items'))->render();
-
-        // return response()->json([
-        //     'order_infos' => $id,
-        //     'html' => $viewRender
-        // ]);
+        return view('manager.orders.show', compact('order_info', 'order_items'));
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\CustomerListsController;
 use App\Http\Controllers\Counter\OrdersController;
 use App\Http\Controllers\General\CounterController;
+use App\Http\Controllers\General\OrderItemController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
 use App\Http\Controllers\Manager\OrderListController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Management\MenuIngredientsController;
 use App\Http\Controllers\Management\MenuListsController;
 use App\Http\Controllers\Management\TableIconController;
 use App\Http\Controllers\Management\TableListsController;
+use App\Http\Controllers\Manager\CurrentOrderController;
 use App\Http\Controllers\Manager\ManagerDashboardController;
 use App\Http\Controllers\OrderInfo\OrderInfoController;
 use App\Http\Controllers\OrderManagement\CustomerController;
@@ -88,6 +90,12 @@ Route::middleware('auth')->group(function () {
 
     // Manager 
     Route::resource('manager_dashboard', ManagerDashboardController::class);
+    Route::resource('manager_current_order', CurrentOrderController::class);
+    Route::get('get_manager_current_order', [CurrentOrderController::class, 'getManagerCurrentOrder'])->name('get_manager_current_order');
+
+
+
+
     Route::resource('order_lists', OrderListController::class);
     Route::get('get_order_info', [OrderListController::class, 'getOrderInfo'])->name('get_order_info');
     Route::get('show_order_info/{id}', [OrderListController::class, 'show'])->name('show_order_info');
@@ -133,6 +141,7 @@ Route::middleware('auth')->group(function () {
     // General 
     Route::resource('counter', CounterController::class);
     Route::get('get_counter', [CounterController::class, 'index'])->name('get_counter');
+    Route::get('update_manager_remark', [OrderItemController::class, 'updateManagerRemark'])->name('update_manager_remark');
 
     // Conponents 
     Route::get('invoice_pdf_download/{id}', [InvoicePdfController::class, 'InvoicePDFDownload'])->name('invoice_pdf_download');
