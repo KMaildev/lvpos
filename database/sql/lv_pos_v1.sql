@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2022 at 07:25 PM
+-- Generation Time: Nov 13, 2022 at 05:37 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.29
 
@@ -100,7 +100,12 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `customer_name`, `email`, `mobile`, `address`, `remark`, `created_at`, `updated_at`) VALUES
-(1, 'May', 'may@gmail.com', '09-255378857', 'Hlaing', NULL, '2022-10-12 19:16:13', '2022-10-12 19:16:13');
+(1, 'May', 'may@gmail.com', '09-255378857', 'Hlaing', NULL, '2022-10-12 19:16:13', '2022-10-12 19:16:13'),
+(2, 'Mg Mg', 'mgmg@gmail.com', NULL, NULL, NULL, '2022-11-11 04:28:49', '2022-11-11 04:28:49'),
+(3, 'U Mg', NULL, NULL, NULL, NULL, '2022-09-11 15:07:59', '2022-11-11 15:07:59'),
+(4, 'U Aung', NULL, NULL, NULL, NULL, '2022-11-11 15:09:08', '2022-11-11 15:09:08'),
+(5, 'U Aung Soe Mo', NULL, NULL, NULL, 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without', '2022-11-11 16:37:09', '2022-11-11 16:37:09'),
+(6, 'May', NULL, NULL, NULL, NULL, '2022-11-11 16:46:29', '2022-11-11 16:46:29');
 
 -- --------------------------------------------------------
 
@@ -122,7 +127,10 @@ CREATE TABLE `departments` (
 INSERT INTO `departments` (`id`, `title`, `created_at`, `updated_at`) VALUES
 (1, 'Manager', '2022-09-19 02:21:21', '2022-09-19 02:21:21'),
 (2, 'HR', '2022-09-19 02:22:46', '2022-09-19 02:22:46'),
-(3, 'Kitchen', '2022-09-19 02:24:11', '2022-09-19 21:04:32');
+(3, 'Kitchen', '2022-09-19 02:24:11', '2022-09-19 21:04:32'),
+(4, 'Waiter', '2022-11-10 04:06:56', '2022-11-10 04:06:56'),
+(5, 'Cashier', '2022-11-10 04:07:06', '2022-11-10 04:07:06'),
+(6, 'Admin', '2022-11-10 04:12:07', '2022-11-10 04:12:07');
 
 -- --------------------------------------------------------
 
@@ -345,7 +353,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2022_10_10_002258_add_order_preparation_fields_to_order_infos_table', 21),
 (28, '2022_10_10_135623_add_preparation_date_to_order_infos_table', 22),
 (30, '2022_10_12_134508_create_table_icons_table', 23),
-(0, '2022_11_08_211110_add_difference_time_to_order_items_table', 24);
+(0, '2022_11_08_211110_add_difference_time_to_order_items_table', 24),
+(0, '2022_11_10_083648_add_check_out_user_id_to_order_infos_table', 25),
+(0, '2022_11_10_105759_add_status_to_permissions_table', 26),
+(0, '2022_11_13_132857_add_manager_remark_to_order_items_table', 27);
 
 -- --------------------------------------------------------
 
@@ -377,8 +388,10 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(1, 'App\\Models\\User', 4),
-(2, 'App\\Models\\User', 1);
+(5, 'App\\Models\\User', 2),
+(3, 'App\\Models\\User', 3),
+(2, 'App\\Models\\User', 4),
+(1, 'App\\Models\\User', 5);
 
 -- --------------------------------------------------------
 
@@ -402,16 +415,21 @@ CREATE TABLE `order_infos` (
   `order_preparation_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order_preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `check_out_user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order_infos`
 --
 
-INSERT INTO `order_infos` (`id`, `customer_id`, `table_list_id`, `order_date`, `check_in_time`, `check_out_time`, `user_id`, `created_at`, `updated_at`, `order_no`, `bill_no`, `check_out_status`, `order_preparation_status`, `order_preparation_date`, `order_preparation_user_id`, `preparation_date`) VALUES
-(1, '0', '1', '2022-11-10 12:22:27 AM', '2022-11-10 12:22:27 AM', '2022-11-10 12:53:14 AM', '1', '2022-11-09 17:51:59', '2022-11-09 18:23:14', '000001', 'B00001', 'finished', NULL, NULL, NULL, NULL),
-(2, '1', '2', '2022-11-10 12:22:13 AM', '2022-11-10 12:22:13 AM', '2022-11-10 12:53:59 AM', '1', '2022-11-09 17:52:13', '2022-11-09 18:23:59', '000002', 'B00002', 'finished', NULL, NULL, NULL, NULL);
+INSERT INTO `order_infos` (`id`, `customer_id`, `table_list_id`, `order_date`, `check_in_time`, `check_out_time`, `user_id`, `created_at`, `updated_at`, `order_no`, `bill_no`, `check_out_status`, `order_preparation_status`, `order_preparation_date`, `order_preparation_user_id`, `preparation_date`, `check_out_user_id`) VALUES
+(1, '0', '1', '2022-11-10 12:22:27 AM', '2022-11-10 12:22:27 AM', '2022-11-10 12:53:14 AM', '1', '2022-11-09 17:51:59', '2022-11-09 18:23:14', '000001', 'B00001', 'finished', NULL, NULL, NULL, NULL, 1),
+(2, '1', '2', '2022-11-10 12:22:13 AM', '2022-11-10 12:22:13 AM', '2022-11-10 12:53:59 AM', '1', '2022-11-09 17:52:13', '2022-11-09 18:23:59', '000002', 'B00002', 'finished', NULL, NULL, NULL, NULL, 1),
+(3, '0', '1', '2022-11-10 08:04:12 AM', '2022-11-10 08:04:12 AM', NULL, '1', '2022-11-10 01:34:12', '2022-11-13 14:59:16', '000003', 'B00003', NULL, NULL, NULL, NULL, NULL, NULL),
+(4, '0', '2', '2022-11-10 08:04:32 AM', '2022-11-10 08:04:32 AM', NULL, '1', '2022-11-10 01:34:32', '2022-11-13 14:59:47', '000004', 'B00004', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '0', '4', '2022-11-10 08:06:42 AM', '2022-11-10 08:06:42 AM', NULL, '1', '2022-11-10 01:36:42', '2022-11-13 14:59:53', '000005', 'B00005', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, '0', '3', '2022-11-13 05:39:34 PM', '2022-11-13 05:39:34 PM', NULL, '1', '2022-11-13 11:09:34', '2022-11-13 11:09:34', '000006', 'B00006', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -432,20 +450,34 @@ CREATE TABLE `order_items` (
   `preparation_status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `preparation_date` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `preparation_user_id` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `difference_time` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `manager_remark` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `menu_list_id`, `qty`, `price`, `remark`, `order_info_id`, `user_id`, `created_at`, `updated_at`, `preparation_status`, `preparation_date`, `preparation_user_id`, `difference_time`) VALUES
-(1, '1', '1', '3500', '', 1, 1, '2022-11-09 17:51:59', '2022-11-09 17:51:59', NULL, NULL, NULL, NULL),
-(2, '2', '1', '5500', '', 1, 1, '2022-11-09 17:51:59', '2022-11-09 17:51:59', NULL, NULL, NULL, NULL),
-(3, '2', '1', '5500', '', 2, 1, '2022-11-09 17:52:13', '2022-11-09 17:52:13', NULL, NULL, NULL, NULL),
-(4, '3', '1', '4500', '', 2, 1, '2022-11-09 17:52:13', '2022-11-09 17:54:20', 'Preparation', '2022-11-10 12:24:20 AM', '1', '2'),
-(5, '2', '1', '5500', '', 1, 1, '2022-11-09 17:52:27', '2022-11-09 17:52:27', NULL, NULL, NULL, NULL),
-(6, '3', '1', '4500', '', 1, 1, '2022-11-09 17:52:27', '2022-11-09 17:52:27', NULL, NULL, NULL, NULL);
+INSERT INTO `order_items` (`id`, `menu_list_id`, `qty`, `price`, `remark`, `order_info_id`, `user_id`, `created_at`, `updated_at`, `preparation_status`, `preparation_date`, `preparation_user_id`, `difference_time`, `manager_remark`) VALUES
+(1, '1', '1', '3500', '', 1, 1, '2022-09-30 17:51:59', '2022-11-13 07:49:11', 'Preparation', '2022-11-10 09:28:21 AM', '1', '546', ''),
+(2, '2', '1', '5500', '', 1, 1, '2022-11-09 17:51:59', '2022-11-13 10:57:27', 'Reject', '2022-11-13 02:27:11 PM', '1', '5165', NULL),
+(3, '2', '1', '5500', '', 2, 1, '2022-11-09 17:52:13', '2022-11-13 10:57:24', 'Done', '2022-11-13 02:28:42 PM', '1', '5166', NULL),
+(4, '3', '1', '4500', '', 2, 1, '2022-11-09 17:52:13', '2022-11-10 03:30:51', 'Done', '2022-11-10 10:00:51 AM', '1', '578', NULL),
+(5, '2', '1', '5500', '', 1, 1, '2022-11-09 17:52:27', '2022-11-13 15:41:45', 'Preparation', '2022-11-13 10:11:45 PM', '1', '5629', NULL),
+(6, '3', '1', '4500', '', 1, 1, '2022-11-09 17:52:27', '2022-11-13 06:27:15', 'Reject', '2022-11-13 12:57:15 PM', '1', '5074', NULL),
+(7, '2', '1', '5500', '', 3, 1, '2022-11-10 01:34:12', '2022-11-13 10:57:21', 'Preparation', '2022-11-10 09:28:11 AM', '1', '83', NULL),
+(8, '3', '1', '4500', '', 3, 1, '2022-11-10 01:34:12', '2022-11-13 06:48:30', 'Reject', '2022-11-13 01:18:30 PM', '1', '4634', NULL),
+(9, '8', '1', '4500', '', 4, 1, '2022-11-10 01:34:32', '2022-11-13 10:57:14', 'Done', '2022-11-13 02:29:27 PM', '1', '4704', NULL),
+(10, '12', '1', '4500', '', 4, 1, '2022-11-10 01:34:32', '2022-11-10 02:58:15', 'Preparation', '2022-11-10 09:28:15 AM', '1', '83', NULL),
+(11, '6', '1', '4500', '', 5, 1, '2022-11-10 01:36:42', '2022-11-13 06:27:13', 'Done', '2022-11-13 12:57:13 PM', '1', '4610', NULL),
+(12, '11', '1', '3500', '', 5, 1, '2022-11-10 01:36:42', '2022-11-13 10:57:16', 'Preparation', '2022-11-10 09:28:19 AM', '1', '81', NULL),
+(13, '8', '1', '4500', '', 4, 1, '2022-11-10 01:37:05', '2022-11-13 10:57:12', 'Done', '2022-11-10 10:00:50 AM', '1', '113', NULL),
+(14, '12', '1', '4500', '', 4, 1, '2022-11-10 01:37:05', '2022-11-10 02:58:17', 'Preparation', '2022-11-10 09:28:17 AM', '1', '81', NULL),
+(15, '16', '1', '4000', '', 4, 1, '2022-11-10 01:37:05', '2022-11-13 10:57:19', 'Preparation', '2022-11-10 09:28:12 AM', '1', '81', NULL),
+(16, '15', '1', '4000', '', 4, 1, '2022-10-01 01:37:05', '2022-11-13 10:57:18', 'Preparation', '2022-11-10 09:28:14 AM', '1', '81', NULL),
+(17, '6', '1', '4500', '', 6, 1, '2022-11-13 11:09:34', '2022-11-13 15:41:42', 'Done', '2022-11-13 10:11:42 PM', '1', '272', NULL),
+(18, '7', '1', '5000', '', 6, 1, '2022-11-13 11:09:34', '2022-11-13 12:01:20', 'Done', '2022-11-13 06:31:20 PM', '1', '51', NULL),
+(19, '11', '1', '3500', '', 6, 1, '2022-11-13 11:09:34', '2022-11-13 12:01:26', 'Done', '2022-11-13 06:31:26 PM', '1', '51', NULL);
 
 -- --------------------------------------------------------
 
@@ -466,21 +498,29 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `status` text COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'hr_module', 'web', '2022-09-19 03:52:32', '2022-09-19 03:59:52'),
-(2, 'kitchen_module', 'web', '2022-09-19 04:00:15', '2022-09-19 04:00:15'),
-(3, 'counter_module', 'web', '2022-09-19 04:00:24', '2022-09-19 04:00:24');
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'hr_module', 'web', '2022-09-19 03:52:32', '2022-09-19 03:59:52', 'module'),
+(2, 'kitchen_module', 'web', '2022-09-19 04:00:15', '2022-09-19 04:00:15', 'module'),
+(3, 'counter_module', 'web', '2022-09-19 04:00:24', '2022-09-19 04:00:24', 'module'),
+(4, 'pos_module', 'web', '2022-11-10 04:08:00', '2022-11-10 04:08:21', 'module'),
+(5, 'manager_module', 'web', '2022-11-10 04:08:41', '2022-11-10 04:08:41', 'module'),
+(6, 'management_module', 'web', '2022-11-10 04:09:07', '2022-11-10 04:09:07', 'module'),
+(7, 'preparation_button', 'web', '2022-11-10 04:31:37', '2022-11-10 04:31:37', 'function'),
+(8, 'inventory_module', 'web', '2022-11-10 04:31:58', '2022-11-10 04:31:58', 'module'),
+(9, 'done_button', 'web', '2022-11-10 04:36:56', '2022-11-10 04:36:56', 'function'),
+(10, 'reject_button', 'web', '2022-11-10 04:37:08', '2022-11-10 04:37:08', 'function');
 
 -- --------------------------------------------------------
 
@@ -520,7 +560,10 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'web', '2022-09-19 04:00:45', '2022-09-19 04:00:45'),
-(2, 'Kitchen', 'web', '2022-09-19 10:12:25', '2022-09-19 10:12:25');
+(2, 'Kitchen', 'web', '2022-09-19 10:12:25', '2022-09-19 10:12:25'),
+(3, 'Cashier', 'web', '2022-11-10 04:10:56', '2022-11-10 04:10:56'),
+(4, 'Manager', 'web', '2022-11-10 04:11:17', '2022-11-10 04:11:17'),
+(5, 'Waiter', 'web', '2022-11-10 04:13:38', '2022-11-10 04:13:38');
 
 -- --------------------------------------------------------
 
@@ -538,10 +581,28 @@ CREATE TABLE `role_has_permissions` (
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+(3, 3),
+(4, 5),
 (1, 1),
 (2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(2, 4),
+(3, 4),
+(4, 4),
+(5, 4),
+(7, 4),
+(9, 4),
+(10, 4),
 (2, 2),
-(3, 1);
+(7, 2),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -704,6 +765,16 @@ CREATE TABLE `temporary_order_items` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `temporary_order_items`
+--
+
+INSERT INTO `temporary_order_items` (`id`, `menu_list_id`, `qty`, `price`, `remark`, `session_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(75, 6, '50', '4500', '', 'mLDLP9OGToHiRSqhLymwnt1s401yVY7HbAF3W9WV', '1', '2022-11-10 04:23:01', '2022-11-10 04:23:54'),
+(76, 7, '10', '5000', '', 'mLDLP9OGToHiRSqhLymwnt1s401yVY7HbAF3W9WV', '1', '2022-11-10 04:23:02', '2022-11-10 04:23:12'),
+(77, 8, '27', '4500', '', 'mLDLP9OGToHiRSqhLymwnt1s401yVY7HbAF3W9WV', '1', '2022-11-10 04:23:02', '2022-11-10 04:23:25'),
+(81, 8, '1', '4500', '', 'rmFSCJduGDCko0Cq4YhqOyCDC5lMxkQ9MlJqpswt', '1', '2022-11-13 14:06:22', '2022-11-13 14:06:22');
+
 -- --------------------------------------------------------
 
 --
@@ -748,10 +819,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `employee_id`, `phone`, `nrc_number`, `gender`, `address`, `department_id`, `is_banned`, `created_at`, `updated_at`, `last_login_at`, `last_login_ip`, `agent`, `nrc_front`, `nrc_back`, `members_list_file`, `other_file`, `leave_date`, `leave_remark`, `leave_by`, `contact_person`, `emergency_contact`, `passport_photo`, `join_date`, `employment_type`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$6wLmx5kwZfgDyAPAS3yt6OhReBlrlEeqXJSmgd6IofipLGwSDGnfu', NULL, '000001', '09123123123', '1/abc(n)009112', 'male', 'Yangon', '1', 1, '2022-09-19 00:38:43', '2022-09-19 10:07:48', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation'),
-(2, 'Mg Mg', 'mgmg@gmail.com', NULL, '$2y$10$RN2tKz.zeLSygmqUdzN.7uBEulRsc4JEPCDJ5Yztc2SXHASI0ft.K', NULL, '000002', '09123123122', '1/abc(n)009221', 'male', 'Yangon', '2', 1, '2022-09-19 04:15:56', '2022-09-19 04:15:56', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation'),
-(3, 'asdf', 'asdf@gmail.com', NULL, '$2y$10$GQkXculsBdYmnNlQ3HyxUOCt85WnpEKanEy8Z/DtbR/Vr0AOhiYWy', NULL, 'asdf', '0912312313', 'asdf', 'male', 'asdf', '2', 1, '2022-09-19 04:20:24', '2022-09-19 04:20:24', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation'),
-(4, 'asf', 'adsf@gmail.com', NULL, '$2y$10$egircmGYILEHTPazzRTwpe1kf2pSJn2V.QzFtpuALMw7TvNOiSzWe', NULL, 'EMP-000212', 'asdfasdfas', 'asdfasdf', 'male', 'Yangon', '2', 1, '2022-09-19 04:22:12', '2022-09-19 10:15:25', NULL, NULL, NULL, 'public/photo/4IOEyGZhdYWVqad8OM0WgiN2aPnT5hs69h8wMOOs.png', 'public/photo/bAj8Mpw5Pa9hZfwZwn1WuCAKZU9FlT95UDySMaKG.png', '', NULL, NULL, NULL, NULL, 'sadf', 'asdf', 'public/passport/nRW0cutoedslYBDEhkq7wUkBqPta0ykH4IjokMld.png', 'asdf', 'Probation');
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$6wLmx5kwZfgDyAPAS3yt6OhReBlrlEeqXJSmgd6IofipLGwSDGnfu', NULL, '000001', '09123123123', '1/abc(n)009112', 'male', 'Yangon', '6', 1, '2022-09-19 00:38:43', '2022-11-10 04:12:30', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Probation'),
+(2, 'Waiter', 'waiter@gmail.com', NULL, '$2y$10$RN2tKz.zeLSygmqUdzN.7uBEulRsc4JEPCDJ5Yztc2SXHASI0ft.K', NULL, '000002', '09123123122', '1/abc(n)009221', 'male', 'Yangon', '4', 1, '2022-09-19 04:15:56', '2022-11-10 04:17:11', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation'),
+(3, 'Cashier', 'cashier@gmail.com', NULL, '$2y$10$2cmT.ju9glDYHGyoFZnMle1.SvlKPUd9VQV5tcj4PkYrPad1wjS7G', NULL, '0000013', '0912312313', 'Cashier', 'male', 'Yangon', '5', 1, '2022-09-19 04:20:24', '2022-11-10 04:18:17', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation'),
+(4, 'Kitchen', 'kitchen@gmail.com', NULL, '$2y$10$Kj/qfsc5WW2TrbAcBu09Re3wlLMUBD.eY4PNBR42.wnlWtpWOsM82', NULL, 'EMP-00003', '09123123125', 'kitchen', 'male', 'Yangon', '2', 1, '2022-09-19 04:22:12', '2022-11-10 04:42:54', NULL, NULL, NULL, 'public/photo/4IOEyGZhdYWVqad8OM0WgiN2aPnT5hs69h8wMOOs.png', 'public/photo/bAj8Mpw5Pa9hZfwZwn1WuCAKZU9FlT95UDySMaKG.png', '', NULL, NULL, NULL, NULL, 'sadf', 'asdf', 'public/passport/nRW0cutoedslYBDEhkq7wUkBqPta0ykH4IjokMld.png', '1.1.2022', 'Probation'),
+(5, 'HR', 'hr@gmail.com', NULL, '$2y$10$Q2hJnGzh1j10Ic5wjXw4TOShRXXAnJGKnaaGycbv4Jp4KM8uoDNwq', NULL, 'ID-000005', '091231232', '1/abc(N)009221', 'male', 'YGN', '5', 1, '2022-11-11 04:24:28', '2022-11-11 04:24:28', NULL, NULL, NULL, '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 'Probation');
 
 --
 -- Indexes for dumped tables
@@ -830,6 +902,12 @@ ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -879,13 +957,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `floors`
@@ -927,19 +1005,25 @@ ALTER TABLE `menu_lists`
 -- AUTO_INCREMENT for table `order_infos`
 --
 ALTER TABLE `order_infos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `table_icons`
@@ -957,13 +1041,13 @@ ALTER TABLE `table_lists`
 -- AUTO_INCREMENT for table `temporary_order_items`
 --
 ALTER TABLE `temporary_order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

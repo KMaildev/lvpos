@@ -145,6 +145,10 @@ Route::middleware('auth')->group(function () {
     Route::get('manager_current_order_pdf', [OrderItemController::class, 'getManagerCurrentOrderPdf'])->name('manager_current_order_pdf');
     Route::get('get_kitchen_order_preparation_pdf', [OrderItemController::class, 'getKitchenOrderPreparationPdf'])->name('get_kitchen_order_preparation_pdf');
     Route::get('get_kitchen_order_preparation_excel', [OrderItemController::class, 'getKitchenOrderPreparationExcel'])->name('get_kitchen_order_preparation_excel');
+    Route::get('get_kitchen_order_done_pdf', [OrderItemController::class, 'getKitchenOrderDonePdf'])->name('get_kitchen_order_done_pdf');
+    Route::get('get_kitchen_order_done_excel', [OrderItemController::class, 'getKitchenOrderDoneExcel'])->name('get_kitchen_order_done_excel');
+    Route::get('get_kitchen_order_all_done_pdf', [OrderItemController::class, 'getKitchenOrderAllDonePdf'])->name('get_kitchen_order_all_done_pdf');
+    Route::get('get_kitchen_order_all_done_excel', [OrderItemController::class, 'getKitchenAllOrderDoneExcel'])->name('get_kitchen_order_all_done_excel');
 
 
     Route::get('manager_current_order_excel', [OrderItemController::class, 'getManagerCurrentOrderExcel'])->name('manager_current_order_excel');

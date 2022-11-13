@@ -29,7 +29,7 @@
         }
     </style>
     <h4>
-        Current Order ({{ now('Asia/Yangon') }})
+        {{ now('Asia/Yangon') }}
     </h4>
     <table class="table">
         <thead class="bg-info">

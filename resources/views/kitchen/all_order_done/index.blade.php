@@ -7,6 +7,22 @@
                 <div class="form-group">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-lg" placeholder="Search" name="keyword">
+
+                        <button class="waves-effect waves-light btn btn-success dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="icon ti-download"></i>
+                            Download
+                        </button>
+
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="{{ route('get_kitchen_order_all_done_excel') }}">
+                                Export to Excel
+                            </a>
+
+                            <a class="dropdown-item" href="{{ route('get_kitchen_order_all_done_pdf') }}" target="_blank">
+                                Download PDF
+                            </a>
+                        </div>
                     </div>
                 </div>
             </form>
