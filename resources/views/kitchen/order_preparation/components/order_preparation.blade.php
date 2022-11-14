@@ -2,7 +2,7 @@
         <div class="box">
             <div class="box-body">
                 <h4 class="box-title">
-                    Prder Preparation
+                    Order Preparation
                 </h4>
 
 

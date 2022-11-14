@@ -24,7 +24,8 @@
             <div class="col-12">
                 <div class="bb-1 clearFix">
                     <div class="text-end pb-15">
-                        <a class="btn btn-success" href="{{ route('invoice_pdf_download', $order_info->id) }}" target="_blank">
+                        <a class="btn btn-success" href="{{ route('invoice_pdf_download', $order_info->id) }}"
+                            target="_blank">
                             <span>
                                 <i class="fa fa-download"></i>
                                 PDF
@@ -164,6 +165,10 @@
                                     @if ($order_item->preparation_status == 'Reject')
                                         <span class="badge badge-pill badge-danger">
                                             {{ $order_item->preparation_status ?? '' }}
+                                        </span>
+                                    @elseif ($order_item->preparation_status == null)
+                                        <span class="badge badge-pill badge-info">
+                                            Order
                                         </span>
                                     @else
                                         <span class="badge badge-pill badge-success">

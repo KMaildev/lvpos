@@ -14,7 +14,7 @@
 
                     <li class="{{ Request::is('counter_order') ? 'active' : '' }}">
                         <a href="{{ route('counter_order.index') }}">
-                            <i class="fa fa-list"></i>
+                            <i class="fa fa-history"></i>
                             Orders
                         </a>
                     </li>
@@ -22,7 +22,7 @@
 
                     <li class="{{ Request::is('counter_completed_order') ? 'active' : '' }}">
                         <a href="{{ route('counter_completed_order.index') }}">
-                            <i class="fa fa-check"></i>
+                            <i class="fa fa-check-double"></i>
                             Complete
                         </a>
                     </li>

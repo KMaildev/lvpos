@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('remove_menu_ingredient/{id}', [MenuIngredientsController::class, 'removeMenuIngredient'])->name('remove_menu_ingredient');
     Route::resource('floor', FloorController::class);
     Route::resource('table_lists', TableListsController::class);
+    Route::get('get_by_floor_category/{id}', [TableListsController::class, 'getByFloorCategory'])->name('get_by_floor_category');
     Route::resource('table_icon', TableIconController::class);
 
 
@@ -86,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('order_confirm', OrderConfirmController::class);
     Route::post('store_order_confirm', [OrderConfirmController::class, 'store'])->name('store_order_confirm');
     Route::get('get_on_goind_order', [OrderPreparationController::class, 'getOnGoingOrder'])->name('get_on_goind_order');
+
 
 
     // Manager 

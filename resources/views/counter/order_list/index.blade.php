@@ -40,6 +40,8 @@
                                         <th>Order Date & Time</th>
                                         <th>Table</th>
                                         <th>Waiter</th>
+                                        <th>Total Amount</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="orderCounterInfos"></tbody>
@@ -47,7 +49,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="viewInvoiceRender"></div>

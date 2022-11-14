@@ -177,7 +177,7 @@
                             @if ($order_item->preparation_status == 'Reject')
                                 {{ $order_item->preparation_status ?? '' }}
                             @else
-                                {{ $order_item->preparation_status ?? '' }}
+                                {{ $order_item->preparation_status ?? 'Order' }}
                             @endif
                         </td>
 

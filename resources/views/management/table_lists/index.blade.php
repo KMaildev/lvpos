@@ -17,6 +17,17 @@
                 </div>
             </div>
 
+            <div class="col-xxxl-12 col-lg-12 col-12">
+                <a href="{{ route('table_lists.index') }}" class="waves-effect waves-light btn btn-info">
+                    All
+                </a>
+                @foreach ($floors as $floor)
+                    <a href="{{ route('get_by_floor_category', $floor->id) }}" class="waves-effect waves-light btn btn-info">
+                        {{ $floor->title ?? '' }}
+                    </a>
+                @endforeach
+                <br><br>
+            </div>
             @foreach ($table_lists as $table_list)
                 <div class="col-xxxl-3 col-lg-3 col-12">
                     <a href="{{ route('table_lists.edit', $table_list->id) }}">

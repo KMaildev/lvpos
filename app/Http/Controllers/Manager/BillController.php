@@ -51,6 +51,7 @@ class BillController extends Controller
         $order_info = OrderInfo::findOrFail($order_info_id);
         $order_info->check_out_time = date('Y-m-d h:i:s A');
         $order_info->check_out_status = 'finished';
+        $order_info->check_out_user_id = auth()->user()->id ?? 0;
         $order_info->update();
 
         return response()->json([

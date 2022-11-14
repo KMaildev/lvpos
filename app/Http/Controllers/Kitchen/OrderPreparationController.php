@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Kitchen;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\updateAllItemStatus;
 use App\Http\Requests\updateOrderPreparationStatus;
@@ -127,10 +128,10 @@ class OrderPreparationController extends Controller
         $order_item->preparation_date = date('Y-m-d h:i:s A');
         $order_item->preparation_status = $request->order_status;
         $order_item->preparation_user_id = auth()->user()->id ?? 0;
-
         $order_item->difference_time = $order_item->created_at->diffInMinutes(Carbon::now());
-
         $order_item->update();
+        $order_info_id = $order_item->order_info_id;
+        Helper::updateOrderInfoTotalAmount($order_info_id);
         return response()->json([
             "statusCode" => 200,
             'procress' => 'success',

@@ -56,6 +56,15 @@
     .me-20 {
         margin-right: 20px !important;
     }
+
+
+    .table_name {
+        display: block;
+    }
+
+    .floor_title {
+        display: block;
+    }
 </style>
 {{-- Table Lists  --}}
 <div class="modal fade modal-warning" id="showTableLists" role="dialog" style="background-color: white">
@@ -67,12 +76,33 @@
                 </button>
                 <h3 class="modal-title">Table</h3>
             </div>
-            <div class="modal-body" style="height: 700px;">
+            <div class="modal-body">
                 <div class="container-fulid">
                     <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-xxxl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                                    @foreach ($floors as $floor)
+                                        <button onclick="search_by_floor('{{ $floor->title }}')"
+                                            class="btn btn-success">
+                                            <i class="fa fa-table"></i>
+                                            {{ $floor->title }}
+                                        </button>
+                                    @endforeach
+                                </div>
+                                <div class="col-md-4">
+                                    <input id="searchbar" onkeyup="search_table_name()" type="text"
+                                        placeholder="Search table name" class="form-control">
+                                    <br><br>
+                                </div>
+                            </div>
+                        </div>
+
                         @foreach ($table_lists as $table_list)
-                            <div class="col-xxxl-3 col-lg-3 col-md-3 col-sm-12 col-12"
-                                onclick="setTableId({{ $table_list->id }}, '{{ $table_list->table_name }}')">
+                            <div class="table_name floor_title col-xxxl-3 col-lg-3 col-md-3 col-sm-12 col-12"
+                                onclick="setTableId({{ $table_list->id }}, '{{ $table_list->table_name }}')"
+                                id='list'>
                                 <div class="box">
                                     <div class="box-body">
                                         <div class="d-flex align-items-start">
@@ -87,15 +117,26 @@
                                                 @endif
                                             </div>
                                             <div>
-                                                <h2 class="my-0 fw-700">
+                                                <h2 class="my-0 fw-700 table_name">
                                                     {{ $table_list->table_name ?? '' }}
                                                 </h2>
-                                                <p class="text-fade mb-0">
+                                                <p class="text-fade mb-0 floor_title">
                                                     {{ $table_list->floor_table->title ?? '' }}
                                                 </p>
                                                 <p class="text-fade mb-0">
                                                     No of {{ $table_list->reservation ?? '' }}
                                                 </p>
+                                                @php
+                                                    $table_list_id = $table_list->order_infos_table_change_table->table_list_id ?? '';
+                                                @endphp
+                                                @if ($table_list_id == $table_list->id)
+                                                    <p style="color: red">
+                                                        <i class="fa fa-users"></i>
+                                                        Order
+                                                    </p>
+                                                @else
+                                                    <p><br></p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

@@ -19,8 +19,16 @@ class TableListsController extends Controller
      */
     public function index()
     {
+        $floors = Floor::all();
         $table_lists = TableList::all();
-        return view('management.table_lists.index', compact('table_lists'));
+        return view('management.table_lists.index', compact('table_lists', 'floors'));
+    }
+
+    public function getByFloorCategory($id)
+    {
+        $floors = Floor::all();
+        $table_lists = TableList::where('floor_id', $id)->get();
+        return view('management.table_lists.index', compact('table_lists', 'floors'));
     }
 
     /**

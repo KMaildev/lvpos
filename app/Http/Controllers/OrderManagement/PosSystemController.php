@@ -4,6 +4,7 @@ namespace App\Http\Controllers\OrderManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Floor;
 use App\Models\MenuList;
 use App\Models\TableList;
 use Illuminate\Http\Request;
@@ -19,8 +20,11 @@ class PosSystemController extends Controller
     {
         $categories = Category::all();
         $table_lists = TableList::all();
-        return view('order_management.pos_system.index', compact('categories', 'table_lists'));
+        $floors = Floor::all();
+        return view('order_management.pos_system.index', compact('categories', 'table_lists', 'floors'));
     }
+
+
 
     public function getMenuList(Request $request)
     {

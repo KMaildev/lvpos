@@ -11,6 +11,7 @@
             <th>Table</th>
             <th>Waiter</th>
             <th>Check Out</th>
+            <th>Total Amount</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -52,6 +53,13 @@
 
                 <td>
                     {{ $order_info->check_out_users_table->name ?? '' }}
+                </td>
+
+                <td>
+                    @php
+                        $total_amount = $order_info->total_amount;
+                        echo number_format($total_amount, 2);
+                    @endphp
                 </td>
 
                 <td class="text-center">

@@ -1,168 +1,4 @@
 @section('script')
-    {{-- Counter Module  --}}
-    <script type="text/javascript">
-        // Get All Order 
-        function getOrderLists() {
-            var url = '{{ url('get_order_info') }}';
-            $.ajax({
-                url: url,
-                method: "GET",
-                success: function(data) {
-                    showOrderLists(data);
-                }
-            });
-        }
-        getOrderLists();
-        setInterval(getOrderLists, 3000); // 10000 = 10 Sec 3000 = 3
-
-        // Search Input
-        $('#searchOrderList').on('input', function() {
-            searchOrderList();
-        });
-
-        function searchOrderList() {
-            var keyword = $('#searchOrderList').val();
-            var url = '{{ url('get_order_info') }}';
-            $.ajax({
-                url: url,
-                method: "GET",
-                data: {
-                    keyword: keyword,
-                },
-                success: function(data) {
-                    showOrderLists(data);
-                }
-            });
-        }
-
-        // Show Order Lists 
-        function showOrderLists(res) {
-            let order_info = '';
-
-            for (let i = 0; i < res.order_infos.length; i++) {
-                order_info += '<div class="col-xl-4 col-12 show_invoice" data-id="' + res.order_infos[i].id + '">';
-                order_info += '<div class="small-box bg-primary">';
-
-                // Order Table Info 
-                order_info += '<div class="inner">';
-                order_info += '<h6 style="font-size: 23px;">';
-                order_info += '<span style="color: white;">';
-                order_info += res.order_infos[i].table_lists_table.table_name;
-                order_info += '</span>';
-                order_info += '</h6>';
-
-                order_info += '<span style="color: white;">';
-                order_info += 'ID: ';
-                order_info += res.order_infos[i].order_no;
-                order_info += '</span>';
-
-                order_info += '</div>';
-
-                // Icon 
-                order_info += '<div class="icon">';
-                order_info += '<span class="icon-Add-user text-white">';
-                order_info += '<span class="path1"></span>';
-                order_info += '<span class="path2"></span>';
-                order_info += '</span>';
-                order_info += '</div>';
-
-                // Name & Time 
-                order_info += '<div class="small-box-footer">';
-                order_info += '<span class="pull-left">';
-                order_info += res.order_infos[i].users_table.name;
-                order_info += '</span>';
-                order_info += '<span>'
-                order_info += res.order_infos[i].check_in_time;
-                order_info += '</span>';
-                order_info += '</div>';
-
-                order_info += '</div>';
-                order_info += '</div>';
-            }
-
-            if (res.order_infos.length <= 0) {
-                order_info += '<h1 style="color: red; padding: 20px;">';
-                order_info += 'No data found.';
-                order_info += '</h1>';
-            }
-
-            $('#orderInfos').html(order_info);
-        }
-
-        // Show Invoice
-        $(document).on("click", ".show_invoice", function() {
-            var id = $(this).data('id');
-            var url = '{{ url('show_order_info') }}';
-            $.ajax({
-                url: url + '/' + id,
-                method: "GET",
-                success: function(data) {
-                    $('.viewInvoiceRender').html(data.html);
-                    audioPlay();
-                }
-            });
-        });
-
-        // Submit Payment 
-        function submitPayment(order_info_id, amount) {
-            if (order_info_id == null || order_info_id == "") {
-                pricressFailed();
-                return false;
-            }
-
-            if (amount == null || amount == "") {
-                pricressFailed();
-                return false;
-            }
-            swal({
-                    title: "Payment Process",
-                    text: "Are you sure continue to this process?",
-                    icon: "success",
-                    buttons: true,
-                    dangerMode: false,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        var url = '{{ url('store_bill_info') }}';
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
-                        $.ajax({
-                            method: 'POST',
-                            url: url,
-                            data: {
-                                order_info_id: order_info_id,
-                                amount: amount,
-                            },
-                            success: function(data) {
-                                paymentSuccess();
-                                getCounterOrderLists();
-                                // $('.viewInvoiceRender').html('');
-                            },
-                            error: function(data) {}
-                        });
-                    } else {
-                        swal("The process has been canceled.");
-                    }
-                });
-        }
-
-        // Print Invoice 
-        function printInvoice() {
-            printJS({
-                printable: "printArea",
-                type: "html",
-                css: [
-                    "{{ asset('assets/css/bill.css') }}"
-                ],
-                scanStyles: false
-            });
-        }
-    </script>
-
-
     {{-- Order Management --}}
     <script type="text/javascript">
         // Get All Menus 
@@ -556,6 +392,7 @@
                                 audioPlay();
                                 orderSuccess();
                                 getTemporaryOrderItem();
+                                getOrderLists();
                             },
                             error: function(data) {
                                 console.log(data);
@@ -601,14 +438,6 @@
                 });
         }
 
-        // TableId Set 
-        function setTableId(table_id, table_name) {
-            document.getElementById("tableListId").value = table_id;
-            document.getElementById("tableNameForShow").value = table_name;
-            audioPlay();
-            $('#showTableLists').modal('hide');
-        }
-
 
         // On Going Order
         function getOnGoingOrder() {
@@ -622,8 +451,179 @@
             });
         }
         getOnGoingOrder();
+
+        // TableId Set 
+        function setTableId(table_id, table_name) {
+            document.getElementById("tableListId").value = table_id;
+            document.getElementById("tableNameForShow").value = table_name;
+            audioPlay();
+            $('#showTableLists').modal('hide');
+        }
     </script>
 
+    {{-- Counter Module  --}}
+    <script type="text/javascript">
+        // Get All Order 
+        function getOrderLists() {
+            var url = '{{ url('get_order_info') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(data) {
+                    showOrderLists(data);
+                }
+            });
+        }
+        getOrderLists();
+        setInterval(getOrderLists, 10000); // 10000 = 10 Sec 3000 = 3
+
+        // Search Input
+        $('#searchOrderList').on('input', function() {
+            searchOrderList();
+        });
+
+        function searchOrderList() {
+            var keyword = $('#searchOrderList').val();
+            var url = '{{ url('get_order_info') }}';
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: {
+                    keyword: keyword,
+                },
+                success: function(data) {
+                    showOrderLists(data);
+                }
+            });
+        }
+
+        // Show Order Lists 
+        function showOrderLists(res) {
+            let order_info = '';
+
+            for (let i = 0; i < res.order_infos.length; i++) {
+                order_info += '<div class="col-xl-4 col-12 show_invoice" data-id="' + res.order_infos[i].id + '">';
+                order_info += '<div class="small-box bg-primary">';
+
+                // Order Table Info 
+                order_info += '<div class="inner">';
+                order_info += '<h6 style="font-size: 23px;">';
+                order_info += '<span style="color: white;">';
+                order_info += res.order_infos[i].table_lists_table.table_name;
+                order_info += '</span>';
+                order_info += '</h6>';
+
+                order_info += '<span style="color: white;">';
+                order_info += 'ID: ';
+                order_info += res.order_infos[i].order_no;
+                order_info += '</span>';
+
+                order_info += '</div>';
+
+                // Icon 
+                order_info += '<div class="icon">';
+                order_info += '<span class="icon-Add-user text-white">';
+                order_info += '<span class="path1"></span>';
+                order_info += '<span class="path2"></span>';
+                order_info += '</span>';
+                order_info += '</div>';
+
+                // Name & Time 
+                order_info += '<div class="small-box-footer">';
+                order_info += '<span class="pull-left">';
+                order_info += res.order_infos[i].users_table.name;
+                order_info += '</span>';
+                order_info += '<span>'
+                order_info += res.order_infos[i].check_in_time;
+                order_info += '</span>';
+                order_info += '</div>';
+
+                order_info += '</div>';
+                order_info += '</div>';
+            }
+
+            if (res.order_infos.length <= 0) {
+                order_info += '<h1 style="color: red; padding: 20px;">';
+                order_info += 'No data found.';
+                order_info += '</h1>';
+            }
+
+            $('#orderInfos').html(order_info);
+        }
+
+        // Show Invoice
+        $(document).on("click", ".show_invoice", function() {
+            var id = $(this).data('id');
+            var url = '{{ url('show_order_info') }}';
+            $.ajax({
+                url: url + '/' + id,
+                method: "GET",
+                success: function(data) {
+                    $('.viewInvoiceRender').html(data.html);
+                    audioPlay();
+                }
+            });
+        });
+
+        // Submit Payment 
+        function submitPayment(order_info_id, amount) {
+            if (order_info_id == null || order_info_id == "") {
+                pricressFailed();
+                return false;
+            }
+
+            if (amount == null) {
+                pricressFailed();
+                return false;
+            }
+            swal({
+                    title: "Payment Process",
+                    text: "Are you sure continue to this process?",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: false,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var url = '{{ url('store_bill_info') }}';
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            method: 'POST',
+                            url: url,
+                            data: {
+                                order_info_id: order_info_id,
+                                amount: amount,
+                            },
+                            success: function(data) {
+                                paymentSuccess();
+                                getCounterOrderLists();
+                                // $('.viewInvoiceRender').html('');
+                                $('#showInvoiceItemsData').modal('hide');
+                            },
+                            error: function(data) {}
+                        });
+                    } else {
+                        swal("The process has been canceled.");
+                    }
+                });
+        }
+
+        // Print Invoice 
+        function printInvoice() {
+            printJS({
+                printable: "printArea",
+                type: "html",
+                css: [
+                    "{{ asset('assets/css/bill.css') }}"
+                ],
+                scanStyles: false
+            });
+        }
+    </script>
 
     {{-- kitchen Module  --}}
     <script type="text/javascript">
@@ -639,7 +639,7 @@
             });
         }
         getOrderInfoPreparation();
-        setInterval(getOrderInfoPreparation, 3000); //10 Sec
+        setInterval(getOrderInfoPreparation, 10000); //10 Sec
 
         // Order Item Status 
         function changeOrderItemStatus(order_item_id, order_status) {
@@ -714,7 +714,7 @@
             });
         }
         getOrderInfoDone();
-        setInterval(getOrderInfoDone, 3000); //50 Sec
+        setInterval(getOrderInfoDone, 10000); //50 Sec
     </script>
 
 
@@ -752,15 +752,18 @@
             });
         }
         getCounterOrderLists();
-        setInterval(getCounterOrderLists, 3000); // 10000 = 10 Sec 3000 = 3
+        setInterval(getCounterOrderLists, 10000); // 10000 = 10 Sec 3000 = 3
 
         // Show Order Lists 
         function showCounterOrderLists(res) {
             let order_info = '';
             for (let i = 0; i < res.order_infos.length; i++) {
+
                 order_info += '<tr class="hover-primary show_invoice_items" data-id="' + res.order_infos[i].id + '">';
 
-                order_info += '<td>1</td>';
+                order_info += '<td>';
+                order_info += i + 1;
+                order_info += '</td>';
 
                 // Order No
                 order_info += '<td>';
@@ -785,6 +788,17 @@
                 // Waiter
                 order_info += '<td>';
                 order_info += res.order_infos[i].users_table.name;
+                order_info += '</td>';
+
+                // Total Amount 
+                order_info += '<td>';
+                order_info += res.order_infos[i].total_amount;
+                order_info += '</td>';
+
+                // Action
+                order_info += '<td>';
+                order_info +=
+                    '<button type="button" class="waves-effect waves-light btn btn-success btn-sm">Checkout</button>';
                 order_info += '</td>';
 
                 order_info += '</tr>';
@@ -936,7 +950,6 @@
     </script>
 
 
-
     {{-- Manager  --}}
     <script>
         // Get All Order 
@@ -951,7 +964,7 @@
             });
         }
         getManagerCurrentOrder();
-        setInterval(getManagerCurrentOrder, 3000); //10 Sec
+        setInterval(getManagerCurrentOrder, 10000); //10 Sec
 
         // Search Input
         $('#searchManagerCurrentOrder').on('input', function() {
@@ -1048,5 +1061,49 @@
                 });
             });
         });
+
+
+
+        $(document).ready(function() {
+            $("#searchInputTabl").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".table_name_searchspan").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        // Table Search by table name
+        function search_table_name() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('table_name');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    // list-item
+                    x[i].style.display = "";
+                }
+            }
+        }
+
+        // Table Search by floor title
+        function search_by_floor(floor_title) {
+            let input = floor_title;
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('floor_title');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    // list-item
+                    x[i].style.display = "";
+                }
+            }
+        }
     </script>
 @endsection

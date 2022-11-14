@@ -69,7 +69,6 @@
 
                                     <input type="text" id="tableNameForShow" readonly>
                                     <input type="hidden" id="tableListId">
-
                                     <button type="button" class="btn btn-primary ml-l" aria-hidden="true"
                                         data-toggle="modal" data-target="#showTableLists">
                                         <i class="fa fa-table"></i>

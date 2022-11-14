@@ -20,7 +20,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
+
+    <div class="tableListShow"></div>
     @include('shared.javascript')
 @endsection
 @section('script')
