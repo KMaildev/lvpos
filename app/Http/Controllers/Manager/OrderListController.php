@@ -29,6 +29,14 @@ class OrderListController extends Controller
                 ->get();
         }
 
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        if ($start_date and $end_date) {
+            $order_infos = OrderInfo::with('table_lists_table', 'users_table', 'customer_table', 'check_out_users_table')
+                ->whereBetween('s_date', [$start_date, $end_date])
+                ->get();
+        }
+
         return view('manager.orders.index', compact('order_infos'));
     }
 

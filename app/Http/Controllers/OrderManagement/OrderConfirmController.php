@@ -61,6 +61,7 @@ class OrderConfirmController extends Controller
                 'customer_id' => $request->customer_id ?? 0,
                 'table_list_id' => $request->table_list_id,
                 'order_date' => $order_infos_check->order_date ?? date('Y-m-d h:i:s A'),
+                's_date' => date('Y-m-d'),
                 'check_in_time' => $order_infos_check->check_in_time ?? date('Y-m-d h:i:s A'),
                 'check_out_time' => null,
                 'user_id' => auth()->user()->id ?? 0,

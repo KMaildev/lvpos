@@ -6,6 +6,7 @@ use App\Http\Controllers\Counter\CounterDashboardController;
 use App\Http\Controllers\Counter\CustomerListsController;
 use App\Http\Controllers\Counter\OrdersController;
 use App\Http\Controllers\General\CounterController;
+use App\Http\Controllers\General\OrderInfoDownloadController;
 use App\Http\Controllers\General\OrderItemController;
 use App\Http\Controllers\Manager\BillController;
 use App\Http\Controllers\Manager\CompletedOrderController;
@@ -152,8 +153,10 @@ Route::middleware('auth')->group(function () {
     Route::get('get_kitchen_order_all_done_pdf', [OrderItemController::class, 'getKitchenOrderAllDonePdf'])->name('get_kitchen_order_all_done_pdf');
     Route::get('get_kitchen_order_all_done_excel', [OrderItemController::class, 'getKitchenAllOrderDoneExcel'])->name('get_kitchen_order_all_done_excel');
 
-
     Route::get('manager_current_order_excel', [OrderItemController::class, 'getManagerCurrentOrderExcel'])->name('manager_current_order_excel');
+    Route::get('manager_order_lists_pdf', [OrderInfoDownloadController::class, 'ManagerOrderListsPdf'])->name('manager_order_lists_pdf');
+    Route::get('manager_order_lists_excel', [OrderInfoDownloadController::class, 'ManagerOrderListsExcel'])->name('manager_order_lists_excel');
+
 
 
     // Conponents 

@@ -26,6 +26,8 @@ class OrderInfo extends Model
         'order_preparation_user_id',
         'preparation_date',
         'check_out_user_id',
+        's_date',
+        'total_amount',
     ];
 
     public function table_lists_table()
